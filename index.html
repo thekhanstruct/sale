@@ -80,6 +80,62 @@
                 const response = await fetch(SHEET_CSV_URL);
                 const data = await response.text();
                 
+                // Embed Scraped Link Data
+                const scrapedData = {
+                  "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab": {
+                    "image": "https://target.scene7.com/is/image/Target/GUEST_89dfbe36-bf71-4704-bb70-c0beab129f79",
+                    "description": "Standard Ironing Board Cover Gray - Room Essentials"
+                  },
+                  "https://hamiltonbeach.com/10-cup-food-processor-70730": {
+                    "image": "https://hamiltonbeach.com/media/hamilton_beach_social.jpg",
+                    "description": "10-Cup Food Processor with Bowl Scraper | Hamilton Beach"
+                  },
+                  "https://www.ikea.com/us/en/p/uppdatera-flatware-tray-light-bamboo-20491356/": {
+                    "image": "https://www.ikea.com/us/en/images/products/uppdatera-flatware-tray-light-bamboo__0968836_pe810562_s5.jpg",
+                    "description": "UPPDATERA flatware tray, light bamboo. Stay organized while the bamboo adds a warm, natural feel."
+                  },
+                  "https://www.ikea.com/us/en/p/visslaan-drawer-organizers-set-of-3-gray-20562117/": {
+                    "image": "https://www.ikea.com/us/en/images/products/visslaan-drawer-organizers-set-of-3-gray__1499227_pe1006532_s5.jpg",
+                    "description": "VISSLA\u00c5N drawer organizers, set of 3. Ideal for holding toothbrushes and items nearby."
+                  },
+                  "https://www.ikea.com/us/en/p/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus-00615249/": {
+                    "image": "https://www.ikea.com/us/en/images/products/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus__0817871_pe774216_s5.jpg",
+                    "description": "FEJKA artificial potted plant. Doesn\u2019t require a green thumb to spruce up at home."
+                  },
+                  "https://www.ikea.com/us/en/p/montera-cable-management-white-30147425/": {
+                    "image": "https://www.ikea.com/us/en/images/products/montera-cable-management-white__0088067_pe218108_s5.jpg",
+                    "description": "MONTERA cable management, white. A simple solution to hide cables and fix to the skirting-board, neat and tidy."
+                  },
+                  "https://www.ikea.com/us/en/p/tavelan-tray-set-of-2-bamboo-50465191/": {
+                    "image": "https://www.ikea.com/us/en/images/products/tavelan-tray-set-of-2-bamboo__0710185_pe727339_s5.jpg",
+                    "description": "TAVELAN Tray set of 2, bamboo. Beautiful natural bamboo tray set."
+                  },
+                  "https://www.ikea.com/us/en/p/noedmast-led-portable-lamp-battery-operated-white-black-50582576/#content": {
+                    "image": "https://www.ikea.com/us/en/images/products/noedmast-led-portable-lamp-battery-operated-white-black__1300301_pe937090_s5.jpg",
+                    "description": "N\u00d6DMAST LED portable lamp. Emits a soft light that creates a cozy and inviting atmosphere."
+                  },
+                  "https://www.walmart.com/ip/Mainstays-3-Bag-Mesh-Rolling-Sorter-Laundry-Cart-Soft-Silver/687612057?wmlspartner=wlpa&selectedSellerId=0&wl13=576&adid=22222222297687612057_0000000000_22264615354&wl0=&wl1=x&wl2=c&wl3=&wl4=&wl5=9026555&wl6=&wl7=&wl8=&wl9=pla&wl10=8175035&wl11=local&wl12=687612057&veh=sem&gclsrc=aw.ds&gad_source=1&gad_campaignid=22264616125&gbraid=0AAAAADmfBIpnJ_W9-HZEXfp0Um9yq8DSc&gclid=CjwKCAjwhe3OBhABEiwA6392zNvyiki2aiGDhFhb9USJK2jhB4OromQmQTlYC9Br6rNhVQL4-I_54hoCV64QAvD_BwE": {
+                    "image": "https://i5.walmartimages.com/seo/Mainstays-Soft-Silver-3-Bag-Mesh-Rolling-Laundry-Sorter-Cart_dccaf6bf-ec48-47d4-9b18-9f2ecf970e19.6e0c5b5786f0596674d58bb67a075152.jpeg",
+                    "description": "Rolling Laundry Sorter Cart with Removable Mesh Bags and Casters."
+                  },
+                  "https://www.ikea.com/us/en/p/bolloesund-drawer-organizers-set-of-4-beige-20570886/": {
+                    "image": "https://www.ikea.com/us/en/images/products/bolloesund-drawer-organizers-set-of-4-beige__1218055_pe913132_s5.jpg",
+                    "description": "BOLL\u00d6SUND drawer organizers, set of 4. Organize your things and utilize every inch in drawers."
+                  },
+                  "https://www.ikea.com/us/en/p/visslaan-box-with-compartments-gray-00562104/": {
+                    "image": "https://www.ikea.com/us/en/images/products/visslaan-box-with-compartments-gray__1499232_pe1006528_s5.jpg",
+                    "description": "VISSLA\u00c5N box with compartments. Ideal for storing smaller items so that they\u2019re easy to find."
+                  },
+                  "https://www.ikea.com/us/en/p/visslaan-box-with-lid-set-of-5-gray-90554538/": {
+                    "image": "https://www.ikea.com/us/en/images/products/visslaan-box-with-lid-set-of-5-gray__1499230_pe1006529_s5.jpg",
+                    "description": "VISSLA\u00c5N box with lid, set of 5. Ideal for organizing things like cotton swabs and accessories."
+                  },
+                  "https://www.athome.com/potted-areca-palm-plant-6/124351622.html": {
+                    "image": "https://static.athome.com/images/w_800,h_800,c_pad,f_auto,fl_lossy,q_auto/v1734355251/p/124351622/potted-areca-palm-plant-6.jpg",
+                    "description": "72in Potted Areca Palm Plant. Add a touch of tropical elegance to your home or office."
+                  }
+                };
+
                 // Robust CSV parsing to handle commas inside quotes
                 const parseCSV = (text) => {
                     const rows = [];
@@ -125,17 +181,42 @@
                 
                 inventory = dataRows.map((cols, index) => {
                     let rawLink = cols[6] || '#';
-                    let rawImg = cols[7]?.trim() || '';
+                    let rawImg1 = cols[7]?.trim() || '';
+                    let rawImg2 = cols[10]?.trim() || ''; // Column K
 
-                    // Data sanitization safeguard for swapped columns
-                    if (rawLink.startsWith('images/') || rawLink.endsWith('.jpeg')) {
-                        const temp = rawImg;
-                        rawImg = rawLink;
-                        rawLink = temp;
+                    let scraped = scrapedData[rawLink] || {};
+                    let desc = scraped.description || "Premium garage sale item perfectly kept in a pet-free, smoke-free home.";
+
+                    if (!rawImg1 || rawImg1 === '#') {
+                        if (scraped.image) {
+                            rawImg1 = scraped.image;
+                        } else {
+                            rawImg1 = 'https://placehold.co/600x600/111/444?text=Item';
+                        }
+                    } else if (!rawImg1.startsWith('http') && !rawImg1.startsWith('images/')) {
+                        rawImg1 = 'images/' + rawImg1;
+                    }
+                    
+                    if (rawImg2 && rawImg2 !== '#' && !rawImg2.startsWith('http') && !rawImg2.startsWith('images/')) {
+                        rawImg2 = 'images/' + rawImg2;
                     }
 
-                    if (!rawImg || rawImg === '#') {
-                        rawImg = 'https://placehold.co/600x600/111/444?text=Item';
+                    // Dynamically map any HEIC/PNG images assuming they will be converted to jpeg locally
+                    if (rawImg1) rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+                    if (rawImg2) rawImg2 = rawImg2.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+                    
+                    let galleryHtml = `<img src="${rawImg1}" alt="${cols[0]}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">`;
+                    if (rawImg2 && rawImg2 !== '#' && rawImg2 !== 'images/#') {
+                        galleryHtml = `
+                        <div class="gallery">
+                            <img src="${rawImg1}" alt="${cols[0]}" class="gallery-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                            <img src="${rawImg2}" alt="${cols[0]}" class="gallery-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                        </div>`;
+                    }
+
+                    let condition = "Like New / Used Once";
+                    if (cols[0] && (cols[0].includes("organizers") || cols[0].includes("Box") || cols[0].includes("tray"))) {
+                        condition = "Brand New";
                     }
 
                     return {
@@ -147,7 +228,9 @@
                         qty: cols[4] || '1',
                         originalPrice: cols[5] || 'N/A',
                         link: rawLink,
-                        img: rawImg
+                        desc: desc,
+                        condition: condition,
+                        galleryHtml: galleryHtml
                     };
                 }).filter(item => item.name !== 'Unknown Item' && item.name !== '');
 
@@ -162,12 +245,15 @@
             const container = document.getElementById('inventory-container');
             container.innerHTML = inventory.map((item, index) => `
                 <div class="item-card" id="${item.id}" style="animation-delay: ${index * 0.1}s">
-                    <img src="${item.img}" alt="${item.name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                    ${item.galleryHtml}
                     <div class="item-info">
                         <span class="status-badge ${item.status.toLowerCase().replace(/\s/g, '-')}">${item.status}</span>
                         <h2 class="item-name">${item.name}</h2>
                         
+                        <p class="item-desc">${item.desc}</p>
+
                         <div class="item-specs">
+                            <p><span>Condition:</span> ${item.condition}</p>
                             <p><span>Size:</span> ${item.size}</p>
                             <p><span>Quantity:</span> ${item.qty}</p>
                             <p><span>Original:</span> <span class="strikethrough">${item.originalPrice}</span></p>
