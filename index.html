@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xain's Automated Garage Sale</title>
+    <meta name="description" content="Premium household items and decor at a 40% discount. Automated IKEA inventory.">
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Garage Sale</h1>
+        <p class="subtitle">Premium Items • 40% Off Retail • Instant Pickup</p>
+    </header>
+
+    <main class="inventory-grid" id="inventory-container">
+        <!-- Items will be injected here -->
+    </main>
+
+    <script>
+        const inventory = [
+            // --- INVENTORY_START ---
+            {
+                id: 'bjorksta-paris',
+                name: 'IKEA BJÖRKSTA - Paris Night',
+                price: 35.99,
+                img: 'images/IMG_2624.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'bjorksta-tube',
+                name: 'IKEA BJÖRKSTA - London Tube',
+                price: 35.99,
+                img: 'images/IMG_2625.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'bjorksta-bus',
+                name: 'IKEA BJÖRKSTA - London Bus',
+                price: 35.99,
+                img: 'images/IMG_2626.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'bjorksta-ny',
+                name: 'IKEA BJÖRKSTA - NY Skyline',
+                price: 35.99,
+                img: 'images/IMG_2627.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'morabo-headboard',
+                name: 'IKEA MORABO Headboard (Black)',
+                price: 179.99,
+                img: 'images/IMG_2628.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'hdx-shelving',
+                name: 'HDX 4-Shelf Storage Unit',
+                price: 23.99,
+                img: 'images/IMG_2628.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'naruto-figures',
+                name: 'Naruto Action Figure Collection (4pcs)',
+                price: 59.99,
+                img: 'images/IMG_2634.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'tempur-pedic-cover',
+                name: 'Tempur-Pedic Cooling Cover',
+                price: 59.99,
+                img: 'images/IMG_0606.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            },
+            {
+                id: 'simply-tidy-bundle',
+                name: 'Professional Organizer Set',
+                price: 35.99,
+                img: 'images/IMG_0607.jpeg',
+                status: 'Available',
+                venmo: 'xain-khan'
+            }
+            // --- INVENTORY_END ---
+        ];
+
+        function renderInventory() {
+            const container = document.getElementById('inventory-container');
+            container.innerHTML = inventory.map(item => `
+                <div class="item-card" id="${item.id}">
+                    <img src="${item.img}" alt="${item.name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item+Photo'">
+                    <div class="item-info">
+                        <span class="status-badge ${item.status.toLowerCase()}">${item.status}</span>
+                        <h2 class="item-name">${item.name}</h2>
+                        <p class="item-price">$${item.price.toFixed(2)}</p>
+                        <button class="claim-btn" onclick="claimItem('${item.id}', '${item.venmo}')">
+                            ${item.status === 'Available' ? 'Claim with Venmo' : 'Sold Out'}
+                        </button>
+                        ${item.status === 'Available' ? `
+                        <div class="admin-controls">
+                            <button class="mark-delivered" onclick="markDelivered('${item.id}')">Admin: Mark Delivered</button>
+                        </div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function claimItem(id, venmo) {
+            const item = inventory.find(i => i.id === id);
+            if (item.status !== 'Available') return;
+            
+            // Open Venmo with pre-filled amount and note
+            const note = encodeURIComponent(`Garage Sale: ${item.name}`);
+            window.open(`venmo://paycharge?txn=pay&recipients=${venmo}&amount=${item.price}&note=${note}`);
+            
+            alert("Payment initiated! Once sent, I'll receive a notification and drop the item in the mailroom.");
+        }
+
+        function markDelivered(id) {
+            console.log("Fulfillment triggered for:", id);
+            // In a real flow, this would ping a webhook to text the user instructions
+            alert("Fulfillment triggered. Item marked as delivered.");
+        }
+
+        renderInventory();
+    </script>
+</body>
+</html>
