@@ -221,6 +221,23 @@
 
             const note = encodeURIComponent(`Garage Sale: ${selectedItem.name} - ${phone}`);
             
+            // Instantly send an email backup to Zain so he always has their phone number
+            fetch("https://formsubmit.co/ajax/zain@thekhanstruct.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `New Garage Sale Order: ${selectedItem.name}`,
+                    Item: selectedItem.name,
+                    Buyer_Phone: phone,
+                    Payment_Method: method,
+                    _captcha: "false",
+                    _template: "table"
+                })
+            }).catch(e => console.log(e));
+            
             // Switch Modal UI Stages
             document.getElementById('modal-stage-1').classList.add('force-hide');
             document.getElementById('modal-stage-2').classList.remove('force-hide');
