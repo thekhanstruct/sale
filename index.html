@@ -38,7 +38,7 @@
     </main>
 
     <!-- Buy Modal -->
-    <div id="buy-modal" class="modal hidden">
+    <div id="buy-modal" class="modal force-hide">
         <div class="modal-content">
             <h3>Finalize Purchase</h3>
             <p id="modal-item-name"></p>
@@ -155,21 +155,32 @@
         }
 
         function toggleFaq() {
-            document.getElementById('faq-details').classList.toggle('hidden');
+            document.getElementById('faq-details').classList.toggle('force-hide');
         }
 
         function openBuyModal(id) {
             selectedItem = inventory.find(i => i.id === id);
+            if (!selectedItem) return;
+            
+            const modal = document.getElementById('buy-modal');
             document.getElementById('modal-item-name').innerText = selectedItem.name;
-            document.getElementById('buy-modal').classList.remove('hidden');
+            modal.classList.remove('force-hide');
+            modal.style.display = 'flex';
         }
 
         function closeModal() {
-            document.getElementById('buy-modal').classList.add('hidden');
+            const modal = document.getElementById('buy-modal');
+            modal.classList.add('force-hide');
+            modal.style.display = 'none';
             selectedItem = null;
         }
 
         function processPayment() {
+            if (!selectedItem) {
+                closeModal();
+                return;
+            }
+
             const phone = document.getElementById('buyer-phone').value;
             if (!phone) return alert("Please enter your phone number for the gate code.");
 
