@@ -180,9 +180,27 @@
                 const dataRows = allRows.slice(1); // Skip header row
                 
                 inventory = dataRows.map((cols, index) => {
-                    let rawLink = cols[6] || '#';
-                    let rawImg1 = cols[7]?.trim() || '';
-                    let rawImg2 = cols[10]?.trim() || ''; // Column K
+                    let name = cols[0];
+                    if (!name) return null;
+                    
+                    let price = parseFloat((cols[1] || '0').replace(/[^0-9.]/g, '')) || 0;
+                    let condition = cols[2]?.trim() || 'N/A';
+                    let status = cols[3]?.trim() || 'Available';
+                    let size = cols[4] || 'N/A';
+                    let qty = cols[5] || '1';
+                    let originalPrice = cols[6] || 'N/A';
+                    let rawLink = cols[7] || '#';
+
+                    // Dynamically scan for images to handle random placement in columns
+                    let allImages = [];
+                    for (let i = 8; i < cols.length; i++) {
+                        let c = cols[i]?.trim();
+                        if (c && c !== '#' && !c.match(/^\d{7,15}$/)) { 
+                            allImages.push(c);
+                        }
+                    }
+                    let rawImg1 = allImages[0] || '';
+                    let rawImg2 = allImages[1] || '';
 
                     let scraped = scrapedData[rawLink] || {};
                     let desc = scraped.description || "Premium garage sale item perfectly kept in a pet-free, smoke-free home.";
@@ -201,38 +219,33 @@
                         rawImg2 = 'images/' + rawImg2;
                     }
 
-                    // Dynamically map any HEIC/PNG images assuming they will be converted to jpeg locally
+                    // Map HEIC/PNG dynamically
                     if (rawImg1) rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     if (rawImg2) rawImg2 = rawImg2.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     
-                    let galleryHtml = `<img src="${rawImg1}" alt="${cols[0]}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">`;
+                    let galleryHtml = `<img src="${rawImg1}" alt="${name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">`;
                     if (rawImg2 && rawImg2 !== '#' && rawImg2 !== 'images/#') {
                         galleryHtml = `
                         <div style="display:flex; flex-direction:column;">
-                            <img src="${rawImg1}" alt="${cols[0]}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
-                            <img src="${rawImg2}" alt="${cols[0]}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                            <img src="${rawImg1}" alt="${name}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                            <img src="${rawImg2}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
                         </div>`;
-                    }
-
-                    let condition = "Like New / Used Once";
-                    if (cols[0] && (cols[0].includes("organizers") || cols[0].includes("Box") || cols[0].includes("tray"))) {
-                        condition = "Brand New";
                     }
 
                     return {
                         id: `item-${index}`,
-                        name: cols[0] || 'Unknown Item',
-                        price: parseFloat((cols[1] || '0').replace(/[^0-9.]/g, '')) || 0,
-                        status: cols[2]?.trim() || 'Available',
-                        size: cols[3] || 'N/A',
-                        qty: cols[4] || '1',
-                        originalPrice: cols[5] || 'N/A',
+                        name: name,
+                        price: price,
+                        status: status,
+                        size: size,
+                        qty: qty,
+                        originalPrice: originalPrice,
                         link: rawLink,
                         desc: desc,
                         condition: condition,
                         galleryHtml: galleryHtml
                     };
-                }).filter(item => item.name !== 'Unknown Item' && item.name !== '');
+                }).filter(item => item !== null && item.name !== 'Unknown Item' && item.name !== '');
 
                 renderInventory();
             } catch (err) {
