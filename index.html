@@ -107,6 +107,20 @@
                 const dataRows = allRows.slice(1); // Skip header row
                 
                 inventory = dataRows.map((cols, index) => {
+                    let rawLink = cols[6] || '#';
+                    let rawImg = cols[7]?.trim() || '';
+
+                    // Data sanitization safeguard for swapped columns
+                    if (rawLink.startsWith('images/') || rawLink.endsWith('.jpeg')) {
+                        const temp = rawImg;
+                        rawImg = rawLink;
+                        rawLink = temp;
+                    }
+
+                    if (!rawImg || rawImg === '#') {
+                        rawImg = 'https://placehold.co/600x600/111/444?text=Item';
+                    }
+
                     return {
                         id: `item-${index}`,
                         name: cols[0] || 'Unknown Item',
@@ -115,8 +129,8 @@
                         size: cols[3] || 'N/A',
                         qty: cols[4] || '1',
                         originalPrice: cols[5] || 'N/A',
-                        link: cols[6] || '#',
-                        img: cols[7]?.trim() || 'https://placehold.co/600x600/111/444?text=Item'
+                        link: rawLink,
+                        img: rawImg
                     };
                 }).filter(item => item.name !== 'Unknown Item' && item.name !== '');
 
