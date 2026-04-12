@@ -39,19 +39,34 @@
 
     <!-- Buy Modal -->
     <div id="buy-modal" class="modal force-hide">
-        <div class="modal-content">
+        <div class="modal-content" id="modal-stage-1">
             <h3>Finalize Purchase</h3>
             <p id="modal-item-name"></p>
             <div class="input-group">
                 <label>Your Phone # (For access code)</label>
                 <input type="tel" id="buyer-phone" placeholder="918-555-0000">
             </div>
+            <label style="font-size:0.8rem; color:var(--text-secondary); margin-bottom: 0.8rem; display:block;">Select Payment Method:</label>
             <div class="modal-actions payment-options">
-                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">💸 Pay with Venmo</button>
-                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')">🤑 Pay with Cash App</button>
-                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">🏦 Pay with Zelle</button>
+                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Venmo_logo.svg" alt="Venmo" class="pay-icon" style="filter: brightness(0) invert(1);"> 
+                </button>
+                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Square_Cash_app_logo.svg" alt="Cash App" class="pay-icon">
+                    Cash App
+                </button>
+                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Zelle_logo.svg" alt="Zelle" class="pay-icon" style="filter: brightness(0) invert(1);">
+                </button>
                 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
             </div>
+        </div>
+
+        <div class="modal-content force-hide" id="modal-stage-2">
+            <h3>Payment Instructions</h3>
+            <div id="instruction-content" class="instruction-box"></div>
+            <p class="faq-note" style="margin-bottom: 1.5rem; text-align:center;">Zain will text you the gate code automatically once he verifies the payment on his phone!</p>
+            <button class="claim-btn" onclick="closeModal()">I've Paid! Return to Store</button>
         </div>
     </div>
 
@@ -180,6 +195,9 @@
             
             const modal = document.getElementById('buy-modal');
             document.getElementById('modal-item-name').innerText = selectedItem.name;
+            document.getElementById('modal-stage-1').classList.remove('force-hide');
+            document.getElementById('modal-stage-2').classList.add('force-hide');
+            
             modal.classList.remove('force-hide');
             modal.style.display = 'flex';
         }
@@ -189,6 +207,7 @@
             modal.classList.add('force-hide');
             modal.style.display = 'none';
             selectedItem = null;
+            document.getElementById('buyer-phone').value = '';
         }
 
         function processPayment(method) {
@@ -201,21 +220,38 @@
             if (!phone) return alert("Please enter your phone number first so we can text you the gate code!");
 
             const note = encodeURIComponent(`Garage Sale: ${selectedItem.name} - ${phone}`);
-            let appUrl = "";
+            
+            // Switch Modal UI Stages
+            document.getElementById('modal-stage-1').classList.add('force-hide');
+            document.getElementById('modal-stage-2').classList.remove('force-hide');
+            
+            const instructionBox = document.getElementById('instruction-content');
 
             if (method === 'venmo') {
-                appUrl = `https://venmo.com/u/Zainer23?txn=pay&amount=${selectedItem.price}&note=${note}`;
-                alert("Redirecting to Venmo. Once paid, Zain will text you the gate code!");
+                const venmoUrl = `https://venmo.com/u/Zainer23?txn=pay&amount=${selectedItem.price}&note=${note}`;
+                instructionBox.innerHTML = `
+                    <div class="instruction-step"><div class="step-num">1</div><div>We are redirecting you to Venmo...</div></div>
+                    <div class="instruction-step"><div class="step-num">2</div><div>Pay <b>$${selectedItem.price}</b> to <b>@Zainer23</b>.</div></div>
+                    <div class="instruction-step" style="margin-top:1rem; font-size:0.85rem;"><a href="${venmoUrl}" target="_blank" style="color:#008CFF">Click here if Venmo didn't open automatically</a></div>
+                `;
+                setTimeout(() => { window.open(venmoUrl, '_blank'); }, 500);
             } else if (method === 'cashapp') {
-                appUrl = `https://cash.app/$z23k/${selectedItem.price}`;
-                alert("Redirecting to Cash App. IMPORTANT: Please type your phone number in the 'For' note on CashApp so Zain can text you the code!");
+                const cashappUrl = `https://cash.app/$z23k/${selectedItem.price}`;
+                instructionBox.innerHTML = `
+                    <div class="instruction-step"><div class="step-num">1</div><div>We are redirecting you to Cash App...</div></div>
+                    <div class="instruction-step"><div class="step-num">2</div><div>Pay <b>$${selectedItem.price}</b> to <b>$z23k</b>.</div></div>
+                    <div class="instruction-step"><div class="step-num">3</div><div><b style="color:#00D632">IMPORTANT:</b> Type your phone number (<b>${phone}</b>) in the 'For' note!</div></div>
+                    <div class="instruction-step" style="margin-top:1rem; font-size:0.85rem;"><a href="${cashappUrl}" target="_blank" style="color:#00D632">Click here if Cash App didn't open automatically</a></div>
+                `;
+                setTimeout(() => { window.open(cashappUrl, '_blank'); }, 500);
             } else if (method === 'zelle') {
-                alert("To pay with Zelle:\n\n1. Open your Banking App.\n2. Send $" + selectedItem.price + " to ZAIN KHAN.\n3. Make sure to put your phone number in the memo so he can text the gate code!");
-                return; // Zelle does not have deep linking, so just showing instructions.
+                instructionBox.innerHTML = `
+                    <div style="text-align:center; margin-bottom: 1.5rem;"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Zelle_logo.svg" style="height:24px; filter: brightness(0) invert(1);"></div>
+                    <div class="instruction-step"><div class="step-num">1</div><div>Open your bank's app and navigate to Zelle.</div></div>
+                    <div class="instruction-step"><div class="step-num">2</div><div>Send <b>$${selectedItem.price}</b> to <b>ZAIN KHAN</b>.</div></div>
+                    <div class="instruction-step"><div class="step-num">3</div><div><b style="color:#a855f7">IMPORTANT:</b> Type your phone number (<b>${phone}</b>) in the Zelle memo!</div></div>
+                `;
             }
-            
-            if (appUrl) window.open(appUrl, '_blank');
-            closeModal();
         }
 
         fetchInventory();
