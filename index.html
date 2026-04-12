@@ -62,15 +62,55 @@
             try {
                 const response = await fetch(SHEET_CSV_URL);
                 const data = await response.text();
-                const rows = data.split('\n').slice(1); // Skip header
                 
-                inventory = rows.map((row, index) => {
-                    const cols = row.split(',');
-                    // Mapping columns: Name, Price, Status, Size, Qty, OriginalPrice, Link, Img
+                // Robust CSV parsing to handle commas inside quotes
+                const parseCSV = (text) => {
+                    const rows = [];
+                    let currentRow = [];
+                    let currentCell = '';
+                    let inQuotes = false;
+                    
+                    for (let i = 0; i < text.length; i++) {
+                        const char = text[i];
+                        const nextChar = text[i + 1];
+                        
+                        if (char === '"') {
+                            if (inQuotes && nextChar === '"') {
+                                currentCell += '"';
+                                i++;
+                            } else {
+                                inQuotes = !inQuotes;
+                            }
+                        } else if (char === ',' && !inQuotes) {
+                            currentRow.push(currentCell.trim());
+                            currentCell = '';
+                        } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                            if (currentRow.length > 0 || currentCell !== '') {
+                                currentRow.push(currentCell.trim());
+                                rows.push(currentRow);
+                                currentRow = [];
+                                currentCell = '';
+                            }
+                            if (char === '\r' && nextChar === '\n') i++;
+                        } else {
+                            currentCell += char;
+                        }
+                    }
+                    if (currentRow.length > 0 || currentCell !== '') {
+                        currentRow.push(currentCell.trim());
+                        rows.push(currentRow);
+                    }
+                    return rows;
+                };
+
+                const allRows = parseCSV(data);
+                const dataRows = allRows.slice(1); // Skip header row
+                
+                inventory = dataRows.map((cols, index) => {
                     return {
                         id: `item-${index}`,
                         name: cols[0] || 'Unknown Item',
-                        price: parseFloat(cols[1]) || 0,
+                        price: parseFloat((cols[1] || '0').replace(/[^0-9.]/g, '')) || 0,
                         status: cols[2]?.trim() || 'Available',
                         size: cols[3] || 'N/A',
                         qty: cols[4] || '1',
@@ -78,7 +118,8 @@
                         link: cols[6] || '#',
                         img: cols[7]?.trim() || 'https://placehold.co/600x600/111/444?text=Item'
                     };
-                });
+                }).filter(item => item.name !== 'Unknown Item' && item.name !== '');
+
                 renderInventory();
             } catch (err) {
                 console.error("Fetch failed", err);
