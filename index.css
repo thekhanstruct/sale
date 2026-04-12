@@ -330,31 +330,46 @@ h1 {
     font-size: 1.1rem;
 }
 
-.modal-actions {
+.payment-options {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
 }
 
+.pay-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+}
+
+.btn-venmo { background: #008CFF; }
+.btn-venmo:hover { background: #0077D9; }
+
+.btn-cashapp { background: #00D632; }
+.btn-cashapp:hover { background: #00B92A; }
+
+.btn-zelle { background: #7413DC; }
+.btn-zelle:hover { background: #5E0FB3; }
+
 .cancel-btn {
-    flex: 1;
+    width: 100%;
     background: transparent;
     border: 1px solid var(--glass-border);
     color: white;
-    padding: 1rem;
+    padding: 12px;
     border-radius: 12px;
     cursor: pointer;
-}
-
-.confirm-btn {
-    flex: 2;
-    background: var(--accent-color);
-    border: none;
-    color: white;
-    padding: 1rem;
-    border-radius: 12px;
     font-weight: 600;
-    cursor: pointer;
+    transition: background 0.2s ease;
 }
+.cancel-btn:hover { background: rgba(255, 255, 255, 0.1); }
 
 .loader {
     grid-column: 1 / -1;

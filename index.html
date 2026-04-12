@@ -46,9 +46,11 @@
                 <label>Your Phone # (For access code)</label>
                 <input type="tel" id="buyer-phone" placeholder="918-555-0000">
             </div>
-            <div class="modal-actions">
+            <div class="modal-actions payment-options">
+                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">💸 Pay with Venmo</button>
+                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')">🤑 Pay with Cash App</button>
+                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">🏦 Pay with Zelle</button>
                 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                <button class="confirm-btn" onclick="processPayment()">Go to Venmo</button>
             </div>
         </div>
     </div>
@@ -189,20 +191,30 @@
             selectedItem = null;
         }
 
-        function processPayment() {
+        function processPayment(method) {
             if (!selectedItem) {
                 closeModal();
                 return;
             }
 
             const phone = document.getElementById('buyer-phone').value;
-            if (!phone) return alert("Please enter your phone number for the gate code.");
+            if (!phone) return alert("Please enter your phone number first so we can text you the gate code!");
 
             const note = encodeURIComponent(`Garage Sale: ${selectedItem.name} - ${phone}`);
-            const venmoUrl = `https://venmo.com/u/Zainer23?txn=pay&amount=${selectedItem.price}&note=${note}`;
+            let appUrl = "";
+
+            if (method === 'venmo') {
+                appUrl = `https://venmo.com/u/Zainer23?txn=pay&amount=${selectedItem.price}&note=${note}`;
+                alert("Redirecting to Venmo. Once paid, Zain will text you the gate code!");
+            } else if (method === 'cashapp') {
+                appUrl = `https://cash.app/$z23k/${selectedItem.price}`;
+                alert("Redirecting to Cash App. IMPORTANT: Please type your phone number in the 'For' note on CashApp so Zain can text you the code!");
+            } else if (method === 'zelle') {
+                alert("To pay with Zelle:\n\n1. Open your Banking App.\n2. Send $" + selectedItem.price + " to ZAIN KHAN.\n3. Make sure to put your phone number in the memo so he can text the gate code!");
+                return; // Zelle does not have deep linking, so just showing instructions.
+            }
             
-            window.open(venmoUrl, '_blank');
-            alert("Redirecting to Venmo. Once paid, Zain will move the item to the mailroom and text you the gate code!");
+            if (appUrl) window.open(appUrl, '_blank');
             closeModal();
         }
 
