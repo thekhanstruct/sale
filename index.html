@@ -16,127 +16,131 @@
         <p class="subtitle">Premium Items • 40% Off Retail • Instant Pickup</p>
     </header>
 
-    <main class="inventory-grid" id="inventory-container">
-        <!-- Items will be injected here -->
+    <main id="app">
+        <section class="faq-banner">
+            <div class="faq-content">
+                <h2>📍 Pick-up: 9 E 4th Street, Tulsa</h2>
+                <p>The Reunion Building • First Floor Mailroom • 9 AM - 5 PM</p>
+                <button class="faq-toggle" onclick="toggleFaq()">How it works ↓</button>
+            </div>
+            <div id="faq-details" class="faq-details hidden">
+                <div class="faq-step"><span>1</span> Choose your items. Click Buy.</div>
+                <div class="faq-step"><span>2</span> Enter your phone # to trigger the gate code.</div>
+                <div class="faq-step"><span>3</span> Pay via Venmo. Check your texts for pickup instructions.</div>
+                <p class="faq-note">Gate code is sent automatically once payment is verified.</p>
+            </div>
+        </section>
+
+        <div class="inventory-grid" id="inventory-container">
+            <!-- Items will be injected here from Google Sheets -->
+            <div class="loader">Loading inventory...</div>
+        </div>
     </main>
 
+    <!-- Buy Modal -->
+    <div id="buy-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Finalize Purchase</h3>
+            <p id="modal-item-name"></p>
+            <div class="input-group">
+                <label>Your Phone # (For access code)</label>
+                <input type="tel" id="buyer-phone" placeholder="918-555-0000">
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+                <button class="confirm-btn" onclick="processPayment()">Go to Venmo</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const inventory = [
-            // --- INVENTORY_START ---
-            {
-                id: 'bjorksta-paris',
-                name: 'IKEA BJÖRKSTA - Paris Night',
-                price: 35.99,
-                img: 'images/IMG_2624.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'bjorksta-tube',
-                name: 'IKEA BJÖRKSTA - London Tube',
-                price: 35.99,
-                img: 'images/IMG_2625.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'bjorksta-bus',
-                name: 'IKEA BJÖRKSTA - London Bus',
-                price: 35.99,
-                img: 'images/IMG_2626.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'bjorksta-ny',
-                name: 'IKEA BJÖRKSTA - NY Skyline',
-                price: 35.99,
-                img: 'images/IMG_2627.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'morabo-headboard',
-                name: 'IKEA MORABO Headboard (Black)',
-                price: 179.99,
-                img: 'images/IMG_2628.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'hdx-shelving',
-                name: 'HDX 4-Shelf Storage Unit',
-                price: 23.99,
-                img: 'images/IMG_2628.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'naruto-figures',
-                name: 'Naruto Action Figure Collection (4pcs)',
-                price: 59.99,
-                img: 'images/IMG_2634.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'tempur-pedic-cover',
-                name: 'Tempur-Pedic Cooling Cover',
-                price: 59.99,
-                img: 'images/IMG_0606.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
-            },
-            {
-                id: 'simply-tidy-bundle',
-                name: 'Professional Organizer Set',
-                price: 35.99,
-                img: 'images/IMG_0607.jpeg',
-                status: 'Available',
-                venmo: 'xain-khan'
+        const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQgNwntMBcyGi-5hplX9GiCBR4eKPvQiHTPE8R27_9awMk2bJpqOucyN3ZcQIkJLW13V9aJl61nkVSa/pub?output=csv';
+        let inventory = [];
+        let selectedItem = null;
+
+        async function fetchInventory() {
+            try {
+                const response = await fetch(SHEET_CSV_URL);
+                const data = await response.text();
+                const rows = data.split('\n').slice(1); // Skip header
+                
+                inventory = rows.map((row, index) => {
+                    const cols = row.split(',');
+                    // Mapping columns: Name, Price, Status, Size, Qty, OriginalPrice, Link, Img
+                    return {
+                        id: `item-${index}`,
+                        name: cols[0] || 'Unknown Item',
+                        price: parseFloat(cols[1]) || 0,
+                        status: cols[2]?.trim() || 'Available',
+                        size: cols[3] || 'N/A',
+                        qty: cols[4] || '1',
+                        originalPrice: cols[5] || 'N/A',
+                        link: cols[6] || '#',
+                        img: cols[7]?.trim() || 'https://placehold.co/600x600/111/444?text=Item'
+                    };
+                });
+                renderInventory();
+            } catch (err) {
+                console.error("Fetch failed", err);
+                document.getElementById('inventory-container').innerHTML = '<p>Offline. Check spreadsheet publishing.</p>';
             }
-            // --- INVENTORY_END ---
-        ];
+        }
 
         function renderInventory() {
             const container = document.getElementById('inventory-container');
             container.innerHTML = inventory.map((item, index) => `
                 <div class="item-card" id="${item.id}" style="animation-delay: ${index * 0.1}s">
-                    <img src="${item.img}" alt="${item.name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item+Photo'">
+                    <img src="${item.img}" alt="${item.name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
                     <div class="item-info">
-                        <span class="status-badge ${item.status.toLowerCase()}">${item.status}</span>
+                        <span class="status-badge ${item.status.toLowerCase().replace(/\s/g, '-')}">${item.status}</span>
                         <h2 class="item-name">${item.name}</h2>
+                        
+                        <div class="item-specs">
+                            <p><span>Size:</span> ${item.size}</p>
+                            <p><span>Quantity:</span> ${item.qty}</p>
+                            <p><span>Original:</span> <span class="strikethrough">${item.originalPrice}</span></p>
+                        </div>
+
+                        ${item.link !== '#' ? `<a href="${item.link}" target="_blank" class="retail-link">View Official Page ↗</a>` : ''}
+
                         <p class="item-price">$${item.price.toFixed(2)}</p>
-                        <button class="claim-btn" onclick="claimItem('${item.id}', '${item.venmo}')">
-                            ${item.status === 'Available' ? 'Claim with Venmo' : 'Sold Out'}
+                        
+                        <button class="claim-btn" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''}>
+                            ${item.status === 'Available' ? 'Buy Now' : 'Sold Out'}
                         </button>
-                        ${item.status === 'Available' ? `
-                        <div class="admin-controls">
-                            <button class="mark-delivered" onclick="markDelivered('${item.id}')">Admin: Mark Delivered</button>
-                        </div>` : ''}
                     </div>
                 </div>
             `).join('');
         }
 
-        function claimItem(id, venmo) {
-            const item = inventory.find(i => i.id === id);
-            if (item.status !== 'Available') return;
-            
-            // Open Venmo with pre-filled amount and note
-            const note = encodeURIComponent(`Garage Sale: ${item.name}`);
-            window.open(`venmo://paycharge?txn=pay&recipients=${venmo}&amount=${item.price}&note=${note}`);
-            
-            alert("Payment initiated! Once sent, I'll receive a notification and drop the item in the mailroom.");
+        function toggleFaq() {
+            document.getElementById('faq-details').classList.toggle('hidden');
         }
 
-        function markDelivered(id) {
-            console.log("Fulfillment triggered for:", id);
-            // In a real flow, this would ping a webhook to text the user instructions
-            alert("Fulfillment triggered. Item marked as delivered.");
+        function openBuyModal(id) {
+            selectedItem = inventory.find(i => i.id === id);
+            document.getElementById('modal-item-name').innerText = selectedItem.name;
+            document.getElementById('buy-modal').classList.remove('hidden');
         }
 
-        renderInventory();
+        function closeModal() {
+            document.getElementById('buy-modal').classList.add('hidden');
+            selectedItem = null;
+        }
+
+        function processPayment() {
+            const phone = document.getElementById('buyer-phone').value;
+            if (!phone) return alert("Please enter your phone number for the gate code.");
+
+            const note = encodeURIComponent(`Garage Sale: ${selectedItem.name} - ${phone}`);
+            const venmoUrl = `https://venmo.com/u/Zainer23?txn=pay&amount=${selectedItem.price}&note=${note}`;
+            
+            window.open(venmoUrl, '_blank');
+            alert("Redirecting to Venmo. Once paid, Zain will move the item to the mailroom and text you the gate code!");
+            closeModal();
+        }
+
+        fetchInventory();
     </script>
 </body>
 </html>
