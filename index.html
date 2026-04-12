@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xain's Automated Garage Sale</title>
+    <title>Spring Clean</title>
     <meta name="description" content="Premium household items and decor at a 40% discount. Automated IKEA inventory.">
     <link rel="stylesheet" href="index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        <h1>Garage Sale</h1>
+        <h1>Spring Clean</h1>
         <p class="subtitle">Premium Items • 40% Off Retail • Instant Pickup</p>
     </header>
 
@@ -38,35 +38,55 @@
     </main>
 
     <!-- Buy Modal -->
+    <!-- Buy Modal -->
     <div id="buy-modal" class="modal force-hide">
+        
+        <!-- Stage 1: Phone -->
         <div class="modal-content" id="modal-stage-1">
-            <h3>Finalize Purchase</h3>
-            <p id="modal-item-name"></p>
+            <h3>Step 1: Contact Info</h3>
+            <p id="modal-item-name" style="margin-bottom: 1rem; color:var(--text-secondary); font-weight:600;"></p>
+            <p style="font-size:0.9rem; margin-bottom: 1rem;">Please enter your phone number. This is required so we can text you the gate code for pickup!</p>
             <div class="input-group">
-                <label>Your Phone # (For access code)</label>
-                <input type="tel" id="buyer-phone" placeholder="918-555-0000">
+                <input type="tel" id="buyer-phone" placeholder="(555) 555-5555" required>
             </div>
-            <label style="font-size:0.8rem; color:var(--text-secondary); margin-bottom: 0.8rem; display:block;">Select Payment Method:</label>
-            <div class="modal-actions payment-options">
-                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Venmo_logo.svg" alt="Venmo" class="pay-icon" style="filter: brightness(0) invert(1);"> 
-                </button>
-                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')" style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Square_Cash_app_logo.svg" alt="Cash App" class="pay-icon">
-                    Cash App
-                </button>
-                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Zelle_logo.svg" alt="Zelle" class="pay-icon" style="filter: brightness(0) invert(1);">
-                </button>
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            <p id="phone-error" style="color:#ff5555; display:none; font-size:0.9rem; margin-top:8px; font-weight:bold;">Please enter a valid phone number to continue.</p>
+            
+            <div class="modal-actions" style="margin-top: 1.5rem;">
+                <button class="pay-btn" style="background:var(--accent-color); color:black;" onclick="goToStage2()">Next ➔</button>
+                <button class="cancel-btn" style="margin-top:0.5rem;" onclick="closeModal()">Cancel</button>
             </div>
         </div>
 
+        <!-- Stage 2: Payment -->
         <div class="modal-content force-hide" id="modal-stage-2">
-            <h3>Payment Instructions</h3>
+            <h3>Step 2: Payment options</h3>
+            <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom: 1rem;">Select your preferred secure payment method.</p>
+            
+            <div class="payment-options">
+                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">
+                    <img src="images/venmo.svg" class="pay-icon" alt="Venmo"> Venmo
+                </button>
+                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')">
+                    <img src="images/cashapp.svg" class="pay-icon" alt="Cash App"> Cash App
+                </button>
+                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">
+                    <img src="images/zelle.svg" class="pay-icon" alt="Zelle"> Zelle
+                </button>
+            </div>
+            <button class="cancel-btn" style="margin-top:1.5rem;" onclick="closeModal()">Cancel</button>
+        </div>
+
+        <!-- Stage 3: Confirmation -->
+        <div class="modal-content force-hide" id="modal-stage-3">
+            <h3>Step 3: Instructions</h3>
             <div id="instruction-content" class="instruction-box"></div>
-            <p class="faq-note" style="margin-bottom: 1.5rem; text-align:center;">Zain will text you the gate code automatically once he verifies the payment on his phone!</p>
-            <button class="claim-btn" onclick="closeModal()">I've Paid! Return to Store</button>
+            
+            <div style="background: rgba(0, 214, 50, 0.1); border: 1px solid #00D632; padding: 1rem; border-radius: 12px; margin-top: 1rem; text-align: left;">
+                <strong>✅ Payment Logged!</strong>
+                <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-secondary);">Zain will DM you a confirmation on Slack when your item has been placed in the mail room. Thank you!</p>
+            </div>
+            
+            <button class="cancel-btn" style="margin-top:1.5rem; background:#333; border:none;" onclick="closeModal()">Back to Store</button>
         </div>
     </div>
 
@@ -205,26 +225,24 @@
                     let scraped = scrapedData[rawLink] || {};
                     let desc = scraped.description || "Premium garage sale item perfectly kept in a pet-free, smoke-free home.";
 
-                    if (!rawImg1 || rawImg1 === '#') {
-                        if (scraped.image) {
-                            rawImg1 = scraped.image;
-                        } else {
-                            rawImg1 = 'https://placehold.co/600x600/111/444?text=Item';
-                        }
-                    } else if (!rawImg1.startsWith('http') && !rawImg1.startsWith('images/')) {
-                        rawImg1 = 'images/' + rawImg1;
-                    }
+                    let finalImages = [];
+                    if (scraped.image) finalImages.push(scraped.image);
+                    allImages.forEach(img => {
+                       if (img && img !== '#') {
+                          if (img.startsWith('http')) finalImages.push(img);
+                          else finalImages.push('images/' + img);
+                       }
+                    });
                     
-                    if (rawImg2 && rawImg2 !== '#' && !rawImg2.startsWith('http') && !rawImg2.startsWith('images/')) {
-                        rawImg2 = 'images/' + rawImg2;
-                    }
+                    let rawImg1 = finalImages[0] || 'https://placehold.co/600x600/111/444?text=Item';
+                    let rawImg2 = finalImages[1] || '';
 
                     // Map HEIC/PNG dynamically
-                    if (rawImg1) rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+                    rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     if (rawImg2) rawImg2 = rawImg2.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     
                     let galleryHtml = `<img src="${rawImg1}" alt="${name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">`;
-                    if (rawImg2 && rawImg2 !== '#' && rawImg2 !== 'images/#') {
+                    if (rawImg2) {
                         galleryHtml = `
                         <div style="display:flex; flex-direction:column;">
                             <img src="${rawImg1}" alt="${name}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
@@ -296,6 +314,8 @@
             document.getElementById('modal-item-name').innerText = selectedItem.name;
             document.getElementById('modal-stage-1').classList.remove('force-hide');
             document.getElementById('modal-stage-2').classList.add('force-hide');
+            const stage3 = document.getElementById('modal-stage-3');
+            if(stage3) stage3.classList.add('force-hide');
             
             modal.classList.remove('force-hide');
             modal.style.display = 'flex';
@@ -307,17 +327,14 @@
             modal.style.display = 'none';
             selectedItem = null;
             document.getElementById('buyer-phone').value = '';
+            document.getElementById('phone-error').style.display = "none";
+            document.getElementById('buyer-phone').style.border = "1px solid var(--glass-border)";
         }
 
-        function processPayment(method) {
-            if (!selectedItem) {
-                closeModal();
-                return;
-            }
-
+        function goToStage2() {
             const phoneInput = document.getElementById('buyer-phone');
             const errorMsg = document.getElementById('phone-error');
-            const phone = phoneInput.value;
+            const phone = phoneInput.value.trim();
 
             if (!phone) {
                 phoneInput.style.border = "2px solid #ff4444";
@@ -327,7 +344,18 @@
             phoneInput.style.border = "1px solid var(--glass-border)";
             errorMsg.style.display = "none";
 
-            const note = encodeURIComponent(`Garage Sale: ${selectedItem.name} - ${phone}`);
+            document.getElementById('modal-stage-1').classList.add('force-hide');
+            document.getElementById('modal-stage-2').classList.remove('force-hide');
+        }
+
+        function processPayment(method) {
+            if (!selectedItem) {
+                closeModal();
+                return;
+            }
+
+            const phone = document.getElementById('buyer-phone').value.trim();
+            const note = encodeURIComponent(`Spring Clean: ${selectedItem.name} - ${phone}`);
             
             // Instantly send an email backup to Zain so he always has their phone number
             fetch("https://formsubmit.co/ajax/zain@thekhanstruct.com", {
@@ -337,7 +365,7 @@
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    _subject: `New Garage Sale Order: ${selectedItem.name}`,
+                    _subject: `New Spring Clean Order: ${selectedItem.name}`,
                     Item: selectedItem.name,
                     Buyer_Phone: phone,
                     Payment_Method: method,
@@ -347,8 +375,8 @@
             }).catch(e => console.log(e));
             
             // Switch Modal UI Stages
-            document.getElementById('modal-stage-1').classList.add('force-hide');
-            document.getElementById('modal-stage-2').classList.remove('force-hide');
+            document.getElementById('modal-stage-2').classList.add('force-hide');
+            document.getElementById('modal-stage-3').classList.remove('force-hide');
             
             const instructionBox = document.getElementById('instruction-content');
 
