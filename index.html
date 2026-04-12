@@ -23,11 +23,11 @@
                 <p>The Reunion Building • First Floor Mailroom • 9 AM - 5 PM</p>
                 <button class="faq-toggle" onclick="toggleFaq()">How it works ↓</button>
             </div>
-            <div id="faq-details" class="faq-details hidden">
-                <div class="faq-step"><span>1</span> Choose your items. Click Buy.</div>
-                <div class="faq-step"><span>2</span> Enter your phone # to trigger the gate code.</div>
-                <div class="faq-step"><span>3</span> Pay via Venmo. Check your texts for pickup instructions.</div>
-                <p class="faq-note">Gate code is sent automatically once payment is verified.</p>
+            <div id="faq-details" class="faq-details force-hide">
+                <img src="images/building.jpg" alt="Reunion Building" style="width: 100%; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--glass-border);">
+                <div class="faq-step"><span>1</span> Choose your item and enter your phone number.</div>
+                <div class="faq-step"><span>2</span> Select your payment method and pay.</div>
+                <div class="faq-step"><span>3</span> You will get a confirmation text or DM when the item is placed in the mailroom. We will also text you the gate code when it's ready!</div>
             </div>
         </section>
 
@@ -209,7 +209,7 @@
                     let size = cols[4] || 'N/A';
                     let qty = cols[5] || '1';
                     let originalPrice = cols[6] || 'N/A';
-                    let rawLink = cols[7] || '#';
+                    let rawLink = (cols[7] || '#').trim();
 
                     // Dynamically scan for images to handle random placement in columns
                     let allImages = [];
@@ -219,8 +219,6 @@
                             allImages.push(c);
                         }
                     }
-                    let rawImg1 = allImages[0] || '';
-                    let rawImg2 = allImages[1] || '';
 
                     let scraped = scrapedData[rawLink] || {};
                     let desc = scraped.description || "Premium garage sale item perfectly kept in a pet-free, smoke-free home.";
@@ -234,19 +232,25 @@
                        }
                     });
                     
-                    rawImg1 = finalImages[0] || 'https://placehold.co/600x600/111/444?text=Item';
-                    rawImg2 = finalImages[1] || '';
+                    let rawImg1 = finalImages[0];
+                    let rawImg2 = finalImages[1];
+                    let rawImg3 = finalImages[2];
+
+                    if (!rawImg1) rawImg1 = 'https://placehold.co/600x600/111/444?text=Item';
 
                     // Map HEIC/PNG dynamically
                     rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     if (rawImg2) rawImg2 = rawImg2.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+                    if (rawImg3) rawImg3 = rawImg3.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
                     
-                    let galleryHtml = `<img src="${rawImg1}" alt="${name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">`;
+                    let galleryHtml = `<img src="${rawImg1}" alt="${name}" class="item-img" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Item'">`;
                     if (rawImg2) {
+                        let addt = `<img src="${rawImg2}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.style.display='none'">`;
+                        if (rawImg3) addt += `<img src="${rawImg3}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.style.display='none'">`;
                         galleryHtml = `
                         <div style="display:flex; flex-direction:column;">
-                            <img src="${rawImg1}" alt="${name}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
-                            <img src="${rawImg2}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.src='https://placehold.co/600x600/111/444?text=Item'">
+                            <img src="${rawImg1}" alt="${name}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.style.display='none'">
+                            ${addt}
                         </div>`;
                     }
 
