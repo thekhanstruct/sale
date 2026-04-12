@@ -100,8 +100,8 @@
 
         function renderInventory() {
             const container = document.getElementById('inventory-container');
-            container.innerHTML = inventory.map(item => `
-                <div class="item-card" id="${item.id}">
+            container.innerHTML = inventory.map((item, index) => `
+                <div class="item-card" id="${item.id}" style="animation-delay: ${index * 0.1}s">
                     <img src="${item.img}" alt="${item.name}" class="item-img" onerror="this.src='https://placehold.co/600x600/111/444?text=Item+Photo'">
                     <div class="item-info">
                         <span class="status-badge ${item.status.toLowerCase()}">${item.status}</span>
