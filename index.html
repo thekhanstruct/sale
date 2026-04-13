@@ -215,17 +215,20 @@
                     let name = cols[0];
                     if (!name) return null;
                     
-                    let price = parseFloat((cols[1] || '0').replace(/[^0-9.]/g, '')) || 0;
-                    let condition = cols[2]?.trim() || 'N/A';
-                    let status = cols[3]?.trim() || 'Available';
-                    let size = cols[4] || 'N/A';
-                    let qty = cols[5] || '1';
-                    let originalPrice = cols[6] || 'N/A';
-                    let rawLink = (cols[7] || '#').trim();
+                    let subname = cols[1];
+                    let price = parseFloat((cols[2] || '0').replace(/[^0-9.]/g, '')) || 0;
+                    let condition = cols[3]?.trim() || 'N/A';
+                    let originalPrice = cols[4] || 'N/A';
+                    let status = cols[5]?.trim() || 'Available';
+                    let size = cols[6] || 'N/A';
+                    let dimensions = cols[7] || '';
+                    let height = cols[8] || '';
+                    let qty = cols[9] || '1';
+                    let rawLink = (cols[10] || '#').trim();
 
                     // Dynamically scan for images to handle random placement in columns
                     let allImages = [];
-                    for (let i = 8; i < cols.length; i++) {
+                    for (let i = 11; i < cols.length; i++) {
                         let c = cols[i]?.trim();
                         if (c && c !== '#' && !c.match(/^\d{7,15}$/)) { 
                             allImages.push(c);
@@ -266,14 +269,20 @@
                         </div>`;
                     }
 
+                    let fullName = subname && subname !== 'N/A' && subname !== '' ? `${name} - ${subname}` : name;
+                    let finalOriginal = originalPrice.startsWith('$') ? originalPrice : '$' + originalPrice;
+                    if(originalPrice === 'N/A' || originalPrice === '') finalOriginal = 'N/A';
+                    
                     return {
                         id: `item-${index}`,
-                        name: name,
+                        name: fullName,
                         price: price,
                         status: status,
                         size: size,
+                        dimensions: dimensions,
+                        height: height,
                         qty: qty,
-                        originalPrice: originalPrice,
+                        originalPrice: finalOriginal,
                         link: rawLink,
                         desc: desc,
                         condition: condition,
@@ -301,8 +310,10 @@
 
                         <div class="item-specs">
                             <p><span>Condition:</span> ${item.condition}</p>
-                            <p><span>Size:</span> ${item.size}</p>
-                            <p><span>Quantity:</span> ${item.qty}</p>
+                            ${item.size && item.size !== 'N/A' && item.size !== '' ? `<p><span>Size:</span> ${item.size}</p>` : ''}
+                            ${item.dimensions && item.dimensions !== 'N/A' && item.dimensions !== '' ? `<p><span>Dimensions:</span> ${item.dimensions}</p>` : ''}
+                            ${item.height && item.height !== 'N/A' && item.height !== '' ? `<p><span>Height:</span> ${item.height}</p>` : ''}
+                            ${item.qty && item.qty !== 'N/A' && item.qty !== '' ? `<p><span>Quantity:</span> ${item.qty}</p>` : ''}
                             <p><span>Original:</span> <span class="strikethrough">${item.originalPrice}</span></p>
                         </div>
 
