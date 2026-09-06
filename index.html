@@ -244,6 +244,59 @@
             renderInventory();
         }
         
+        
+        const verifiedProductLinks = {
+            "Bead Landing 36-Compartment Divided Trays": "https://www.michaels.com/product/136-clear-36compartment-divided-tray-with-lid-by-bead-landing-10713934",
+            "Studio Décor Front-Loading Minifigure Cases": "https://www.michaels.com/product/clear-front-loading-mini-figure-shadow-box-with-shelves-by-studio-decor-D476044S",
+            "Clear Letter File Storage Cases": "https://www.michaels.com/product/clear-letter-file-storage-case-with-top-handle-by-simply-tidy-D285226S",
+            "Simply Tidy Large Storage Bins": "https://www.michaels.com/product/13-x-13-clear-storage-bin-with-handles-by-simply-tidy-10738098",
+            "Simply Tidy Storage Bins w/ Handles": "https://www.michaels.com/product/13-x-65-clear-storage-bin-with-handles-by-simply-tidy-10738096",
+            "Simply Tidy Storage Trays": "https://www.michaels.com/product/12-x-4-clear-stacking-storage-tray-by-simply-tidy-10738088",
+            "Bead Landing 6–12 Divided Trays": "https://www.michaels.com/product/6-pack-136-clear-12-compartment-divided-tray-with-lid-by-bead-landing-10665790",
+            "Floating Wall Shelves": "https://www.fivebelow.com/products/floating-wall-shelf-18in",
+            "White Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "Wood Grain Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "Clear Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "2-Tier Sliding Drawer Vanity Organizer": "https://www.target.com/p/two-tiered-slide-out-organizer-brightroom/-/A-83717158",
+            "MasterChef Bamboo Cutlery Organizers": "https://www.target.com/p/expandable-bamboo-cutlery-tray-brightroom-8482/-/A-85318301",
+            "Bamboo Expandable Spice Racks": "https://www.target.com/p/expandable-bamboo-spice-rack-brightroom-8482/-/A-85318301",
+            "Bamboo 3-Tier Step Risers": "https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/3-tier-bamboo-expanding-spice-shelf/12d?productId=11000844",
+            "Acrylic 3-Tier Display Steps": "https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/clear-3-tier-expanding-organizer/12d?productId=11018868",
+            "Acrylic Pull-Out Storage Bins": "https://www.thecontainerstore.com/s/storage/drawers/the-home-edit-by-idesign-drawer-organizers/12d?productId=11012901",
+            "Acrylic Apothecary Jars": "https://www.target.com/p/medium-plastic-canister-with-bamboo-lid-brightroom-8482/-/A-85318301",
+            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "https://www.target.com/p/2pc-glass-storage-canister-set-with-bamboo-lids-threshold-8482/-/A-82255745",
+            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "https://www.target.com/p/2pc-glass-storage-canister-set-with-bamboo-lids-threshold-8482/-/A-82255745",
+            "Hudson Clear Storage Bins": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
+            "Metal Wire Bins w/ Wood Base": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
+            "Big Lots Acrylic Bins": "https://www.biglots.com/c/home-storage-organization/drawer-organizers-trays/_/N-2321528615"
+        };
+
+        const defaultItemImages = {
+            "Hudson Clear Storage Bins": "images/IMG_8167.jpeg",
+            "Metal Wire Bins w/ Wood Base": "images/IMG_8168_1.jpeg",
+            "Clear Corner Shelves": "images/IMG_8171.jpeg",
+            "Wood Grain Corner Shelves": "images/IMG_8172.jpeg",
+            "White Corner Shelves": "images/IMG_8172.jpeg",
+            "Floating Wall Shelves": "images/IMG_8175_1.jpeg",
+            "Simply Tidy Large Storage Bins": "images/IMG_8177_1.jpeg",
+            "Simply Tidy Storage Trays": "images/IMG_8179.jpeg",
+            "Simply Tidy Storage Bins w/ Handles": "images/IMG_8182.jpeg",
+            "MasterChef Bamboo Cutlery Organizers": "images/IMG_8183.jpeg",
+            "Bamboo Expandable Spice Racks": "images/IMG_8184.jpeg",
+            "Bamboo 3-Tier Step Risers": "images/IMG_8184.jpeg",
+            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "images/IMG_8185.jpeg",
+            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "images/IMG_8186.jpeg",
+            "Acrylic Apothecary Jars": "images/IMG_8187.jpeg",
+            "Studio Décor Front-Loading Minifigure Cases": "images/IMG_8188.jpeg",
+            "Bead Landing 6–12 Divided Trays": "images/IMG_8189.jpeg",
+            "Clear Letter File Storage Cases": "images/IMG_8190.jpeg",
+            "Big Lots Acrylic Bins": "images/IMG_8191.jpeg",
+            "Bead Landing 36-Compartment Divided Trays": "images/IMG_8193.jpeg",
+            "Acrylic 3-Tier Display Steps": "images/IMG_8194.jpeg",
+            "Acrylic Pull-Out Storage Bins": "images/IMG_8194.jpeg",
+            "2-Tier Sliding Drawer Vanity Organizer": "images/IMG_8173_1_2.jpeg"
+        };
+
         function inferCategory(name, desc) {
             const text = (name + " " + desc).toLowerCase();
             if (text.match(/acrylic/)) return "Acrylic";
@@ -389,6 +442,9 @@
                     let height = cols[8] || '';
                     let qty = cols[9] || '1';
                     let rawLink = (cols[10] || '#').trim();
+                    if ((!rawLink || rawLink === '#' || rawLink.includes('/search') || rawLink.includes('categories?q=') || rawLink.includes('searchTerm=')) && verifiedProductLinks[name]) {
+                        rawLink = verifiedProductLinks[name];
+                    }
 
                     // Dynamically scan for images to handle random placement in columns
                     let allImages = [];
@@ -410,6 +466,9 @@
                           else finalImages.push('images/' + img);
                        }
                     });
+                    if (finalImages.length === 0 && defaultItemImages[name]) {
+                        finalImages.push(defaultItemImages[name]);
+                    }
                     
                     let rawImg1 = finalImages[0];
                     let rawImg2 = finalImages[1];
