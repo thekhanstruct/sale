@@ -438,3 +438,53 @@ body {
 .btn-zelle { background: #74189B; color: white; }
 .pay-icon { height: 20px; }
 
+
+/* Mobile Responsiveness Fixes */
+@media (max-width: 768px) {
+    .marketplace-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 0.5rem 1rem;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    .sidebar-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0;
+        border: none;
+        background: transparent;
+        gap: 0.5rem;
+    }
+    .menu-item {
+        flex-direction: row;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        background-color: var(--sidebar-bg);
+        border: 1px solid var(--border-color);
+    }
+    .menu-item .icon {
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        font-size: 1rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+    .top-bar-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .specs-grid {
+        grid-template-columns: 1fr;
+    }
+}
