@@ -510,6 +510,11 @@
             } else {
                 container.style.display = 'grid';
                 emptyState.classList.add('force-hide');
+                
+                if (filtered.length === 0) {
+                    container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 3rem;">No items found matching your filters.</div>';
+                    return;
+                }
             }
 
             container.innerHTML = filtered.map((item, index) => {
