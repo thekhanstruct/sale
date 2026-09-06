@@ -2107,7 +2107,7 @@ body {
                     <div style="background: #f0f7ff; border: 1.5px solid #008CFF; border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
                         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #cce5ff; padding-bottom: 0.75rem;">
                             <div style="display: flex; align-items: center; gap: 0.6rem;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #008CFF; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem;">v</div>
+                                <img src="images/venmo_logo.png" alt="Venmo" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
                                 <span style="font-size: 1.1rem; font-weight: 800; color: #008CFF;">Venmo Payment</span>
                             </div>
                             <span style="font-size: 1.2rem; font-weight: 800; color: #050505;">${itemPriceFormatted}</span>
@@ -2143,7 +2143,7 @@ body {
                     <div style="background: #f8f0ff; border: 1.5px solid #7414CA; border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
                         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2c2ff; padding-bottom: 0.75rem;">
                             <div style="display: flex; align-items: center; gap: 0.6rem;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #7414CA; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem;">z</div>
+                                <img src="images/zelle_logo.png" alt="Zelle" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
                                 <span style="font-size: 1.1rem; font-weight: 800; color: #7414CA;">Zelle Payment</span>
                             </div>
                             <span style="font-size: 1.2rem; font-weight: 800; color: #050505;">${itemPriceFormatted}</span>
@@ -2179,7 +2179,7 @@ body {
                     <div style="background: #f0fff4; border: 1.5px solid #00D632; border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
                         <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #b3ffd1; padding-bottom: 0.75rem;">
                             <div style="display: flex; align-items: center; gap: 0.6rem;">
-                                <div style="width: 32px; height: 32px; border-radius: 50%; background: #00D632; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.1rem;">$</div>
+                                <img src="images/cashapp_logo.png" alt="Cash App" style="width: 32px; height: 32px; border-radius: 6px; object-fit: cover;">
                                 <span style="font-size: 1.1rem; font-weight: 800; color: #00D632;">Cash App Payment</span>
                             </div>
                             <span style="font-size: 1.2rem; font-weight: 800; color: #050505;">${itemPriceFormatted}</span>
@@ -2288,11 +2288,8 @@ body {
                     <!-- Venmo Button -->
                     <button onclick="processPayment('venmo')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.1rem; border-radius: 12px; border: 1.5px solid #008CFF; background: #f0f7ff; cursor: pointer; text-align: left;">
                         <div style="display: flex; align-items: center; gap: 0.85rem;">
-                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #008CFF; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; flex-shrink: 0;">v</div>
-                            <div>
-                                <div style="font-weight: 700; color: #008CFF; font-size: 1rem;">Pay with Venmo</div>
-                                <div style="font-size: 0.8rem; color: #65676b;">Instant redirect to @Zainer23</div>
-                            </div>
+                            <img src="images/venmo_logo.png" alt="Venmo Logo" style="width: 38px; height: 38px; border-radius: 8px; object-fit: cover; flex-shrink: 0;">
+                            <span style="font-weight: 700; color: #008CFF; font-size: 1.05rem;">Pay with Venmo</span>
                         </div>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#008CFF" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
@@ -2300,11 +2297,8 @@ body {
                     <!-- Zelle Button -->
                     <button onclick="processPayment('zelle')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.1rem; border-radius: 12px; border: 1.5px solid #7414CA; background: #f8f0ff; cursor: pointer; text-align: left;">
                         <div style="display: flex; align-items: center; gap: 0.85rem;">
-                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #7414CA; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; flex-shrink: 0;">z</div>
-                            <div>
-                                <div style="font-weight: 700; color: #7414CA; font-size: 1rem;">Pay with Zelle</div>
-                                <div style="font-size: 0.8rem; color: #65676b;">Send to Zain Khan (832-382-1675)</div>
-                            </div>
+                            <img src="images/zelle_logo.png" alt="Zelle Logo" style="width: 38px; height: 38px; border-radius: 8px; object-fit: cover; flex-shrink: 0;">
+                            <span style="font-weight: 700; color: #7414CA; font-size: 1.05rem;">Pay with Zelle</span>
                         </div>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7414CA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
@@ -2312,11 +2306,8 @@ body {
                     <!-- Cash App Button -->
                     <button onclick="processPayment('cashapp')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.95rem 1.1rem; border-radius: 12px; border: 1.5px solid #00D632; background: #f0fff4; cursor: pointer; text-align: left;">
                         <div style="display: flex; align-items: center; gap: 0.85rem;">
-                            <div style="width: 36px; height: 36px; border-radius: 50%; background: #00D632; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1.2rem; flex-shrink: 0;">$</div>
-                            <div>
-                                <div style="font-weight: 700; color: #00D632; font-size: 1rem;">Pay with Cash App</div>
-                                <div style="font-size: 0.8rem; color: #65676b;">Redirect to $z23k</div>
-                            </div>
+                            <img src="images/cashapp_logo.png" alt="Cash App Logo" style="width: 38px; height: 38px; border-radius: 8px; object-fit: cover; flex-shrink: 0;">
+                            <span style="font-weight: 700; color: #00D632; font-size: 1.05rem;">Pay with Cash App</span>
                         </div>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00D632" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
                     </button>
