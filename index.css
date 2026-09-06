@@ -183,12 +183,7 @@ body {
     transition: 0.2s;
 }
 
-.retailer-logo-btn svg {
-    height: 22px;
-    width: auto;
-    max-width: 85px;
-    display: block;
-}
+
 
 .retailer-logo-btn img {
     width: 100%;
@@ -407,12 +402,7 @@ body {
     height: 20px;
 }
 
-.compare-logo-wrap svg {
-    height: 20px;
-    width: auto;
-    max-width: 80px;
-    display: block;
-}
+
 
 .compare-arrow {
     color: var(--accent-color);
@@ -607,4 +597,15 @@ body {
     .inventory-grid {
         grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
     }
+}
+
+
+.retailer-logo-btn svg,
+.compare-logo-wrap svg {
+    height: 20px !important;
+    max-height: 20px !important;
+    width: auto !important;
+    max-width: 80px !important;
+    display: block !important;
+    object-fit: contain !important;
 }

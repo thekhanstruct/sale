@@ -5,7 +5,622 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Clean</title>
     <meta name="description" content="Premium household items and decor at a 40% discount. Automated IKEA inventory.">
-    <link rel="stylesheet" href="index.css">
+    <style>
+/* EMBEDDED MARKETPLACE STYLES - ZERO CACHE LAG */
+/* Premium Marketplace Dark Theme */
+:root {
+    --bg-color: #0d1117;
+    --sidebar-bg: #161b22;
+    --card-bg: #1e242c;
+    --accent-color: #3b82f6; /* Market Blue */
+    --accent-hover: #2563eb;
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --border-color: #30363d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    overflow-x: hidden;
+}
+
+/* Layout */
+
+.marketplace-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--sidebar-bg);
+}
+
+.app-header .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.controls-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-secondary);
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--sidebar-bg);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.search-input-wrapper input:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.search-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-secondary);
+    background: var(--sidebar-bg);
+}
+
+.btn-secondary.active {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
+}
+
+/* Category Chips */
+.category-chips {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem; /* For scrollbar */
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+.chip:hover {
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.chip.active {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+/* Retailer Logos Row */
+.retailer-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.retailer-logos {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.retailer-logo-btn {
+    background: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: 38px;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: 0.2s;
+}
+
+
+
+.retailer-logo-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.retailer-logo-btn:hover {
+    border-color: var(--text-secondary);
+    transform: translateY(-1px);
+}
+
+.retailer-logo-btn.active {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+    background: rgba(59, 130, 246, 0.12);
+}
+
+/* Grid & Cards */
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.item-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-card.expanded {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 1px var(--accent-color);
+}
+
+.card-image-wrap {
+    width: 100%;
+    height: 230px;
+    cursor: pointer;
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.card-image-wrap:hover .item-img {
+    transform: scale(1.03);
+}
+
+.card-badge-discount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #10b981;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4);
+    z-index: 2;
+}
+
+.card-badge-qty {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+}
+
+.card-content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-header {
+    cursor: pointer;
+}
+
+.card-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
+}
+
+.item-category {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.item-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0.25rem 0;
+    line-height: 1.35;
+    color: var(--text-primary);
+}
+
+.item-specs-preview {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.condition-badge {
+    display: inline-block;
+    background-color: #21262d;
+    color: #8b949e;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.card-pricing-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 0.25rem;
+}
+
+.price-main-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.price-current {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.price-original {
+    font-size: 1.05rem;
+    color: #6e7681;
+    text-decoration: line-through;
+    font-weight: 500;
+}
+
+.savings-pill {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10b981;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* Retailer Compare Row */
+.retailer-compare-row {
+    margin: 0.25rem 0;
+}
+
+.retailer-compare-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.45rem 0.75rem;
+    background: rgba(22, 27, 34, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.retailer-compare-btn:hover {
+    background: rgba(56, 139, 253, 0.1);
+    border-color: var(--accent-color);
+    color: var(--text-primary);
+}
+
+.compare-text {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #8b949e;
+}
+
+.compare-logo-wrap {
+    display: flex;
+    align-items: center;
+    height: 20px;
+}
+
+
+
+.compare-arrow {
+    color: var(--accent-color);
+    transition: transform 0.2s;
+}
+
+.retailer-compare-btn:hover .compare-arrow {
+    transform: translate(2px, -2px);
+}
+
+.card-actions-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+}
+
+.btn-card-save, .btn-card-expand {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-card-save:hover, .btn-card-expand:hover {
+    background: var(--sidebar-bg);
+    border-color: var(--text-secondary);
+}
+
+.btn-card-save.saved {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: #ef4444;
+    color: #ef4444;
+}
+
+/* Expanded Content */
+.card-expanded-content {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease;
+}
+
+.item-desc {
+    font-size: 0.9rem;
+    color: #c9d1d9;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.spec-box {
+    background-color: #111;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.spec-box label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.5px;
+}
+
+.spec-box span {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.expanded-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+    background-color: #30363d;
+    color: #8b949e;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background-color: var(--sidebar-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: #2d333b;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal styling kept mostly intact but adapted to dark theme */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.force-hide { display: none !important; }
+
+.modal-content {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: white;
+    font-size: 1rem;
+}
+.pay-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 0.5rem;
+}
+.btn-venmo { background: #008CFF; color: white; }
+.btn-cashapp { background: #00D632; color: white; }
+.btn-zelle { background: #74189B; color: white; }
+.pay-icon { height: 20px; }
+
+
+/* Mobile Responsiveness Fixes */
+
+@media (max-width: 768px) {
+    .app-header {
+        padding: 1rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+    .inventory-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}
+
+
+.retailer-logo-btn svg,
+.compare-logo-wrap svg {
+    height: 20px !important;
+    max-height: 20px !important;
+    width: auto !important;
+    max-width: 80px !important;
+    display: block !important;
+    object-fit: contain !important;
+}
+
+</style>
+    <link rel="stylesheet" href="index.css?v=2026090603">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -86,42 +701,42 @@
                 </button>
             </div>
             
-            <!-- Authentic Retailer Vector Logos -->
-            <div class="retailer-row">
-                <span style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Retailer</span>
-                <div class="retailer-logos">
-                    <button class="retailer-logo-btn" data-retailer="Michaels" onclick="setRetailer('Michaels')" title="Michaels">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#E21836"/><text x="50" y="22" font-family="'Georgia', serif" font-weight="900" font-style="italic" font-size="16" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>
+                        <!-- Authentic Retailer Vector Logos -->
+            <div class="retailer-row" style="display: flex; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                <span style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 0.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Retailer</span>
+                <div class="retailer-logos" style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 4px; align-items: center;">
+                    <button class="retailer-logo-btn" data-retailer="Michaels" onclick="setRetailer('Michaels')" title="Michaels" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#E21836"/><text x="37.5" y="15.5" font-family="Georgia, serif" font-weight="900" font-style="italic" font-size="13" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Five Below" onclick="setRetailer('Five Below')" title="Five Below">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0077C8"/><text x="50" y="14" font-family="'Impact', sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">five</text><text x="50" y="27" font-family="'Impact', sans-serif" font-size="13" fill="#FFC72C" text-anchor="middle" letter-spacing="1">BELOW</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="Five Below" onclick="setRetailer('Five Below')" title="Five Below" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#0077C8"/><text x="37.5" y="10" font-family="Arial Black, Impact, sans-serif" font-size="8.5" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">five</text><text x="37.5" y="19" font-family="Arial Black, Impact, sans-serif" font-size="9.5" fill="#FFC72C" text-anchor="middle" letter-spacing="0.5">BELOW</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Big Lots" onclick="setRetailer('Big Lots')" title="Big Lots">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#F47321"/><text x="38" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="68" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="84" y="22" font-family="'Impact', sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold">!</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="Big Lots" onclick="setRetailer('Big Lots')" title="Big Lots" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#F47321"/><text x="28" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="10.5" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="52" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="10.5" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="66" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="12" fill="#FFFFFF" font-weight="bold">!</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
-                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="15" fill="#CC0000"/><circle cx="16" cy="16" r="10" fill="#FFFFFF"/><circle cx="16" cy="16" r="5" fill="#CC0000"/></svg>
+                    <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#CC0000"/><circle cx="14" cy="11" r="7" fill="#FFFFFF"/><circle cx="14" cy="11" r="4.6" fill="#CC0000"/><circle cx="14" cy="11" r="2.3" fill="#FFFFFF"/><text x="43" y="15" font-family="system-ui, sans-serif" font-weight="900" font-size="10.5" fill="#FFFFFF" letter-spacing="0.8">TARGET</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0058A8"/><ellipse cx="50" cy="16" rx="44" ry="13" fill="#FFDA1A"/><text x="50" y="22" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="17" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#0058A8"/><ellipse cx="37.5" cy="11" rx="32" ry="9" fill="#FFDA1A"/><text x="37.5" y="15.5" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="12" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
-                        <svg viewBox="0 0 110 32" xmlns="http://www.w3.org/2000/svg"><rect width="110" height="32" rx="6" fill="#0D2538"/><text x="55" y="12" font-family="system-ui, sans-serif" font-weight="700" font-size="7" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="55" y="21" font-family="system-ui, sans-serif" font-weight="800" font-size="9" fill="#00C389" text-anchor="middle" letter-spacing="1">CONTAINER</text><text x="55" y="28" font-family="system-ui, sans-serif" font-weight="700" font-size="6.5" fill="#88A0B8" text-anchor="middle" letter-spacing="1.5">STORE</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 90 22" width="90" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:90px; display:block;"><rect width="90" height="22" rx="4" fill="#0D2538"/><text x="45" y="9" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="6" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="45" y="15.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="7" fill="#00C389" text-anchor="middle" letter-spacing="0.8">CONTAINER</text><text x="45" y="20.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="5" fill="#88A0B8" text-anchor="middle" letter-spacing="1">STORE</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="HomeGoods" onclick="setRetailer('HomeGoods')" title="HomeGoods">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#BF1522"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="HomeGoods" onclick="setRetailer('HomeGoods')" title="HomeGoods" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#BF1522"/><text x="37.5" y="15.5" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#131921"/><text x="50" y="19" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M28 23 Q 50 28 72 23" stroke="#FF9900" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="70,21 74,23 71,25" fill="#FF9900"/></svg>
+                    <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#131921"/><text x="37.5" y="14" font-family="Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M22 16.5 Q 37.5 20 53 16.5" stroke="#FF9900" stroke-width="1.6" fill="none" stroke-linecap="round"/><polygon points="51.5,15 54.5,16.5 52.5,18" fill="#FF9900"/></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0071DC"/><text x="42" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="77" cy="16" r="2.5" fill="#FFC220"/><line x1="77" y1="10" x2="77" y2="12" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="77" y1="20" x2="77" y2="22" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="13" x2="73" y2="14.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="17.5" x2="83" y2="19" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="19" x2="73" y2="17.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="14.5" x2="83" y2="13" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/></svg>
+                    <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#0077DC"/><text x="32" y="15" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="9.5" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="58" cy="11" r="1.8" fill="#FFC220"/><line x1="58" y1="6.5" x2="58" y2="8" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="58" y1="14" x2="58" y2="15.5" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="53.5" y1="9" x2="55" y2="10" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="61" y1="12" x2="62.5" y2="13" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="53.5" y1="13" x2="55" y2="12" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="61" y1="10" x2="62.5" y2="9" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#7B2C88"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#7B2C88"/><text x="37.5" y="15" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="10.5" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>
                     </button>
-                    <button class="retailer-logo-btn" data-retailer="At Home" onclick="setRetailer('At Home')" title="At Home">
-                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#FF5E00"/><text x="50" y="21" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">at home</text></svg>
+                    <button class="retailer-logo-btn" data-retailer="At Home" onclick="setRetailer('At Home')" title="At Home" style="height: 34px; padding: 4px 8px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px; width:auto; max-width:75px; display:block;"><rect width="75" height="22" rx="4" fill="#FF5E00"/><text x="37.5" y="15" font-family="Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">at home</text></svg>
                     </button>
                 </div>
             </div>
@@ -257,34 +872,26 @@
             renderInventory();
         }
 
-        // Authentic Vector Retailer SVG Logos
+        // Authentic Vector Retailer SVG Logos with strict dimension constraints
+        const RETAILER_SVGS = {
+            'Target': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#CC0000"/><circle cx="14" cy="11" r="7" fill="#FFFFFF"/><circle cx="14" cy="11" r="4.6" fill="#CC0000"/><circle cx="14" cy="11" r="2.3" fill="#FFFFFF"/><text x="43" y="15" font-family="system-ui, sans-serif" font-weight="900" font-size="10.5" fill="#FFFFFF" letter-spacing="0.8">TARGET</text></svg>',
+            'Michaels': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#E21836"/><text x="37.5" y="15.5" font-family="Georgia, serif" font-weight="900" font-style="italic" font-size="13" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>',
+            'Five Below': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#0077C8"/><text x="37.5" y="10" font-family="Arial Black, Impact, sans-serif" font-size="8.5" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">five</text><text x="37.5" y="19" font-family="Arial Black, Impact, sans-serif" font-size="9.5" fill="#FFC72C" text-anchor="middle" letter-spacing="0.5">BELOW</text></svg>',
+            'Big Lots': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#F47321"/><text x="28" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="10.5" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="52" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="10.5" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="66" y="15.5" font-family="Arial Black, Impact, sans-serif" font-size="12" fill="#FFFFFF" font-weight="bold">!</text></svg>',
+            'IKEA': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#0058A8"/><ellipse cx="37.5" cy="11" rx="32" ry="9" fill="#FFDA1A"/><text x="37.5" y="15.5" font-family="Arial Black, Impact, sans-serif" font-weight="900" font-size="12" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>',
+            'The Container Store': '<svg viewBox="0 0 90 22" width="90" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:90px !important; display:block !important;"><rect width="90" height="22" rx="4" fill="#0D2538"/><text x="45" y="9" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="6" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="45" y="15.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="800" font-size="7" fill="#00C389" text-anchor="middle" letter-spacing="0.8">CONTAINER</text><text x="45" y="20.5" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="5" fill="#88A0B8" text-anchor="middle" letter-spacing="1">STORE</text></svg>',
+            'HomeGoods': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#BF1522"/><text x="37.5" y="15.5" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>',
+            'Amazon': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#131921"/><text x="37.5" y="14" font-family="Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M22 16.5 Q 37.5 20 53 16.5" stroke="#FF9900" stroke-width="1.6" fill="none" stroke-linecap="round"/><polygon points="51.5,15 54.5,16.5 52.5,18" fill="#FF9900"/></svg>',
+            'Walmart': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#0077DC"/><text x="32" y="15" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="9.5" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="58" cy="11" r="1.8" fill="#FFC220"/><line x1="58" y1="6.5" x2="58" y2="8" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="58" y1="14" x2="58" y2="15.5" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="53.5" y1="9" x2="55" y2="10" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="61" y1="12" x2="62.5" y2="13" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="53.5" y1="13" x2="55" y2="12" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/><line x1="61" y1="10" x2="62.5" y2="9" stroke="#FFC220" stroke-width="1.5" stroke-linecap="round"/></svg>',
+            'Wayfair': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#7B2C88"/><text x="37.5" y="15" font-family="Helvetica Neue, Arial, sans-serif" font-weight="800" font-size="10.5" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>',
+            'At Home': '<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#FF5E00"/><text x="37.5" y="15" font-family="Arial, sans-serif" font-weight="800" font-size="10" fill="#FFFFFF" text-anchor="middle">at home</text></svg>'
+        };
+
         function getRetailerLogoSvg(retailer) {
-            switch (retailer) {
-                case 'Michaels':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#E21836"/><text x="50" y="22" font-family="'Georgia', serif" font-weight="900" font-style="italic" font-size="16" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>`;
-                case 'Five Below':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0077C8"/><text x="50" y="14" font-family="'Impact', sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">five</text><text x="50" y="27" font-family="'Impact', sans-serif" font-size="13" fill="#FFC72C" text-anchor="middle" letter-spacing="1">BELOW</text></svg>`;
-                case 'Big Lots':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#F47321"/><text x="38" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="68" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="84" y="22" font-family="'Impact', sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold">!</text></svg>`;
-                case 'Target':
-                    return `<svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="32" rx="6" fill="#CC0000"/><circle cx="22" cy="16" r="10" fill="#FFFFFF"/><circle cx="22" cy="16" r="6" fill="#CC0000"/><circle cx="22" cy="16" r="3" fill="#FFFFFF"/><text x="54" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">TARGET</text></svg>`;
-                case 'IKEA':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0058A8"/><ellipse cx="50" cy="16" rx="44" ry="13" fill="#FFDA1A"/><text x="50" y="22" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="17" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>`;
-                case 'The Container Store':
-                    return `<svg viewBox="0 0 110 32" xmlns="http://www.w3.org/2000/svg"><rect width="110" height="32" rx="6" fill="#0D2538"/><text x="55" y="12" font-family="system-ui, sans-serif" font-weight="700" font-size="7" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="55" y="21" font-family="system-ui, sans-serif" font-weight="800" font-size="9" fill="#00C389" text-anchor="middle" letter-spacing="1">CONTAINER</text><text x="55" y="28" font-family="system-ui, sans-serif" font-weight="700" font-size="6.5" fill="#88A0B8" text-anchor="middle" letter-spacing="1.5">STORE</text></svg>`;
-                case 'HomeGoods':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#BF1522"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>`;
-                case 'Amazon':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#131921"/><text x="50" y="19" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M28 23 Q 50 28 72 23" stroke="#FF9900" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="70,21 74,23 71,25" fill="#FF9900"/></svg>`;
-                case 'Walmart':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0071DC"/><text x="42" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="77" cy="16" r="2.5" fill="#FFC220"/><line x1="77" y1="10" x2="77" y2="12" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="77" y1="20" x2="77" y2="22" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="13" x2="73" y2="14.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="17.5" x2="83" y2="19" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="19" x2="73" y2="17.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="14.5" x2="83" y2="13" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/></svg>`;
-                case 'Wayfair':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#7B2C88"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>`;
-                case 'At Home':
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#FF5E00"/><text x="50" y="21" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">at home</text></svg>`;
-                default:
-                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#374151"/><text x="50" y="21" font-family="system-ui, sans-serif" font-weight="700" font-size="12" fill="#E5E7EB" text-anchor="middle">${retailer}</text></svg>`;
+            if (RETAILER_SVGS[retailer]) {
+                return RETAILER_SVGS[retailer];
             }
+            return `<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#374151"/><text x="37.5" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="10" fill="#E5E7EB" text-anchor="middle">${retailer}</text></svg>`;
         }
 
         // Physically verified and tag-matched product data
@@ -822,79 +1429,79 @@ Acrylic Apothecary Jars,,1.0,Like New,$4.00,Available,,Canister w/ Lid,,4,https:
                 const hasRetailerLink = item.link && item.link !== '#' && !item.link.startsWith('javascript');
 
                 return `
-                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="animation-delay: ${index * 0.03}s">
-                    <div class="card-image-wrap" onclick="toggleItem('${item.id}')">
-                        ${discountPercent > 0 ? `<div class="card-badge-discount">${discountPercent}% OFF</div>` : ''}
-                        <div class="card-badge-qty" style="${item.status === 'Sold' ? 'background: #dc2626; color: white;' : ''}">${qtyBadgeText}</div>
-                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Garage+Sale+Item'">
+                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="background-color: #1e242c; border-radius: 12px; border: 1px solid #30363d; overflow: hidden; display: flex; flex-direction: column; animation-delay: ${index * 0.03}s;">
+                    <div class="card-image-wrap" onclick="toggleItem('${item.id}')" style="position: relative; width: 100%; height: 230px; overflow: hidden; background-color: #111; cursor: pointer;">
+                        ${discountPercent > 0 ? `<div class="card-badge-discount" style="position: absolute; top: 10px; left: 10px; background: #10b981; color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; letter-spacing: 0.5px; z-index: 2; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); text-transform: uppercase;">${discountPercent}% OFF</div>` : ''}
+                        <div class="card-badge-qty" style="position: absolute; top: 10px; right: 10px; background: ${item.status === 'Sold' ? '#dc2626' : 'rgba(15, 23, 42, 0.85)'}; backdrop-filter: blur(8px); color: ${item.status === 'Sold' ? '#ffffff' : '#94a3b8'}; font-size: 0.72rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 2;">${qtyBadgeText}</div>
+                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Garage+Sale+Item'">
                     </div>
                     
-                    <div class="card-content">
-                        <div class="card-header" onclick="toggleItem('${item.id}')">
-                            <div class="card-header-top">
-                                <span class="item-category">${item.category}</span>
-                                <span class="condition-badge">${item.condition}</span>
+                    <div class="card-content" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; flex: 1;">
+                        <div class="card-header" onclick="toggleItem('${item.id}')" style="cursor: pointer;">
+                            <div class="card-header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+                                <span class="item-category" style="font-size: 0.72rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">${item.category}</span>
+                                <span class="condition-badge" style="background-color: #21262d; color: #8b949e; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid #30363d;">${item.condition}</span>
                             </div>
-                            <h3 class="item-title">${item.name}</h3>
-                            <div class="item-specs-preview">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : '')}</div>
+                            <h3 class="item-title" style="font-size: 1.1rem; font-weight: 700; margin: 0.2rem 0; line-height: 1.35; color: #f0f6fc;">${item.name}</h3>
+                            <div class="item-specs-preview" style="font-size: 0.8rem; color: #8b949e;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : '')}</div>
                         </div>
 
-                        <div class="card-pricing-block">
-                            <div class="price-main-wrap">
-                                <span class="price-current">$${item.price.toFixed(2)}</span>
-                                ${origFormatted ? `<span class="price-original">${origFormatted}</span>` : ''}
+                        <div class="card-pricing-block" style="display: flex; justify-content: space-between; align-items: baseline; margin: 0.25rem 0;">
+                            <div class="price-main-wrap" style="display: flex; align-items: baseline; gap: 0.5rem;">
+                                <span class="price-current" style="font-size: 1.65rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">$${item.price.toFixed(2)}</span>
+                                ${origFormatted ? `<span class="price-original" style="font-size: 1rem; color: #6e7681; text-decoration: line-through; font-weight: 500;">${origFormatted}</span>` : ''}
                             </div>
-                            ${savingsText ? `<span class="savings-pill">${savingsText}</span>` : ''}
+                            ${savingsText ? `<span class="savings-pill" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${savingsText}</span>` : ''}
                         </div>
 
                         ${hasRetailerLink ? `
-                        <div class="retailer-compare-row">
-                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="retailer-compare-btn" title="Compare price at ${item.retailer}">
-                                <span class="compare-text">Compare Price</span>
-                                <div class="compare-logo-wrap">${getRetailerLogoSvg(item.retailer)}</div>
-                                <svg class="compare-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+                        <div class="retailer-compare-row" style="margin: 0.25rem 0;">
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="retailer-compare-btn" title="Compare price at ${item.retailer}" style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 38px; padding: 0 12px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; text-decoration: none; box-sizing: border-box;">
+                                <span class="compare-text" style="font-size: 0.78rem; font-weight: 600; color: #8b949e;">Compare Price</span>
+                                <div class="compare-logo-wrap" style="display: inline-flex; align-items: center; justify-content: center; height: 22px; max-height: 22px; flex-shrink: 0;">${getRetailerLogoSvg(item.retailer)}</div>
+                                <svg class="compare-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
                             </a>
                         </div>` : ''}
 
-                        <div class="card-actions-row">
-                            <button class="btn-card-save ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)">
+                        <div class="card-actions-row" style="display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.25rem;">
+                            <button class="btn-card-save ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid ${isSaved ? '#ef4444' : '#30363d'}; background: ${isSaved ? 'rgba(239, 68, 68, 0.12)' : 'transparent'}; color: ${isSaved ? '#ef4444' : '#f0f6fc'}; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="${isSaved ? '#ef4444' : 'none'}" stroke="${isSaved ? '#ef4444' : 'currentColor'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span>${isSaved ? 'Saved' : 'Save'}</span>
                             </button>
-                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')">
+                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid #30363d; background: transparent; color: #f0f6fc; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
                                 <span>${isExpanded ? 'Hide Details' : 'View Details'}</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline></svg>
                             </button>
                         </div>
                         
                         ${isExpanded ? `
-                        <div class="card-expanded-content">
-                            <p class="item-desc">${item.desc}</p>
+                        <div class="card-expanded-content" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #30363d;">
+                            <p class="item-desc" style="font-size: 0.85rem; color: #c9d1d9; line-height: 1.5; margin-bottom: 1rem;">${item.desc}</p>
                             
-                            <div class="specs-grid">
-                                <div class="spec-box">
-                                    <label>DIMENSIONS</label>
-                                    <span>${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
+                            <div class="specs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
+                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">DIMENSIONS</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
                                 </div>
-                                <div class="spec-box">
-                                    <label>CONDITION</label>
-                                    <span>${item.condition}</span>
+                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
+                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">CONDITION</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.condition}</span>
                                 </div>
-                                <div class="spec-box">
-                                    <label>RETAILER</label>
-                                    <span>${item.retailer}</span>
+                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
+                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">RETAILER</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.retailer}</span>
                                 </div>
-                                <div class="spec-box">
-                                    <label>STATUS</label>
-                                    <span style="color: ${item.status === 'Available' ? '#10b981' : '#ff4444'}">● ${item.status}</span>
+                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
+                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">STATUS</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: ${item.status === 'Available' ? '#10b981' : '#ff4444'}">● ${item.status}</span>
                                 </div>
                             </div>
                             
-                            <div class="expanded-buttons">
-                                <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''}>
+                            <div class="expanded-buttons" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''} style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; background-color: #3b82f6; color: white;">
                                     ${item.status === 'Available' ? `Buy Now - $${item.price.toFixed(2)}` : 'Item Sold'}
                                 </button>
-                                <button class="btn-secondary" onclick="window.open('sms:8323821675?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')">
+                                <button class="btn-secondary" onclick="window.open('sms:8323821675?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; background-color: #161b22; color: #f0f6fc; border: 1px solid #30363d;">
                                     Message Seller
                                 </button>
                             </div>
