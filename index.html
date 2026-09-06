@@ -1154,17 +1154,10 @@ body {
 
         function getRetailerLogoSvg(retailer) {
             if (RETAILER_LOGOS[retailer]) {
-                return `<img src="${RETAILER_LOGOS[retailer]}" alt="${retailer}" style="height:22px !important; max-height:22px !important; width:auto !important; max-width:105px !important; display:block !important; object-fit:contain;">`;
+                return `<img src="${RETAILER_LOGOS[retailer]}" alt="${retailer}" style="height:24px !important; max-height:24px !important; width:auto !important; max-width:115px !important; display:block !important; object-fit:contain;">`;
             }
             return `<span style="font-size:0.78rem; font-weight:700; color:#050505;">${retailer}</span>`;
-        }" alt="${retailer}" style="height:18px !important; max-height:18px !important; width:auto !important; max-width:85px !important; display:block !important; object-fit:contain;">`;
-            }
-            return `<span style="font-size:0.75rem; font-weight:700; color:#050505;">${retailer}</span>`;
-        }" alt="${retailer}" style="height:22px !important; max-height:22px !important; width:auto !important; max-width:100px !important; display:block !important; object-fit:contain; border-radius: 4px;">`;
-            }
-            return `<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#374151"/><text x="37.5" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="10" fill="#E5E7EB" text-anchor="middle">${retailer}</text></svg>`;
         }
-
         // Physically verified and tag-matched product data
         const verifiedProductLinks = {
             "Ironing Board Cover": "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab",
