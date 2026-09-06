@@ -44,9 +44,33 @@
                         <button class="chip" onclick="setCategory('Kitchen')">Kitchen</button>
                         <button class="chip" onclick="setCategory('Collectibles')">Collectibles</button>
                     </div>
-                    <select class="source-dropdown">
-                        <option>All sources</option>
-                    </select>
+                </div>
+                
+                <div class="retailer-row">
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 0.5rem; white-space: nowrap;">Shop by Retailer:</span>
+                    <div class="retailer-logos">
+                        <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
+                            <img src="https://logo.clearbit.com/ikea.com" alt="IKEA" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=IK'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
+                            <img src="https://logo.clearbit.com/target.com" alt="Target" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=TG'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
+                            <img src="https://logo.clearbit.com/amazon.com" alt="Amazon" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=AM'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
+                            <img src="https://logo.clearbit.com/walmart.com" alt="Walmart" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=WM'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="The Home Depot" onclick="setRetailer('The Home Depot')" title="The Home Depot">
+                            <img src="https://logo.clearbit.com/homedepot.com" alt="Home Depot" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=HD'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
+                            <img src="https://logo.clearbit.com/wayfair.com" alt="Wayfair" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=WF'">
+                        </button>
+                        <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
+                            <img src="https://logo.clearbit.com/thecontainerstore.com" alt="Container Store" onerror="this.onerror=null; this.src='https://placehold.co/40x40/111/fff?text=CS'">
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -162,6 +186,8 @@
         function clearFilters() {
             document.getElementById('search-input').value = "";
             setCategory("All");
+            selectedRetailer = "All";
+            document.querySelectorAll('.retailer-logo-btn').forEach(btn => btn.classList.remove('active'));
             priceSort = null;
             document.getElementById('menu-price').innerHTML = '<span class="icon">💰</span> Price Sort';
             document.getElementById('menu-price').classList.remove('active');
@@ -374,11 +400,13 @@
                     
                     
                     let inferredCategory = inferCategory(fullName, desc);
+                    let retailer = inferRetailer(rawLink);
                     
                     return {
                         id: `item-${index}`,
                         name: fullName,
                         category: inferredCategory,
+                        retailer: retailer,
                         price: price,
                         status: status,
                         size: size,
@@ -411,7 +439,8 @@
                 const matchesSearch = text.includes(searchQuery);
                 const matchesCategory = (selectedCategory === "All" || item.category === selectedCategory);
                 const matchesSavedTab = !isSavedTab || savedItemIds.includes(item.id);
-                return matchesSearch && matchesCategory && matchesSavedTab;
+                const matchesRetailer = selectedRetailer === "All" || item.retailer === selectedRetailer;
+                return matchesSearch && matchesCategory && matchesSavedTab && matchesRetailer;
             });
             
             if (priceSort === 'asc') {
@@ -424,6 +453,7 @@
             let activeFilters = 0;
             if (searchQuery !== "") activeFilters++;
             if (selectedCategory !== "All") activeFilters++;
+            if (selectedRetailer !== "All") activeFilters++;
             document.getElementById('filters-count').innerText = `${activeFilters} filters active`;
 
             const container = document.getElementById('inventory-container');

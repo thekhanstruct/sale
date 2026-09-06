@@ -488,3 +488,47 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Retailer Logos Row */
+.retailer-row {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.retailer-logos {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.retailer-logo-btn {
+    background: var(--sidebar-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: 0.2s;
+}
+
+.retailer-logo-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.retailer-logo-btn:hover {
+    border-color: var(--text-secondary);
+}
+
+.retailer-logo-btn.active {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px var(--accent-color);
+}
