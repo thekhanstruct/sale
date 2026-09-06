@@ -11,74 +11,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 
+
 <body>
     <div class="marketplace-layout">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <span id="filters-count">0 filters active</span>
-                <button class="clear-filters" onclick="clearFilters()">Clear all filters</button>
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Spring Clean
             </div>
-            <nav class="sidebar-menu">
-                <button id="menu-search" class="menu-item active" onclick="toggleSavedTab(false)"><span class="icon">🔍</span> Search</button>
-                <button id="menu-price" class="menu-item" onclick="togglePriceSort()"><span class="icon">💰</span> Price Sort</button>
-                <button id="menu-saved" class="menu-item" onclick="toggleSavedTab(true)"><span class="icon">❤️</span> Saved</button>
-                <button class="menu-item" onclick="clearFilters()" style="color:var(--accent-color);"><span class="icon" style="background:transparent;">✖</span> Clear Filters</button>
-            </nav>
-        </aside>
+            <button class="btn-secondary" id="header-saved-btn" onclick="toggleSavedTab(!isSavedTab)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                <span id="saved-text">Saved</span>
+            </button>
+        </header>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Top Bar -->
-            <div class="top-bar">
-                <div class="search-bar">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="search-input" placeholder="Search local finds" onkeyup="renderInventory()">
+            <!-- Controls Row -->
+            <div class="controls-row">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="search-input" placeholder="Search local finds..." onkeyup="renderInventory()">
                 </div>
-                <div class="top-bar-row">
-                    <div class="category-chips" id="category-chips">
-                        <button class="chip active" onclick="setCategory('All')">All</button>
-                        <button class="chip" onclick="setCategory('Home')">Home</button>
-                        <button class="chip" onclick="setCategory('Electronics')">Electronics</button>
-                        <button class="chip" onclick="setCategory('Fashion')">Fashion</button>
-                        <button class="chip" onclick="setCategory('Kitchen')">Kitchen</button>
-                        <button class="chip" onclick="setCategory('Collectibles')">Collectibles</button>
-                    </div>
-                </div>
-                
-                <div class="retailer-row">
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 0.5rem; white-space: nowrap;">Shop by Retailer:</span>
-                    <div class="retailer-logos">
-                        <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
-                            <img src="https://www.google.com/s2/favicons?domain=ikea.com&sz=128" alt="IKEA">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
-                            <img src="https://www.google.com/s2/favicons?domain=target.com&sz=128" alt="Target">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
-                            <img src="https://www.google.com/s2/favicons?domain=amazon.com&sz=128" alt="Amazon">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
-                            <img src="https://www.google.com/s2/favicons?domain=walmart.com&sz=128" alt="Walmart">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="The Home Depot" onclick="setRetailer('The Home Depot')" title="The Home Depot">
-                            <img src="https://www.google.com/s2/favicons?domain=homedepot.com&sz=128" alt="Home Depot">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
-                            <img src="https://www.google.com/s2/favicons?domain=wayfair.com&sz=128" alt="Wayfair">
-                        </button>
-                        <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
-                            <img src="https://www.google.com/s2/favicons?domain=thecontainerstore.com&sz=128" alt="Container Store">
-                        </button>
-                    </div>
+                <div class="search-actions">
+                    <button class="btn-secondary sort-btn" id="sort-btn" onclick="togglePriceSort()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="12" x2="14" y2="12"></line><line x1="4" y1="18" x2="8" y2="18"></line></svg> 
+                        <span id="sort-text">Sort: Price</span>
+                    </button>
+                    <button class="btn-secondary filter-btn" id="filter-btn" onclick="clearFilters()" title="Click to clear filters">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+                        <span id="filter-text">Filtered (0)</span>
+                    </button>
                 </div>
             </div>
 
-            <div id="saved-empty-state" class="force-hide" style="padding:4rem; text-align:center; color:#A1A1A6;">
-                <div style="font-size:3rem; margin-bottom:1rem;">💔</div>
-                <h2>No saved items</h2>
-                <p>You haven't saved any items yet. Click the heart icon on any item to save it for later.</p>
-                <button class="chip active" style="margin-top:2rem;" onclick="toggleSavedTab(false)">Explore Marketplace</button>
+            <!-- Category Chips -->
+            <div class="category-chips" id="category-chips">
+                <button class="chip active" onclick="setCategory('All')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    All
+                </button>
+                <button class="chip" onclick="setCategory('Home')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Home
+                </button>
+                <button class="chip" onclick="setCategory('Electronics')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    Electronics
+                </button>
+                <button class="chip" onclick="setCategory('Fashion')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
+                    Fashion
+                </button>
+                <button class="chip" onclick="setCategory('Kitchen')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    Kitchen
+                </button>
+                <button class="chip" onclick="setCategory('Collectibles')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Collectibles
+                </button>
+            </div>
+            
+            <!-- Retailer Logos -->
+            <div class="retailer-row">
+                <span style="font-size: 0.85rem; color: var(--text-secondary); margin-right: 0.75rem; font-weight: 500;">Retailer</span>
+                <div class="retailer-logos">
+                    <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
+                        <img src="https://www.google.com/s2/favicons?domain=ikea.com&sz=128" alt="IKEA">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
+                        <img src="https://www.google.com/s2/favicons?domain=target.com&sz=128" alt="Target">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
+                        <img src="https://www.google.com/s2/favicons?domain=amazon.com&sz=128" alt="Amazon">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
+                        <img src="https://www.google.com/s2/favicons?domain=walmart.com&sz=128" alt="Walmart">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="The Home Depot" onclick="setRetailer('The Home Depot')" title="The Home Depot">
+                        <img src="https://www.google.com/s2/favicons?domain=homedepot.com&sz=128" alt="Home Depot">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
+                        <img src="https://www.google.com/s2/favicons?domain=wayfair.com&sz=128" alt="Wayfair">
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
+                        <img src="https://www.google.com/s2/favicons?domain=thecontainerstore.com&sz=128" alt="Container Store">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="saved-empty-state" class="force-hide" style="padding:4rem; text-align:center; color:var(--text-secondary);">
+                <div style="margin-bottom:1rem; opacity:0.5;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h2 style="color:var(--text-primary); margin-bottom:0.5rem;">No saved items</h2>
+                <p>You haven't saved any items yet.</p>
+                <button class="btn-secondary" style="margin-top:1.5rem;" onclick="toggleSavedTab(false)">Explore Marketplace</button>
             </div>
 
             <!-- Inventory Grid -->
@@ -87,59 +118,9 @@
             </div>
         </main>
     </div>
-    
-    <!-- Buy Modal -->
-    <div id="buy-modal" class="modal force-hide">
-        <!-- Stage 1: Phone -->
-        <div class="modal-content" id="modal-stage-1">
-            <h3>Step 1: Contact Info</h3>
-            <p id="modal-item-name" style="margin-bottom: 1rem; color:var(--text-secondary); font-weight:600;"></p>
-            <p style="font-size:0.9rem; margin-bottom: 1rem;">Please enter your phone number. This is required so we can text you the gate code for pickup!</p>
-            <div class="input-group">
-                <input type="tel" id="buyer-phone" placeholder="(555) 555-5555" required>
-            </div>
-            <p id="phone-error" style="color:#ff5555; display:none; font-size:0.9rem; margin-top:8px; font-weight:bold;">Please enter a valid phone number to continue.</p>
-            
-            <div class="modal-actions" style="margin-top: 1.5rem;">
-                <button class="pay-btn" style="background:var(--accent-color); color:white;" onclick="goToStage2()">Next ➔</button>
-                <button class="cancel-btn" style="margin-top:0.5rem;" onclick="closeModal()">Cancel</button>
-            </div>
-        </div>
-
-        <!-- Stage 2: Payment -->
-        <div class="modal-content force-hide" id="modal-stage-2">
-            <h3>Step 2: Payment options</h3>
-            <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom: 1rem;">Select your preferred secure payment method.</p>
-            
-            <div class="payment-options">
-                <button class="pay-btn btn-venmo" onclick="processPayment('venmo')">
-                    <img src="images/venmo.svg" class="pay-icon" alt="Venmo"> Venmo
-                </button>
-                <button class="pay-btn btn-cashapp" onclick="processPayment('cashapp')">
-                    <img src="images/cashapp.svg" class="pay-icon" alt="Cash App"> Cash App
-                </button>
-                <button class="pay-btn btn-zelle" onclick="processPayment('zelle')">
-                    <img src="images/zelle.svg" class="pay-icon" alt="Zelle"> Zelle
-                </button>
-            </div>
-            <button class="cancel-btn" style="margin-top:1.5rem;" onclick="closeModal()">Cancel</button>
-        </div>
-
-        <!-- Stage 3: Confirmation -->
-        <div class="modal-content force-hide" id="modal-stage-3">
-            <h3>Step 3: Instructions</h3>
-            <div id="instruction-content" class="instruction-box"></div>
-            
-            <div style="background: rgba(0, 214, 50, 0.1); border: 1px solid #00D632; padding: 1rem; border-radius: 12px; margin-top: 1rem; text-align: left;">
-                <strong>✅ Payment Logged!</strong>
-                <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-secondary);">You will get a confirmation DM when the item is placed in the mailroom with the gate code and instructions to get into the building.</p>
-            </div>
-            
-            <button class="cancel-btn" style="margin-top:1.5rem; background:#333; border:none;" onclick="closeModal()">Back to Store</button>
-        </div>
-    </div>
 
 <script>
+
 
         
         const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQgNwntMBcyGi-5hplX9GiCBR4eKPvQiHTPE8R27_9awMk2bJpqOucyN3ZcQIkJLW13V9aJl61nkVSa/pub?output=csv';
@@ -191,19 +172,20 @@
             else if (priceSort === 'asc') priceSort = 'desc';
             else priceSort = null;
             
-            let btn = document.getElementById('menu-price');
-            if (priceSort === 'asc') btn.innerHTML = '<span class="icon">💰</span> Low to High';
-            else if (priceSort === 'desc') btn.innerHTML = '<span class="icon">💰</span> High to Low';
-            else btn.innerHTML = '<span class="icon">💰</span> Price Sort';
-            
+            let btn = document.getElementById('sort-btn');
+            let sortText = document.getElementById('sort-text');
+            if (priceSort === 'asc') sortText.innerText = 'Low to High';
+            else if (priceSort === 'desc') sortText.innerText = 'High to Low';
+            else sortText.innerText = 'Sort: Price';
             btn.classList.toggle('active', priceSort !== null);
             renderInventory();
         }
         
         function toggleSavedTab(state) {
             isSavedTab = state;
-            document.getElementById('menu-search').classList.toggle('active', !state);
-            document.getElementById('menu-saved').classList.toggle('active', state);
+            let headerBtn = document.getElementById('header-saved-btn');
+            headerBtn.classList.toggle('active', state);
+            document.getElementById('saved-text').innerText = state ? 'Back to Store' : 'Saved';
             renderInventory();
         }
 
@@ -217,12 +199,14 @@
 
         function clearFilters() {
             document.getElementById('search-input').value = "";
-            setCategory("All");
+            selectedCategory = "All";
             selectedRetailer = "All";
+            document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.innerText.trim() === 'All'));
             document.querySelectorAll('.retailer-logo-btn').forEach(btn => btn.classList.remove('active'));
             priceSort = null;
-            document.getElementById('menu-price').innerHTML = '<span class="icon">💰</span> Price Sort';
-            document.getElementById('menu-price').classList.remove('active');
+            let sortBtn = document.getElementById('sort-btn');
+            sortBtn.classList.remove('active');
+            document.getElementById('sort-text').innerText = 'Sort: Price';
             renderInventory();
         }
 
@@ -486,8 +470,11 @@
             if (searchQuery !== "") activeFilters++;
             if (selectedCategory !== "All") activeFilters++;
             if (selectedRetailer !== "All") activeFilters++;
-            document.getElementById('filters-count').innerText = `${activeFilters} filters active`;
-
+            
+            let filterBtn = document.getElementById('filter-btn');
+            document.getElementById('filter-text').innerText = activeFilters > 0 ? `Filtered (${activeFilters})` : 'Filtered (0)';
+            filterBtn.classList.toggle('active', activeFilters > 0);
+            
             const container = document.getElementById('inventory-container');
             const emptyState = document.getElementById('saved-empty-state');
             
@@ -522,7 +509,10 @@
                             <span class="item-price">$${item.price.toFixed(2)}</span>
                             <div class="card-actions">
                                 <button class="action-btn ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)">
-                                    ${isSaved ? '❤️' : '🤍'}
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="${isSaved ? 'var(--accent-color)' : 'none'}" stroke="${isSaved ? 'var(--accent-color)' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                </button>
+                                <button class="action-btn" onclick="toggleItem('${item.id}')">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline></svg>
                                 </button>
                                 <button class="action-btn" onclick="toggleItem('${item.id}')">
                                     ${isExpanded ? '▲' : '▼'}
@@ -675,6 +665,7 @@ function toggleFaq() {
 
         fetchInventory();
     
+
 </script>
 </body>
 </html>
