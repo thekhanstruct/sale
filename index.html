@@ -258,7 +258,8 @@
 
         async function fetchInventory() {
             try {
-                const response = await fetch(SHEET_CSV_URL);
+                // Add a cache-busting query parameter so the browser always fetches the latest Google Sheet changes
+                const response = await fetch(SHEET_CSV_URL + '&_t=' + new Date().getTime());
                 let data = await response.text();
                 
                 // Inject Test Product for User Verification
