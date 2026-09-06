@@ -21,12 +21,9 @@
             </div>
             <nav class="sidebar-menu">
                 <button id="menu-search" class="menu-item active" onclick="toggleSavedTab(false)"><span class="icon">🔍</span> Search</button>
-                <button class="menu-item disabled"><span class="icon">💰</span> Price</button>
-                <button class="menu-item disabled"><span class="icon">📋</span> Category</button>
-                <button class="menu-item disabled"><span class="icon">🏪</span> Source / Store</button>
-                <button class="menu-item disabled"><span class="icon">🏷️</span> Condition</button>
-                <button class="menu-item disabled"><span class="icon">✅</span> Availability</button>
+                <button id="menu-price" class="menu-item" onclick="togglePriceSort()"><span class="icon">💰</span> Price Sort</button>
                 <button id="menu-saved" class="menu-item" onclick="toggleSavedTab(true)"><span class="icon">❤️</span> Saved</button>
+                <button class="menu-item" onclick="clearFilters()" style="color:var(--accent-color);"><span class="icon" style="background:transparent;">✖</span> Clear Filters</button>
             </nav>
         </aside>
 
@@ -130,7 +127,22 @@
         let selectedCategory = "All";
         let expandedItemId = null;
         let isSavedTab = false;
+        let priceSort = null;
         let savedItemIds = JSON.parse(localStorage.getItem('savedItemIds') || '[]');
+        
+        function togglePriceSort() {
+            if (priceSort === null) priceSort = 'asc';
+            else if (priceSort === 'asc') priceSort = 'desc';
+            else priceSort = null;
+            
+            let btn = document.getElementById('menu-price');
+            if (priceSort === 'asc') btn.innerHTML = '<span class="icon">💰</span> Low to High';
+            else if (priceSort === 'desc') btn.innerHTML = '<span class="icon">💰</span> High to Low';
+            else btn.innerHTML = '<span class="icon">💰</span> Price Sort';
+            
+            btn.classList.toggle('active', priceSort !== null);
+            renderInventory();
+        }
         
         function toggleSavedTab(state) {
             isSavedTab = state;
@@ -150,6 +162,10 @@
         function clearFilters() {
             document.getElementById('search-input').value = "";
             setCategory("All");
+            priceSort = null;
+            document.getElementById('menu-price').innerHTML = '<span class="icon">💰</span> Price Sort';
+            document.getElementById('menu-price').classList.remove('active');
+            renderInventory();
         }
 
         function toggleItem(id) {
@@ -397,6 +413,12 @@
                 const matchesSavedTab = !isSavedTab || savedItemIds.includes(item.id);
                 return matchesSearch && matchesCategory && matchesSavedTab;
             });
+            
+            if (priceSort === 'asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (priceSort === 'desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            }
 
             // Update filters count
             let activeFilters = 0;
