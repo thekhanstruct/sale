@@ -52,66 +52,76 @@
 
             <!-- Category Chips -->
             <div class="category-chips" id="category-chips">
-                <button class="chip active" onclick="setCategory('All')">
+                <button class="chip active" data-category="All" onclick="setCategory('All')">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     All
                 </button>
-                <button class="chip" onclick="setCategory('Home')">
+                <button class="chip" data-category="Storage" onclick="setCategory('Storage')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    Storage
+                </button>
+                <button class="chip" data-category="Acrylic" onclick="setCategory('Acrylic')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 2 18 2 22 8 12 22 2 8"></polygon></svg>
+                    Acrylic
+                </button>
+                <button class="chip" data-category="Shelves" onclick="setCategory('Shelves')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    Shelves
+                </button>
+                <button class="chip" data-category="Kitchen" onclick="setCategory('Kitchen')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                    Kitchen
+                </button>
+                <button class="chip" data-category="Decor" onclick="setCategory('Decor')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 4-10 0-14-4 4-4 10 0 14z"></path></svg>
+                    Decor
+                </button>
+                <button class="chip" data-category="Collectibles" onclick="setCategory('Collectibles')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    Collectibles
+                </button>
+                <button class="chip" data-category="Home" onclick="setCategory('Home')">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                     Home
                 </button>
-                <button class="chip" onclick="setCategory('Electronics')">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    Electronics
-                </button>
-                <button class="chip" onclick="setCategory('Fashion')">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
-                    Fashion
-                </button>
-                <button class="chip" onclick="setCategory('Kitchen')" id="cat-kitchen"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> Kitchen</button>
-                <button class="chip" onclick="setCategory('Collectibles')" id="cat-collectibles"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg> Collectibles</button>
-                <button class="chip" onclick="setCategory('Storage')" id="cat-storage"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> Storage</button>
-                <button class="chip" onclick="setCategory('Shelves')" id="cat-shelves"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg> Shelves</button>
-                <button class="chip" onclick="setCategory('Acrylic')" id="cat-acrylic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z"></path></svg> Acrylic</button>
-                <button class="chip" onclick="setCategory('Decor')" id="cat-decor"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 4-10 0-14-4 4-4 10 0 14z"></path></svg> Decor</button>
             </div>
             
-            <!-- Retailer Logos -->
+            <!-- Authentic Retailer Vector Logos -->
             <div class="retailer-row">
-                <span style="font-size: 0.85rem; color: var(--text-secondary); margin-right: 0.75rem; font-weight: 500;">Retailer</span>
+                <span style="font-size: 0.8rem; color: var(--text-secondary); margin-right: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Retailer</span>
                 <div class="retailer-logos">
-                    <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
-                        <img src="https://www.google.com/s2/favicons?domain=ikea.com&sz=128" alt="IKEA">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
-                        <img src="https://www.google.com/s2/favicons?domain=target.com&sz=128" alt="Target">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
-                        <img src="https://www.google.com/s2/favicons?domain=amazon.com&sz=128" alt="Amazon">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
-                        <img src="https://www.google.com/s2/favicons?domain=walmart.com&sz=128" alt="Walmart">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="The Home Depot" onclick="setRetailer('The Home Depot')" title="The Home Depot">
-                        <img src="https://www.google.com/s2/favicons?domain=homedepot.com&sz=128" alt="Home Depot">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
-                        <img src="https://www.google.com/s2/favicons?domain=wayfair.com&sz=128" alt="Wayfair">
-                    </button>
-                    <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
-                        <img src="https://www.google.com/s2/favicons?domain=thecontainerstore.com&sz=128" alt="Container Store">
-                    </button>
                     <button class="retailer-logo-btn" data-retailer="Michaels" onclick="setRetailer('Michaels')" title="Michaels">
-                        <img src="https://www.google.com/s2/favicons?domain=michaels.com&sz=128" alt="Michaels">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#E21836"/><text x="50" y="22" font-family="'Georgia', serif" font-weight="900" font-style="italic" font-size="16" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>
                     </button>
                     <button class="retailer-logo-btn" data-retailer="Five Below" onclick="setRetailer('Five Below')" title="Five Below">
-                        <img src="https://www.google.com/s2/favicons?domain=fivebelow.com&sz=128" alt="Five Below">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0077C8"/><text x="50" y="14" font-family="'Impact', sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">five</text><text x="50" y="27" font-family="'Impact', sans-serif" font-size="13" fill="#FFC72C" text-anchor="middle" letter-spacing="1">BELOW</text></svg>
                     </button>
                     <button class="retailer-logo-btn" data-retailer="Big Lots" onclick="setRetailer('Big Lots')" title="Big Lots">
-                        <img src="https://www.google.com/s2/favicons?domain=biglots.com&sz=128" alt="Big Lots">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#F47321"/><text x="38" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="68" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="84" y="22" font-family="'Impact', sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold">!</text></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Target" onclick="setRetailer('Target')" title="Target">
+                        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="15" fill="#CC0000"/><circle cx="16" cy="16" r="10" fill="#FFFFFF"/><circle cx="16" cy="16" r="5" fill="#CC0000"/></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="IKEA" onclick="setRetailer('IKEA')" title="IKEA">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0058A8"/><ellipse cx="50" cy="16" rx="44" ry="13" fill="#FFDA1A"/><text x="50" y="22" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="17" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="The Container Store" onclick="setRetailer('The Container Store')" title="The Container Store">
+                        <svg viewBox="0 0 110 32" xmlns="http://www.w3.org/2000/svg"><rect width="110" height="32" rx="6" fill="#0D2538"/><text x="55" y="12" font-family="system-ui, sans-serif" font-weight="700" font-size="7" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="55" y="21" font-family="system-ui, sans-serif" font-weight="800" font-size="9" fill="#00C389" text-anchor="middle" letter-spacing="1">CONTAINER</text><text x="55" y="28" font-family="system-ui, sans-serif" font-weight="700" font-size="6.5" fill="#88A0B8" text-anchor="middle" letter-spacing="1.5">STORE</text></svg>
                     </button>
                     <button class="retailer-logo-btn" data-retailer="HomeGoods" onclick="setRetailer('HomeGoods')" title="HomeGoods">
-                        <img src="https://www.google.com/s2/favicons?domain=homegoods.com&sz=128" alt="HomeGoods">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#BF1522"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Amazon" onclick="setRetailer('Amazon')" title="Amazon">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#131921"/><text x="50" y="19" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M28 23 Q 50 28 72 23" stroke="#FF9900" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="70,21 74,23 71,25" fill="#FF9900"/></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Walmart" onclick="setRetailer('Walmart')" title="Walmart">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0071DC"/><text x="42" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="77" cy="16" r="2.5" fill="#FFC220"/><line x1="77" y1="10" x2="77" y2="12" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="77" y1="20" x2="77" y2="22" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="13" x2="73" y2="14.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="17.5" x2="83" y2="19" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="19" x2="73" y2="17.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="14.5" x2="83" y2="13" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="Wayfair" onclick="setRetailer('Wayfair')" title="Wayfair">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#7B2C88"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>
+                    </button>
+                    <button class="retailer-logo-btn" data-retailer="At Home" onclick="setRetailer('At Home')" title="At Home">
+                        <svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#FF5E00"/><text x="50" y="21" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">at home</text></svg>
                     </button>
                 </div>
             </div>
@@ -210,7 +220,7 @@
         function setCategory(cat) {
             selectedCategory = cat;
             document.querySelectorAll('.chip').forEach(c => {
-                c.classList.toggle('active', c.innerText === cat);
+                c.classList.toggle('active', c.getAttribute('data-category') === cat);
             });
             renderInventory();
         }
@@ -219,12 +229,15 @@
             document.getElementById('search-input').value = "";
             selectedCategory = "All";
             selectedRetailer = "All";
-            document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.innerText.trim() === 'All'));
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.toggle('active', c.getAttribute('data-category') === 'All');
+            });
             document.querySelectorAll('.retailer-logo-btn').forEach(btn => btn.classList.remove('active'));
             priceSort = null;
             let sortBtn = document.getElementById('sort-btn');
-            sortBtn.classList.remove('active');
-            document.getElementById('sort-text').innerText = 'Sort: Price';
+            if (sortBtn) sortBtn.classList.remove('active');
+            let sortText = document.getElementById('sort-text');
+            if (sortText) sortText.innerText = 'Sort: Price';
             renderInventory();
         }
 
@@ -234,7 +247,7 @@
         }
 
         function toggleSaved(id, event) {
-            event.stopPropagation();
+            if (event) event.stopPropagation();
             if (savedItemIds.includes(id)) {
                 savedItemIds = savedItemIds.filter(i => i !== id);
             } else {
@@ -243,301 +256,497 @@
             localStorage.setItem('savedItemIds', JSON.stringify(savedItemIds));
             renderInventory();
         }
-        
-        
+
+        // Authentic Vector Retailer SVG Logos
+        function getRetailerLogoSvg(retailer) {
+            switch (retailer) {
+                case 'Michaels':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#E21836"/><text x="50" y="22" font-family="'Georgia', serif" font-weight="900" font-style="italic" font-size="16" fill="#FFFFFF" text-anchor="middle">Michaels</text></svg>`;
+                case 'Five Below':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0077C8"/><text x="50" y="14" font-family="'Impact', sans-serif" font-size="11" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">five</text><text x="50" y="27" font-family="'Impact', sans-serif" font-size="13" fill="#FFC72C" text-anchor="middle" letter-spacing="1">BELOW</text></svg>`;
+                case 'Big Lots':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#F47321"/><text x="38" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">BIG</text><text x="68" y="22" font-family="'Impact', sans-serif" font-size="15" fill="#FFFFFF" text-anchor="middle">LOTS</text><text x="84" y="22" font-family="'Impact', sans-serif" font-size="17" fill="#FFFFFF" font-weight="bold">!</text></svg>`;
+                case 'Target':
+                    return `<svg viewBox="0 0 80 32" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="32" rx="6" fill="#CC0000"/><circle cx="22" cy="16" r="10" fill="#FFFFFF"/><circle cx="22" cy="16" r="6" fill="#CC0000"/><circle cx="22" cy="16" r="3" fill="#FFFFFF"/><text x="54" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle" letter-spacing="0.5">TARGET</text></svg>`;
+                case 'IKEA':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0058A8"/><ellipse cx="50" cy="16" rx="44" ry="13" fill="#FFDA1A"/><text x="50" y="22" font-family="'Arial Black', Impact, sans-serif" font-weight="900" font-size="17" fill="#0058A8" text-anchor="middle" letter-spacing="1">IKEA</text></svg>`;
+                case 'The Container Store':
+                    return `<svg viewBox="0 0 110 32" xmlns="http://www.w3.org/2000/svg"><rect width="110" height="32" rx="6" fill="#0D2538"/><text x="55" y="12" font-family="system-ui, sans-serif" font-weight="700" font-size="7" fill="#88A0B8" text-anchor="middle" letter-spacing="1">THE</text><text x="55" y="21" font-family="system-ui, sans-serif" font-weight="800" font-size="9" fill="#00C389" text-anchor="middle" letter-spacing="1">CONTAINER</text><text x="55" y="28" font-family="system-ui, sans-serif" font-weight="700" font-size="6.5" fill="#88A0B8" text-anchor="middle" letter-spacing="1.5">STORE</text></svg>`;
+                case 'HomeGoods':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#BF1522"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">HomeGoods</text></svg>`;
+                case 'Amazon':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#131921"/><text x="50" y="19" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">amazon</text><path d="M28 23 Q 50 28 72 23" stroke="#FF9900" stroke-width="2" fill="none" stroke-linecap="round"/><polygon points="70,21 74,23 71,25" fill="#FF9900"/></svg>`;
+                case 'Walmart':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#0071DC"/><text x="42" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">Walmart</text><circle cx="77" cy="16" r="2.5" fill="#FFC220"/><line x1="77" y1="10" x2="77" y2="12" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="77" y1="20" x2="77" y2="22" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="13" x2="73" y2="14.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="17.5" x2="83" y2="19" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="71" y1="19" x2="73" y2="17.5" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/><line x1="81" y1="14.5" x2="83" y2="13" stroke="#FFC220" stroke-width="2" stroke-linecap="round"/></svg>`;
+                case 'Wayfair':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#7B2C88"/><text x="50" y="21" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="14" fill="#FFFFFF" text-anchor="middle">wayfair</text></svg>`;
+                case 'At Home':
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#FF5E00"/><text x="50" y="21" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" text-anchor="middle">at home</text></svg>`;
+                default:
+                    return `<svg viewBox="0 0 100 32" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="32" rx="6" fill="#374151"/><text x="50" y="21" font-family="system-ui, sans-serif" font-weight="700" font-size="12" fill="#E5E7EB" text-anchor="middle">${retailer}</text></svg>`;
+            }
+        }
+
+        // Physically verified and tag-matched product data
         const verifiedProductLinks = {
-            "Bead Landing 36-Compartment Divided Trays": "https://www.michaels.com/product/136-clear-36compartment-divided-tray-with-lid-by-bead-landing-10713934",
-            "Studio Décor Front-Loading Minifigure Cases": "https://www.michaels.com/product/clear-front-loading-mini-figure-shadow-box-with-shelves-by-studio-decor-D476044S",
-            "Clear Letter File Storage Cases": "https://www.michaels.com/product/clear-letter-file-storage-case-with-top-handle-by-simply-tidy-D285226S",
-            "Simply Tidy Large Storage Bins": "https://www.michaels.com/product/13-x-13-clear-storage-bin-with-handles-by-simply-tidy-10738098",
-            "Simply Tidy Storage Bins w/ Handles": "https://www.michaels.com/product/13-x-65-clear-storage-bin-with-handles-by-simply-tidy-10738096",
-            "Simply Tidy Storage Trays": "https://www.michaels.com/product/12-x-4-clear-stacking-storage-tray-by-simply-tidy-10738088",
-            "Bead Landing 6–12 Divided Trays": "https://www.michaels.com/product/6-pack-136-clear-12-compartment-divided-tray-with-lid-by-bead-landing-10665790",
-            "Floating Wall Shelves": "https://www.fivebelow.com/products/floating-wall-shelf-18in",
-            "White Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
-            "Wood Grain Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "Ironing Board Cover": "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab",
+            "KitchenAid Classic Series 4.5 Stand Mixer": "https://www.wayfair.com/kitchen-tabletop/pdp/kitchenaid-classic-series-45-quart-tilt-head-stand-mixer-kad1445.html?piid=33371416",
+            "Ninja Pods Coffee Maker": "https://www.amazon.com/Ninja-Grounds-Single-Serve-Coffee-Maker/dp/B0F9LKMSZM?th=1",
+            "Bamboo Flatware Tray": "https://www.ikea.com/us/en/p/uppdatera-flatware-tray-light-bamboo-20491356/",
+            "Dark Gray Drawer Organizers": "https://www.ikea.com/us/en/p/visslaan-drawer-organizers-set-of-3-gray-20562117/",
+            "FEJKA Artificial Potted Plant": "https://www.ikea.com/us/en/p/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus-00615249/",
+            "TAVELÅN Tray Set": "https://www.ikea.com/us/en/p/tavelan-tray-set-of-2-bamboo-50465191/",
+            "NÖDMAST LED Portable Lamp": "https://www.ikea.com/us/en/p/noedmast-led-portable-lamp-battery-operated-white-black-50582576/#content",
+            "BOLLÖSUND Drawer Organizers": "https://www.ikea.com/us/en/p/bolloesund-drawer-organizers-set-of-4-beige-20570886/",
+            "VISSLAÅN Box with Compartments": "https://www.ikea.com/us/en/p/visslaan-box-with-compartments-gray-00562104/",
+            "VISSLAÅN Box with Lid": "https://www.ikea.com/us/en/p/visslaan-box-with-lid-set-of-5-gray-90554538/",
+            "Potted Areca Palm Plant": "https://www.athome.com/potted-areca-palm-plant-6/124351622.html",
+            "Simple Bamboo Desk": "https://us.amazon.com/Niche-Student-Desk-Shell-Latte/dp/B08QTWCQDC",
+            "Hudson Clear Storage Bins": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
+            "Metal Wire Bins w/ Wood Base": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
+            "Big Lots Acrylic Bins": "https://www.biglots.com/c/home-storage-organization/drawer-organizers-trays/_/N-2321528615",
             "Clear Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
-            "2-Tier Sliding Drawer Vanity Organizer": "https://www.target.com/p/two-tiered-slide-out-organizer-brightroom/-/A-83717158",
+            "Wood Grain Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "White Corner Shelves": "https://www.fivebelow.com/products/corner-wall-shelf-1525in",
+            "Floating Wall Shelves": "https://www.fivebelow.com/products/floating-wall-shelf-18in",
+            "Clear Letter File Storage Cases": "https://www.michaels.com/product/clear-letter-file-storage-case-with-top-handle-by-simply-tidy-D285226S",
+            "Bead Landing 36-Compartment Divided Trays": "https://www.michaels.com/product/136-clear-36compartment-divided-tray-with-lid-by-bead-landing-10713934",
+            "Simply Tidy Storage Bins w/ Handles": "https://www.michaels.com/product/13-x-65-clear-storage-bin-with-handles-by-simply-tidy-10738096",
+            "Simply Tidy Large Storage Bins": "https://www.michaels.com/product/13-x-13-clear-storage-bin-with-handles-by-simply-tidy-10738098",
+            "Bead Landing 6–12 Divided Trays": "https://www.michaels.com/product/6-pack-136-clear-12-compartment-divided-tray-with-lid-by-bead-landing-10665790",
+            "Studio Décor Front-Loading Minifigure Cases": "https://www.michaels.com/product/clear-front-loading-mini-figure-shadow-box-with-shelves-by-studio-decor-D476044S",
+            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "https://www.homegoods.com",
+            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "https://www.homegoods.com",
             "MasterChef Bamboo Cutlery Organizers": "https://www.target.com/p/expandable-bamboo-cutlery-tray-brightroom-8482/-/A-85318301",
             "Bamboo Expandable Spice Racks": "https://www.target.com/p/expandable-bamboo-spice-rack-brightroom-8482/-/A-85318301",
             "Bamboo 3-Tier Step Risers": "https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/3-tier-bamboo-expanding-spice-shelf/12d?productId=11000844",
             "Acrylic 3-Tier Display Steps": "https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/clear-3-tier-expanding-organizer/12d?productId=11018868",
             "Acrylic Pull-Out Storage Bins": "https://www.thecontainerstore.com/s/storage/drawers/the-home-edit-by-idesign-drawer-organizers/12d?productId=11012901",
             "Acrylic Apothecary Jars": "https://www.target.com/p/medium-plastic-canister-with-bamboo-lid-brightroom-8482/-/A-85318301",
-            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "https://www.target.com/p/2pc-glass-storage-canister-set-with-bamboo-lids-threshold-8482/-/A-82255745",
-            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "https://www.target.com/p/2pc-glass-storage-canister-set-with-bamboo-lids-threshold-8482/-/A-82255745",
-            "Hudson Clear Storage Bins": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
-            "Metal Wire Bins w/ Wood Base": "https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904",
-            "Big Lots Acrylic Bins": "https://www.biglots.com/c/home-storage-organization/drawer-organizers-trays/_/N-2321528615"
+            "2-Tier Sliding Drawer Vanity Organizer": "https://www.target.com/p/two-tiered-slide-out-organizer-brightroom/-/A-83717158"
         };
 
-        const defaultItemImages = {
+        const verifiedImagesByName = {
+            "Ironing Board Cover": "images/IMG_8043.jpeg",
+            "KitchenAid Classic Series 4.5 Stand Mixer": "images/IMG_8501.jpeg",
+            "Ninja Pods Coffee Maker": "images/IMG_8502.jpeg",
+            "Bamboo Flatware Tray": "images/IMG_8505.jpeg",
+            "Dark Gray Drawer Organizers": "images/IMG_8038.jpeg",
+            "FEJKA Artificial Potted Plant": "images/IMG_8504.jpeg",
+            "TAVELÅN Tray Set": "images/IMG_8046.jpeg",
+            "NÖDMAST LED Portable Lamp": "images/IMG_8507.jpeg",
+            "BOLLÖSUND Drawer Organizers": "images/IMG_8049.jpeg",
+            "VISSLAÅN Box with Compartments": "images/IMG_8039.jpeg",
+            "VISSLAÅN Box with Lid": "images/IMG_8039.jpeg",
+            "Potted Areca Palm Plant": "images/IMG_2553.jpeg",
+            "Simple Bamboo Desk": "images/IMG_2592.jpeg",
             "Hudson Clear Storage Bins": "images/IMG_8167.jpeg",
-            "Metal Wire Bins w/ Wood Base": "images/IMG_8168_1.jpeg",
-            "Clear Corner Shelves": "images/IMG_8171.jpeg",
-            "Wood Grain Corner Shelves": "images/IMG_8172.jpeg",
-            "White Corner Shelves": "images/IMG_8172.jpeg",
-            "Floating Wall Shelves": "images/IMG_8175_1.jpeg",
-            "Simply Tidy Large Storage Bins": "images/IMG_8177_1.jpeg",
-            "Simply Tidy Storage Trays": "images/IMG_8179.jpeg",
-            "Simply Tidy Storage Bins w/ Handles": "images/IMG_8182.jpeg",
-            "MasterChef Bamboo Cutlery Organizers": "images/IMG_8183.jpeg",
-            "Bamboo Expandable Spice Racks": "images/IMG_8184.jpeg",
-            "Bamboo 3-Tier Step Risers": "images/IMG_8184.jpeg",
-            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "images/IMG_8185.jpeg",
-            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "images/IMG_8186.jpeg",
-            "Acrylic Apothecary Jars": "images/IMG_8187.jpeg",
-            "Studio Décor Front-Loading Minifigure Cases": "images/IMG_8188.jpeg",
-            "Bead Landing 6–12 Divided Trays": "images/IMG_8189.jpeg",
-            "Clear Letter File Storage Cases": "images/IMG_8190.jpeg",
-            "Big Lots Acrylic Bins": "images/IMG_8191.jpeg",
-            "Bead Landing 36-Compartment Divided Trays": "images/IMG_8193.jpeg",
-            "Acrylic 3-Tier Display Steps": "images/IMG_8194.jpeg",
+            "Metal Wire Bins w/ Wood Base": "images/IMG_8171.jpeg",
+            "Big Lots Acrylic Bins": "images/IMG_8196_big_lots_bin.jpeg",
+            "Clear Corner Shelves": "images/IMG_8172.jpeg",
+            "Wood Grain Corner Shelves": "images/IMG_8173_1_2.jpeg",
+            "White Corner Shelves": "images/IMG_8175_1.jpeg",
+            "Floating Wall Shelves": "images/IMG_8179.jpeg",
+            "Clear Letter File Storage Cases": "images/IMG_8195_file_case.jpeg",
+            "Bead Landing 36-Compartment Divided Trays": "images/IMG_8200.jpeg",
+            "Simply Tidy Storage Bins w/ Handles": "images/IMG_8184.jpeg",
+            "Simply Tidy Large Storage Bins": "images/IMG_8169_large_bin.jpeg",
+            "Bead Landing 6–12 Divided Trays": "images/IMG_8192.jpeg",
+            "Studio Décor Front-Loading Minifigure Cases": "images/IMG_8191.jpeg",
+            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "images/IMG_8188.jpeg",
+            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "images/IMG_8189.jpeg",
+            "MasterChef Bamboo Cutlery Organizers": "images/IMG_8186.jpeg",
+            "Bamboo Expandable Spice Racks": "images/IMG_8185.jpeg",
+            "Bamboo 3-Tier Step Risers": "images/IMG_8187.jpeg",
+            "Acrylic 3-Tier Display Steps": "images/IMG_8193.jpeg",
             "Acrylic Pull-Out Storage Bins": "images/IMG_8194.jpeg",
-            "2-Tier Sliding Drawer Vanity Organizer": "images/IMG_8173_1_2.jpeg"
+            "Acrylic Apothecary Jars": "images/IMG_8190.jpeg",
+            "2-Tier Sliding Drawer Vanity Organizer": "images/IMG_8177_1.jpeg"
         };
 
-        function inferCategory(name, desc) {
-            const text = (name + " " + desc).toLowerCase();
-            if (text.match(/acrylic/)) return "Acrylic";
-            if (text.match(/shelf|shelves|rack|riser/)) return "Shelves";
-            if (text.match(/bin|box|tray|case|storage|drawer/)) return "Storage";
-            if (text.match(/decor|plant|frame|sign|mirror/)) return "Decor";
-            if (text.match(/shirt|dress|shoes|hat|apparel|clothing/)) return "Fashion";
-            if (text.match(/tv|monitor|laptop|computer|electronics|cable|camera|phone|ipad|macbook|charger|audio|speaker/)) return "Electronics";
-            if (text.match(/kitchen|mixer|blender|pot|pan|utensil|coffee|mug|plate|bowl|cutlery/)) return "Kitchen";
-            if (text.match(/collectible|figure|lego|funko|card|trading|memorabilia/)) return "Collectibles";
-            return "Home";
+        const verifiedOriginalPrices = {
+            "Ironing Board Cover": "$10.00",
+            "KitchenAid Classic Series 4.5 Stand Mixer": "$449.99",
+            "Ninja Pods Coffee Maker": "$80.00",
+            "Bamboo Flatware Tray": "$34.99",
+            "Dark Gray Drawer Organizers": "$6.99",
+            "FEJKA Artificial Potted Plant": "$9.99",
+            "TAVELÅN Tray Set": "$13.99",
+            "NÖDMAST LED Portable Lamp": "$10.99",
+            "BOLLÖSUND Drawer Organizers": "$17.00",
+            "VISSLAÅN Box with Compartments": "$17.00",
+            "VISSLAÅN Box with Lid": "$14.00",
+            "Potted Areca Palm Plant": "$80.00",
+            "Simple Bamboo Desk": "$40.00",
+            "Hudson Clear Storage Bins": "$16.99",
+            "Metal Wire Bins w/ Wood Base": "$13.99",
+            "Big Lots Acrylic Bins": "$4.99",
+            "Clear Corner Shelves": "$5.00",
+            "Wood Grain Corner Shelves": "$5.00",
+            "White Corner Shelves": "$5.00",
+            "Floating Wall Shelves": "$5.00",
+            "Clear Letter File Storage Cases": "$39.99",
+            "Bead Landing 36-Compartment Divided Trays": "$44.99",
+            "Simply Tidy Storage Bins w/ Handles": "$29.99",
+            "Simply Tidy Large Storage Bins": "$39.99",
+            "Bead Landing 6–12 Divided Trays": "$19.99",
+            "Studio Décor Front-Loading Minifigure Cases": "$39.99",
+            "Gourmet Glass Canisters (Small 21.9 oz 2-pk)": "$6.99",
+            "Gourmet Glass Canisters (Large 33.8 oz 2-pk)": "$8.99",
+            "MasterChef Bamboo Cutlery Organizers": "$19.99",
+            "Bamboo Expandable Spice Racks": "$19.99",
+            "Bamboo 3-Tier Step Risers": "$12.99",
+            "Acrylic 3-Tier Display Steps": "$12.00",
+            "Acrylic Pull-Out Storage Bins": "$12.99",
+            "Acrylic Apothecary Jars": "$4.00",
+            "2-Tier Sliding Drawer Vanity Organizer": "$14.99"
+        };
+
+        function getVerifiedImage(name, subname = '', dimensions = '', size = '') {
+            const full = (name + ' ' + subname + ' ' + dimensions + ' ' + size).toLowerCase();
+            
+            // Explicit check for Simply Tidy tray dimensions
+            if (full.includes('simply tidy') && (full.includes('tray') || full.includes('trays'))) {
+                if (full.includes('12"x4"') || full.includes('12" x 4"') || full.includes('12 x 4')) return 'images/IMG_8180_1.jpeg';
+                if (full.includes('12"x8"') || full.includes('12" x 8"') || full.includes('12 x 8')) return 'images/IMG_8182.jpeg';
+                if (full.includes('8"x4"') || full.includes('8" x 4"') || full.includes('8 x 4')) return 'images/IMG_8181_tray_8x4.jpeg';
+                if (full.includes('4"x4"') || full.includes('4" x 4"') || full.includes('4 x 4')) return 'images/IMG_8183.jpeg';
+            }
+            
+            for (const [key, img] of Object.entries(verifiedImagesByName)) {
+                if (name.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(name.toLowerCase())) {
+                    return img;
+                }
+            }
+            return null;
         }
 
+        function getVerifiedRetailerUrl(name, subname = '', dimensions = '', currentLink = '') {
+            const full = (name + ' ' + subname + ' ' + dimensions).toLowerCase();
+            
+            if (full.includes('simply tidy') && (full.includes('tray') || full.includes('trays'))) {
+                if (full.includes('12"x4"') || full.includes('12" x 4"') || full.includes('12 x 4')) return 'https://www.michaels.com/product/12-x-4-clear-stacking-storage-tray-by-simply-tidy-10738088';
+                if (full.includes('12"x8"') || full.includes('12" x 8"') || full.includes('12 x 8')) return 'https://www.michaels.com/product/12-x-8-clear-stacking-storage-tray-by-simply-tidy-10738090';
+                if (full.includes('8"x4"') || full.includes('8" x 4"') || full.includes('8 x 4')) return 'https://www.michaels.com/product/8-x-4-clear-stacking-storage-tray-by-simply-tidy-10738086';
+                if (full.includes('4"x4"') || full.includes('4" x 4"') || full.includes('4 x 4')) return 'https://www.michaels.com/product/4-x-4-clear-stacking-storage-tray-by-simply-tidy-10738084';
+            }
+            
+            if (currentLink && currentLink !== '#' && !currentLink.includes('/search') && !currentLink.includes('categories?q=')) {
+                return currentLink;
+            }
+            
+            for (const [key, link] of Object.entries(verifiedProductLinks)) {
+                if (name.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(name.toLowerCase())) {
+                    return link;
+                }
+            }
+            return currentLink || '#';
+        }
+
+        function getVerifiedOriginalPrice(name, subname = '', dimensions = '', currentOrig = '') {
+            const full = (name + ' ' + subname + ' ' + dimensions).toLowerCase();
+            
+            if (full.includes('simply tidy') && (full.includes('tray') || full.includes('trays'))) {
+                if (full.includes('12"x4"') || full.includes('12" x 4"') || full.includes('12 x 4')) return '$6.99';
+                if (full.includes('12"x8"') || full.includes('12" x 8"') || full.includes('12 x 8')) return '$8.99';
+                if (full.includes('8"x4"') || full.includes('8" x 4"') || full.includes('8 x 4')) return '$4.99';
+                if (full.includes('4"x4"') || full.includes('4" x 4"') || full.includes('4 x 4')) return '$2.99';
+            }
+            
+            if (currentOrig && currentOrig !== 'N/A' && currentOrig.trim() !== '' && !currentOrig.startsWith('.00') && !currentOrig.startsWith('.99')) {
+                let cleaned = currentOrig.trim();
+                return cleaned.startsWith('$') ? cleaned : '$' + cleaned;
+            }
+            
+            for (const [key, price] of Object.entries(verifiedOriginalPrices)) {
+                if (name.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(name.toLowerCase())) {
+                    return price;
+                }
+            }
+            return currentOrig || 'N/A';
+        }
+
+        function inferCategories(name, desc = '', dimensions = '') {
+            const text = (name + ' ' + desc + ' ' + dimensions).toLowerCase();
+            const cats = new Set();
+            
+            if (text.match(/acrylic|clear corner/)) cats.add("Acrylic");
+            if (text.match(/shelf|shelves|floating|corner shelf|riser|step|rack|shadow box/)) cats.add("Shelves");
+            if (text.match(/bin|bins|box|boxes|tray|trays|case|cases|storage|drawer|organizer|organizers|canister|jar|tub|basket|sorter|tote/)) cats.add("Storage");
+            if (text.match(/decor|plant|eucalyptus|palm|art|frame|lamp|candle|mirror|vase/)) cats.add("Decor");
+            if (text.match(/kitchen|mixer|blender|cutlery|flatware|spice|food|canister|plate|bowl|utensil|coffee|cup/)) cats.add("Kitchen");
+            if (text.match(/collectible|figure|minifigure|shadow box|lego|display|case|cards|trading|bead/)) cats.add("Collectibles");
+            if (text.match(/shirt|dress|shoes|hat|apparel|clothing/)) cats.add("Fashion");
+            if (text.match(/tv|monitor|laptop|computer|electronics|cable|camera|phone|ipad|macbook|charger|audio|speaker/)) cats.add("Electronics");
+
+            cats.add("Home");
+            return Array.from(cats);
+        }
+
+        function inferRetailer(link, name = '') {
+            const l = (link || '').toLowerCase();
+            for (const [domain, retailer] of Object.entries(retailerDomains)) {
+                if (l.includes(domain)) return retailer;
+            }
+            const n = (name || '').toLowerCase();
+            if (n.includes('michaels') || n.includes('simply tidy') || n.includes('bead landing') || n.includes('studio décor') || n.includes('studio decor')) return 'Michaels';
+            if (n.includes('five below') || n.includes('room 2 room')) return 'Five Below';
+            if (n.includes('big lots') || n.includes('hudson')) return 'Big Lots';
+            if (n.includes('target') || n.includes('brightroom') || n.includes('masterchef') || n.includes('threshold')) return 'Target';
+            if (n.includes('container store')) return 'The Container Store';
+            if (n.includes('ikea') || n.includes('visslaan') || n.includes('uppdatera') || n.includes('bollosund') || n.includes('tavelan') || n.includes('fejka') || n.includes('noedmast')) return 'IKEA';
+            if (n.includes('wayfair') || n.includes('kitchenaid')) return 'Wayfair';
+            if (n.includes('amazon') || n.includes('ninja')) return 'Amazon';
+            if (n.includes('homegoods')) return 'HomeGoods';
+            if (n.includes('at home')) return 'At Home';
+            return 'Other';
+        }
+
+        const EMBEDDED_VERIFIED_CSV = `Name,Subname,Price,Condition,OriginalPrice,Status,Size,Dimensions,Height,Qty,Link,Img,Phone
+Ironing Board Cover,Gray - Room Essentials,1.0,Brand New,$10.00,Available,Standard,"56"" x 18.5""",0.15,1,https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab,images/IMG_8043.jpeg,8323821675
+KitchenAid Classic Series 4.5 Stand Mixer,5 Quart,100.0,Used Once - No box,$449.99,Sold,5-Quart,"14.1"" x 8.7""",13.9,1,https://www.wayfair.com/kitchen-tabletop/pdp/kitchenaid-classic-series-45-quart-tilt-head-stand-mixer-kad1445.html?piid=33371416,images/IMG_8501.jpeg,8323821675
+Ninja Pods Coffee Maker,PB051,40.0,Brand New - No box,$80.00,Available,Single-Serve,"13.07"" x 5.51""",13.31,1,https://www.amazon.com/Ninja-Grounds-Single-Serve-Coffee-Maker/dp/B0F9LKMSZM?th=1,images/IMG_8502.jpeg,8323821675
+Bamboo Flatware Tray,Light Bamboo,10.0,Brand New - No box,$34.99,Available,"15x19 ½""","15"" x 19.5""",2,1,https://www.ikea.com/us/en/p/uppdatera-flatware-tray-light-bamboo-20491356/,images/IMG_8505.jpeg,8323821675
+Dark Gray Drawer Organizers,"Set of 3, Gray",4.0,Brand New - with box,$6.99,Available,3-pack,"6.75"" x 4.75""",4,1,https://www.ikea.com/us/en/p/visslaan-drawer-organizers-set-of-3-gray-20562117/,images/IMG_8038.jpeg,8323821675
+FEJKA Artificial Potted Plant,Hanging Eucalyptus,5.0,Brand New - No box,$9.99,Available,Artificial,"3.5"" (Diameter)",22.75,1,https://www.ikea.com/us/en/p/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus-00615249/,images/IMG_8504.jpeg,8323821675
+TAVELÅN Tray Set,Bamboo,8.0,Brand New - No box,$13.99,Available,Set of 2,"11.875"" x 5.75"" & 5.125"" x 5.75""",3.375,1,https://www.ikea.com/us/en/p/tavelan-tray-set-of-2-bamboo-50465191/,images/IMG_8046.jpeg,8323821675
+NÖDMAST LED Portable Lamp,White/Black,5.0,Used Once - No box,$10.99,Sold,25 cm,"7"" (Diameter)",10.25,1,https://www.ikea.com/us/en/p/noedmast-led-portable-lamp-battery-operated-white-black-50582576/#content,images/IMG_8507.jpeg,8323821675
+BOLLÖSUND Drawer Organizers,"Set of 4, Beige",10.0,Brand New - with box,$17.00,Available,Set of 4,Various,3,1,https://www.ikea.com/us/en/p/bolloesund-drawer-organizers-set-of-4-beige-20570886/,images/IMG_8049.jpeg,8323821675
+VISSLAÅN Box with Compartments,Gray,10.0,Brand New - with box,$17.00,Available,"12 ¾x12 ¼x3 ¼""","12.75"" x 12.25""",3.25,1,https://www.ikea.com/us/en/p/visslaan-box-with-compartments-gray-00562104/,images/IMG_8039.jpeg,8323821675
+VISSLAÅN Box with Lid,"Set of 5, Gray",8.0,Brand New - with box,$14.00,Available,Set of 5,Various,3.5,1,https://www.ikea.com/us/en/p/visslaan-box-with-lid-set-of-5-gray-90554538/,images/IMG_8039.jpeg,8323821675
+Potted Areca Palm Plant,6',35.0,Brand New - No box,$80.00,Sold,6 feet,N/A,72,2,https://www.athome.com/potted-areca-palm-plant-6/124351622.html,images/IMG_2553.jpeg,8323821675
+Simple Bamboo Desk,,10.0,Brand New - No box,$40.00,Available,Standard,"35"" x 23""",29,1,https://us.amazon.com/Niche-Student-Desk-Shell-Latte/dp/B08QTWCQDC,images/IMG_2592.jpeg,8323821675
+Hudson Clear Storage Bins,,4.25,Like New,$16.99,Available,,"13""x10""x7.5""",,14,https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904,images/IMG_8167.jpeg,8323821675
+Metal Wire Bins w/ Wood Base,,3.5,Like New,$13.99,Available,,"14""x11""x9""",,5,https://www.biglots.com/c/home-storage-organization/baskets-bins-totes/_/N-2751515904,images/IMG_8171.jpeg,8323821675
+Big Lots Acrylic Bins,,1.25,Like New,$4.99,Available,,,,3,https://www.biglots.com/c/home-storage-organization/drawer-organizers-trays/_/N-2321528615,images/IMG_8196_big_lots_bin.jpeg,8323821675
+Clear Corner Shelves,,1.25,Like New,$5.00,Available,,"11""x11""",,8,https://www.fivebelow.com/products/corner-wall-shelf-1525in,images/IMG_8172.jpeg,8323821675
+Wood Grain Corner Shelves,,1.25,Like New,$5.00,Available,,"11""x11""",,2,https://www.fivebelow.com/products/corner-wall-shelf-1525in,images/IMG_8173_1_2.jpeg,8323821675
+White Corner Shelves,,1.25,Like New,$5.00,Available,,"11""x11""",,3,https://www.fivebelow.com/products/corner-wall-shelf-1525in,images/IMG_8175_1.jpeg,8323821675
+Floating Wall Shelves,,1.25,Like New,$5.00,Available,,"18""x4""",,9,https://www.fivebelow.com/products/floating-wall-shelf-18in,images/IMG_8179.jpeg,8323821675
+Clear Letter File Storage Cases,,10.0,Like New,$39.99,Available,,"13.3""x7""x11""",,6,https://www.michaels.com/product/clear-letter-file-storage-case-with-top-handle-by-simply-tidy-D285226S,images/IMG_8195_file_case.jpeg,8323821675
+Bead Landing 36-Compartment Divided Trays,,11.25,Like New,$44.99,Available,,"13.6""x9.3""x1.8""",,2,https://www.michaels.com/product/136-clear-36compartment-divided-tray-with-lid-by-bead-landing-10713934,images/IMG_8200.jpeg,8323821675
+Simply Tidy Storage Bins w/ Handles,,7.5,Like New,$29.99,Available,,"13""x6.5""x8""",,3,https://www.michaels.com/product/13-x-65-clear-storage-bin-with-handles-by-simply-tidy-10738096,images/IMG_8184.jpeg,8323821675
+Simply Tidy Storage Trays,"12"" x 4"" x 2""",1.75,Like New,$6.99,Available,,"12""x4""x2""",,4,https://www.michaels.com/product/12-x-4-clear-stacking-storage-tray-by-simply-tidy-10738088,images/IMG_8180_1.jpeg,8323821675
+Simply Tidy Storage Trays,"12"" x 8"" x 2""",2.25,Like New,$8.99,Available,,"12""x8""x2""",,3,https://www.michaels.com/product/12-x-8-clear-stacking-storage-tray-by-simply-tidy-10738090,images/IMG_8182.jpeg,8323821675
+Simply Tidy Storage Trays,"8"" x 4"" x 2""",1.25,Like New,$4.99,Available,,"8""x4""x2""",,4,https://www.michaels.com/product/8-x-4-clear-stacking-storage-tray-by-simply-tidy-10738086,images/IMG_8181_tray_8x4.jpeg,8323821675
+Simply Tidy Storage Trays,"4"" x 4"" x 2""",0.75,Like New,$2.99,Available,,"4""x4""x2""",,3,https://www.michaels.com/product/4-x-4-clear-stacking-storage-tray-by-simply-tidy-10738084,images/IMG_8183.jpeg,8323821675
+Simply Tidy Large Storage Bins,,10.0,Like New,$39.99,Available,,"13""x13""x8""",,6,https://www.michaels.com/product/13-x-13-clear-storage-bin-with-handles-by-simply-tidy-10738098,images/IMG_8169_large_bin.jpeg,8323821675
+Bead Landing 6–12 Divided Trays,,5.0,Like New,$19.99,Available,,"8""x10""x1.8""",,2,https://www.michaels.com/product/6-pack-136-clear-12-compartment-divided-tray-with-lid-by-bead-landing-10665790,images/IMG_8192.jpeg,8323821675
+Studio Décor Front-Loading Minifigure Cases,,10.0,Like New,$39.99,Available,,"12.8""x16""",,2,https://www.michaels.com/product/clear-front-loading-mini-figure-shadow-box-with-shelves-by-studio-decor-D476044S,images/IMG_8191.jpeg,8323821675
+Gourmet Glass Canisters (Small 21.9 oz 2-pk),,1.75,Like New,$6.99,Available,21.9 oz,2-pack,,3,https://www.homegoods.com,images/IMG_8188.jpeg,8323821675
+Gourmet Glass Canisters (Large 33.8 oz 2-pk),,2.25,Like New,$8.99,Available,33.8 oz,2-pack,,2,https://www.homegoods.com,images/IMG_8189.jpeg,8323821675
+MasterChef Bamboo Cutlery Organizers,,5.0,Like New,$19.99,Available,,Expandable,,2,https://www.target.com/p/expandable-bamboo-cutlery-tray-brightroom-8482/-/A-85318301,images/IMG_8186.jpeg,8323821675
+Bamboo Expandable Spice Racks,,5.0,Like New,$19.99,Available,,Expandable,,2,https://www.target.com/p/expandable-bamboo-spice-rack-brightroom-8482/-/A-85318301,images/IMG_8185.jpeg,8323821675
+Bamboo 3-Tier Step Risers,,3.25,Like New,$12.99,Available,,3-Tier,,2,https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/3-tier-bamboo-expanding-spice-shelf/12d?productId=11000844,images/IMG_8187.jpeg,8323821675
+Acrylic 3-Tier Display Steps,,3.0,Like New,$12.00,Available,,3-Tier,,3,https://www.thecontainerstore.com/s/kitchen/cabinet-organizers/clear-3-tier-expanding-organizer/12d?productId=11018868,images/IMG_8193.jpeg,8323821675
+Acrylic Pull-Out Storage Bins,,3.25,Like New,$12.99,Available,,Pull-Out,,5,https://www.thecontainerstore.com/s/storage/drawers/the-home-edit-by-idesign-drawer-organizers/12d?productId=11012901,images/IMG_8194.jpeg,8323821675
+Acrylic Apothecary Jars,,1.0,Like New,$4.00,Available,,Canister w/ Lid,,4,https://www.target.com/p/medium-plastic-canister-with-bamboo-lid-brightroom-8482/-/A-85318301,images/IMG_8190.jpeg,8323821675
+2-Tier Sliding Drawer Vanity Organizer,,3.75,Like New,$14.99,Available,,2-Tier Sliding,,2,https://www.target.com/p/two-tiered-slide-out-organizer-brightroom/-/A-83717158,images/IMG_8177_1.jpeg,8323821675`;
 
         async function fetchInventory() {
+            let data = "";
             try {
-                // Add a cache-busting query parameter so the browser always fetches the latest Google Sheet changes
+                // Attempt to fetch fresh data from published Google Sheet
                 const response = await fetch(SHEET_CSV_URL + '&_t=' + new Date().getTime());
-                let data = await response.text();
-                
-                // Inject Test Product for User Verification
-                data += '\nTest Product,Verification Item,$1.00,Brand New,$5.00,Available,Test Size,10"x10",10",1,https://example.com,https://placehold.co/600x600/111/444?text=Test+Product,,,,';
-                // Embed Scraped Link Data
-                const scrapedData = {
-                  "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab": {
-                    "image": "images/stock_ironing_board.jpeg",
-                    "description": "Standard Ironing Board Cover Gray - Room Essentials"
-                  },
-                  "https://hamiltonbeach.com/10-cup-food-processor-70730": {
-                    "image": "https://hamiltonbeach.com/media/hamilton_beach_social.jpg",
-                    "description": "10-Cup Food Processor with Bowl Scraper | Hamilton Beach"
-                  },
-                  "https://www.ikea.com/us/en/p/uppdatera-flatware-tray-light-bamboo-20491356/": {
-                    "image": "https://www.ikea.com/us/en/images/products/uppdatera-flatware-tray-light-bamboo__0968836_pe810562_s5.jpg",
-                    "description": "UPPDATERA flatware tray, light bamboo. Stay organized while the bamboo adds a warm, natural feel."
-                  },
-                  "https://www.ikea.com/us/en/p/visslaan-drawer-organizers-set-of-3-gray-20562117/": {
-                    "image": "https://www.ikea.com/us/en/images/products/visslaan-drawer-organizers-set-of-3-gray__1499227_pe1006532_s5.jpg",
-                    "description": "VISSLA\u00c5N drawer organizers, set of 3. Ideal for holding toothbrushes and items nearby."
-                  },
-                  "https://www.ikea.com/us/en/p/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus-00615249/": {
-                    "image": "https://www.ikea.com/us/en/images/products/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus__0817871_pe774216_s5.jpg",
-                    "description": "FEJKA artificial potted plant. Doesn\u2019t require a green thumb to spruce up at home."
-                  },
-                  "https://www.ikea.com/us/en/p/montera-cable-management-white-30147425/": {
-                    "image": "https://www.ikea.com/us/en/images/products/montera-cable-management-white__0088067_pe218108_s5.jpg",
-                    "description": "MONTERA cable management, white. A simple solution to hide cables and fix to the skirting-board, neat and tidy."
-                  },
-                  "https://www.ikea.com/us/en/p/tavelan-tray-set-of-2-bamboo-50465191/": {
-                    "image": "https://www.ikea.com/us/en/images/products/tavelan-tray-set-of-2-bamboo__0710185_pe727339_s5.jpg",
-                    "description": "TAVELAN Tray set of 2, bamboo. Beautiful natural bamboo tray set."
-                  },
-                  "https://www.ikea.com/us/en/p/noedmast-led-portable-lamp-battery-operated-white-black-50582576/#content": {
-                    "image": "https://www.ikea.com/us/en/images/products/noedmast-led-portable-lamp-battery-operated-white-black__1300301_pe937090_s5.jpg",
-                    "description": "N\u00d6DMAST LED portable lamp. Emits a soft light that creates a cozy and inviting atmosphere."
-                  },
-                  "https://www.walmart.com/ip/Mainstays-3-Bag-Mesh-Rolling-Sorter-Laundry-Cart-Soft-Silver/687612057?wmlspartner=wlpa&selectedSellerId=0&wl13=576&adid=22222222297687612057_0000000000_22264615354&wl0=&wl1=x&wl2=c&wl3=&wl4=&wl5=9026555&wl6=&wl7=&wl8=&wl9=pla&wl10=8175035&wl11=local&wl12=687612057&veh=sem&gclsrc=aw.ds&gad_source=1&gad_campaignid=22264616125&gbraid=0AAAAADmfBIpnJ_W9-HZEXfp0Um9yq8DSc&gclid=CjwKCAjwhe3OBhABEiwA6392zNvyiki2aiGDhFhb9USJK2jhB4OromQmQTlYC9Br6rNhVQL4-I_54hoCV64QAvD_BwE": {
-                    "image": "https://i5.walmartimages.com/seo/Mainstays-Soft-Silver-3-Bag-Mesh-Rolling-Laundry-Sorter-Cart_dccaf6bf-ec48-47d4-9b18-9f2ecf970e19.6e0c5b5786f0596674d58bb67a075152.jpeg",
-                    "description": "Rolling Laundry Sorter Cart with Removable Mesh Bags and Casters."
-                  },
-                  "https://www.ikea.com/us/en/p/bolloesund-drawer-organizers-set-of-4-beige-20570886/": {
-                    "image": "https://www.ikea.com/us/en/images/products/bolloesund-drawer-organizers-set-of-4-beige__1218055_pe913132_s5.jpg",
-                    "description": "BOLL\u00d6SUND drawer organizers, set of 4. Organize your things and utilize every inch in drawers."
-                  },
-                  "https://www.ikea.com/us/en/p/visslaan-box-with-compartments-gray-00562104/": {
-                    "image": "https://www.ikea.com/us/en/images/products/visslaan-box-with-compartments-gray__1499232_pe1006528_s5.jpg",
-                    "description": "VISSLA\u00c5N box with compartments. Ideal for storing smaller items so that they\u2019re easy to find."
-                  },
-                  "https://www.ikea.com/us/en/p/visslaan-box-with-lid-set-of-5-gray-90554538/": {
-                    "image": "https://www.ikea.com/us/en/images/products/visslaan-box-with-lid-set-of-5-gray__1499230_pe1006529_s5.jpg",
-                    "description": "VISSLA\u00c5N lid boxes, set of 5. Sizes: (1) 8x8x3\u00bd\", (1) 8x4x3\u00bd\", (3) 4x4x3\u00bd\"."
-                  },
-                  "https://www.athome.com/potted-areca-palm-plant-6/124351622.html": {
-                    "image": "https://static.athome.com/images/w_800,h_800,c_pad,f_auto,fl_lossy,q_auto/v1734355251/p/124351622/potted-areca-palm-plant-6.jpg",
-                    "description": "72in Potted Areca Palm Plant. Add a touch of tropical elegance to your home or office."
-                  },
-                  "https://www.wayfair.com/kitchen-tabletop/pdp/kitchenaid-classic-series-45-quart-tilt-head-stand-mixer-kad1445.html?piid=33371416": {
-                    "image": "images/stock_kitchenaid.jpeg",
-                    "description": "KitchenAid Classic Series 4.5 Quart Tilt-Head Stand Mixer, Silver. Dimensions: 13.9\"H x 8.7\"W x 14.1\"D."
-                  },
-                  "https://www.amazon.com/Ninja-Grounds-Single-Serve-Coffee-Maker/dp/B0F9LKMSZM?th=1": {
-                    "description": "Ninja Pods & Grounds Single-Serve Coffee Maker. Dimensions: 13.31\"H x 5.31\"W x 13.07\"D."
-                  },
-                  "https://us.amazon.com/Niche-Student-Desk-Shell-Latte/dp/B08QTWCQDC": {
-                    "description": "Niche Lux Series Student Desk Shell, Bamboo Latte Finish. Dimensions: 29\"H x 35\"W x 23\"D."
-                  }
-                };
-
-                // Robust CSV parsing to handle commas inside quotes
-                const parseCSV = (text) => {
-                    const rows = [];
-                    let currentRow = [];
-                    let currentCell = '';
-                    let inQuotes = false;
-                    
-                    for (let i = 0; i < text.length; i++) {
-                        const char = text[i];
-                        const nextChar = text[i + 1];
-                        
-                        if (char === '"') {
-                            if (inQuotes && nextChar === '"') {
-                                currentCell += '"';
-                                i++;
-                            } else {
-                                inQuotes = !inQuotes;
-                            }
-                        } else if (char === ',' && !inQuotes) {
-                            currentRow.push(currentCell.trim());
-                            currentCell = '';
-                        } else if ((char === '\r' || char === '\n') && !inQuotes) {
-                            if (currentRow.length > 0 || currentCell !== '') {
-                                currentRow.push(currentCell.trim());
-                                rows.push(currentRow);
-                                currentRow = [];
-                                currentCell = '';
-                            }
-                            if (char === '\r' && nextChar === '\n') i++;
-                        } else {
-                            currentCell += char;
-                        }
+                if (response.ok) {
+                    const fetchedText = await response.text();
+                    if (fetchedText && fetchedText.length > 100 && fetchedText.includes(',')) {
+                        data = fetchedText;
                     }
-                    if (currentRow.length > 0 || currentCell !== '') {
-                        currentRow.push(currentCell.trim());
-                        rows.push(currentRow);
-                    }
-                    return rows;
-                };
-
-                const allRows = parseCSV(data);
-                const dataRows = allRows.slice(1); // Skip header row
-                
-                inventory = dataRows.map((cols, index) => {
-                    let name = cols[0];
-                    if (!name) return null;
-                    
-                    let subname = cols[1];
-                    let price = parseFloat((cols[2] || '0').replace(/[^0-9.]/g, '')) || 0;
-                    let condition = cols[3]?.trim() || 'N/A';
-                    let originalPrice = cols[4] || 'N/A';
-                    let status = cols[5]?.trim() || 'Available';
-                    let size = cols[6] || 'N/A';
-                    let dimensions = cols[7] || '';
-                    let height = cols[8] || '';
-                    let qty = cols[9] || '1';
-                    let rawLink = (cols[10] || '#').trim();
-                    if ((!rawLink || rawLink === '#' || rawLink.includes('/search') || rawLink.includes('categories?q=') || rawLink.includes('searchTerm=')) && verifiedProductLinks[name]) {
-                        rawLink = verifiedProductLinks[name];
-                    }
-
-                    // Dynamically scan for images to handle random placement in columns
-                    let allImages = [];
-                    for (let i = 11; i < cols.length; i++) {
-                        let c = cols[i]?.trim();
-                        if (c && c !== '#' && !c.match(/^\d{7,15}$/)) { 
-                            allImages.push(c);
-                        }
-                    }
-
-                    let scraped = scrapedData[rawLink] || {};
-                    let desc = scraped.description || "Premium garage sale item perfectly kept in a pet-free, smoke-free home.";
-
-                    let finalImages = [];
-                    if (scraped.image) finalImages.push(scraped.image);
-                    allImages.forEach(img => {
-                       if (img && img !== '#') {
-                          if (img.startsWith('http')) finalImages.push(img);
-                          else finalImages.push('images/' + img);
-                       }
-                    });
-                    if (finalImages.length === 0 && defaultItemImages[name]) {
-                        finalImages.push(defaultItemImages[name]);
-                    }
-                    
-                    let rawImg1 = finalImages[0];
-                    let rawImg2 = finalImages[1];
-                    let rawImg3 = finalImages[2];
-
-                    if (!rawImg1) rawImg1 = 'https://placehold.co/600x600/111/444?text=Item';
-
-                    // Map HEIC/PNG dynamically
-                    rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
-                    if (rawImg2) rawImg2 = rawImg2.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
-                    if (rawImg3) rawImg3 = rawImg3.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
-                    
-                    let galleryHtml = `<img src="${rawImg1}" alt="${name}" class="item-img" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Item'">`;
-                    if (rawImg2) {
-                        let addt = `<img src="${rawImg2}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.style.display='none'">`;
-                        if (rawImg3) addt += `<img src="${rawImg3}" alt="${name}" class="item-img" style="border-radius: 0; margin-top:2px;" onerror="this.style.display='none'">`;
-                        galleryHtml = `
-                        <div style="display:flex; flex-direction:column;">
-                            <img src="${rawImg1}" alt="${name}" class="item-img" style="border-radius: 12px 12px 0 0;" onerror="this.style.display='none'">
-                            ${addt}
-                        </div>`;
-                    }
-
-                    let fullName = subname && subname !== 'N/A' && subname !== '' ? `${name} - ${subname}` : name;
-                    let finalOriginal = originalPrice.startsWith('$') ? originalPrice : '$' + originalPrice;
-                    if(originalPrice === 'N/A' || originalPrice === '') finalOriginal = 'N/A';
-                    
-                    
-                    let inferredCategory = inferCategory(fullName, desc);
-                    let retailer = inferRetailer(rawLink);
-                    
-                    return {
-                        id: `item-${index}`,
-                        name: fullName,
-                        category: inferredCategory,
-                        retailer: retailer,
-                        price: price,
-                        status: status,
-                        size: size,
-                        dimensions: dimensions,
-                        height: height,
-                        qty: qty,
-                        originalPrice: finalOriginal,
-                        link: rawLink,
-                        desc: desc,
-                        condition: condition,
-                        galleryHtml: galleryHtml,
-                        rawImg1: rawImg1
-                    };
-
-                }).filter(item => item !== null && item.name !== 'Unknown Item' && item.name !== '');
-
-                renderInventory();
+                }
             } catch (err) {
-                console.error("Fetch failed", err);
-                document.getElementById('inventory-container').innerHTML = '<p>Offline. Check spreadsheet publishing.</p>';
+                console.warn("Live sheet fetch failed or blocked; using verified local dataset", err);
             }
+            
+            // Fallback to embedded verified inventory
+            if (!data || data.trim().length < 50) {
+                data = EMBEDDED_VERIFIED_CSV;
+            }
+
+            const scrapedData = {
+                "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab": {
+                    "description": "Standard Ironing Board Cover Gray - Room Essentials with scorch-resistant pad."
+                },
+                "https://www.ikea.com/us/en/p/uppdatera-flatware-tray-light-bamboo-20491356/": {
+                    "description": "UPPDATERA flatware tray, light bamboo. Warm, natural organizing tray."
+                },
+                "https://www.ikea.com/us/en/p/visslaan-drawer-organizers-set-of-3-gray-20562117/": {
+                    "description": "VISSLAÅN drawer organizers, set of 3. Durable modular desk & vanity bins."
+                },
+                "https://www.ikea.com/us/en/p/fejka-artificial-potted-plant-indoor-outdoor-hanging-eucalyptus-00615249/": {
+                    "description": "FEJKA artificial potted plant, hanging eucalyptus. Beautiful zero-maintenance green accent."
+                },
+                "https://www.ikea.com/us/en/p/tavelan-tray-set-of-2-bamboo-50465191/": {
+                    "description": "TAVELÅN Tray set of 2, natural solid bamboo trays for bathroom or vanity."
+                },
+                "https://www.ikea.com/us/en/p/noedmast-led-portable-lamp-battery-operated-white-black-50582576/#content": {
+                    "description": "NÖDMAST LED portable battery lamp. Modern cozy ambient light."
+                },
+                "https://www.ikea.com/us/en/p/bolloesund-drawer-organizers-set-of-4-beige-20570886/": {
+                    "description": "BOLLÖSUND drawer organizers, set of 4. Maximize every inch of your drawers."
+                },
+                "https://www.ikea.com/us/en/p/visslaan-box-with-compartments-gray-00562104/": {
+                    "description": "VISSLAÅN box with compartments. Organize jewelry, crafts, and stationery."
+                },
+                "https://www.ikea.com/us/en/p/visslaan-box-with-lid-set-of-5-gray-90554538/": {
+                    "description": "VISSLAÅN lid boxes, set of 5. Dust-free stacking storage organizers."
+                },
+                "https://www.athome.com/potted-areca-palm-plant-6/124351622.html": {
+                    "description": "72in Potted Areca Palm Plant. Premium lifelike tropical foliage."
+                },
+                "https://www.wayfair.com/kitchen-tabletop/pdp/kitchenaid-classic-series-45-quart-tilt-head-stand-mixer-kad1445.html?piid=33371416": {
+                    "description": "KitchenAid Classic Series 4.5 Quart Tilt-Head Stand Mixer with stainless steel bowl."
+                },
+                "https://www.amazon.com/Ninja-Grounds-Single-Serve-Coffee-Maker/dp/B0F9LKMSZM?th=1": {
+                    "description": "Ninja Pods & Grounds Single-Serve Coffee Maker. Compact high-speed brewing."
+                },
+                "https://us.amazon.com/Niche-Student-Desk-Shell-Latte/dp/B08QTWCQDC": {
+                    "description": "Niche Lux Series Student Desk Shell, Bamboo Latte Finish."
+                },
+                "https://www.michaels.com/product/136-clear-36compartment-divided-tray-with-lid-by-bead-landing-10713934": {
+                    "description": "Bead Landing 36-compartment clear organizer tray with snap-lock lid (13.6in x 9.3in x 1.8in)."
+                },
+                "https://www.michaels.com/product/clear-front-loading-mini-figure-shadow-box-with-shelves-by-studio-decor-D476044S": {
+                    "description": "Studio Décor Front-Loading Minifigure Display Shadow Box with built-in shelves (12.8in x 16in)."
+                },
+                "https://www.michaels.com/product/clear-letter-file-storage-case-with-top-handle-by-simply-tidy-D285226S": {
+                    "description": "Simply Tidy clear letter file storage case with heavy-duty carrying handle (13.3in x 7in x 11in)."
+                },
+                "https://www.michaels.com/product/13-x-13-clear-storage-bin-with-handles-by-simply-tidy-10738098": {
+                    "description": "Simply Tidy extra-large clear cube storage bin with cutout carrying handles (13in x 13in x 8in)."
+                },
+                "https://www.michaels.com/product/13-x-65-clear-storage-bin-with-handles-by-simply-tidy-10738096": {
+                    "description": "Simply Tidy clear storage bin with built-in handles (13in x 6.5in x 8in)."
+                },
+                "https://www.michaels.com/product/12-x-4-clear-stacking-storage-tray-by-simply-tidy-10738088": {
+                    "description": "Simply Tidy 12in x 4in x 2in modular stacking organizer tray for drawers and shelves."
+                },
+                "https://www.michaels.com/product/12-x-8-clear-stacking-storage-tray-by-simply-tidy-10738090": {
+                    "description": "Simply Tidy 12in x 8in x 2in modular stacking organizer tray."
+                },
+                "https://www.michaels.com/product/8-x-4-clear-stacking-storage-tray-by-simply-tidy-10738086": {
+                    "description": "Simply Tidy 8in x 4in x 2in modular stacking organizer tray."
+                },
+                "https://www.michaels.com/product/4-x-4-clear-stacking-storage-tray-by-simply-tidy-10738084": {
+                    "description": "Simply Tidy 4in x 4in x 2in modular square stacking organizer tray."
+                },
+                "https://www.michaels.com/product/6-pack-136-clear-12-compartment-divided-tray-with-lid-by-bead-landing-10665790": {
+                    "description": "Bead Landing divided craft storage case with locking lid (8in x 10in x 1.8in)."
+                }
+            };
+
+            // Robust CSV parser
+            const parseCSV = (text) => {
+                const rows = [];
+                let currentRow = [];
+                let currentCell = '';
+                let inQuotes = false;
+                
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    const nextChar = text[i + 1];
+                    
+                    if (char === '"') {
+                        if (inQuotes && nextChar === '"') {
+                            currentCell += '"';
+                            i++;
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        currentRow.push(currentCell.trim());
+                        currentCell = '';
+                    } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                        if (currentRow.length > 0 || currentCell !== '') {
+                            currentRow.push(currentCell.trim());
+                            rows.push(currentRow);
+                            currentRow = [];
+                            currentCell = '';
+                        }
+                        if (char === '\r' && nextChar === '\n') i++;
+                    } else {
+                        currentCell += char;
+                    }
+                }
+                if (currentRow.length > 0 || currentCell !== '') {
+                    currentRow.push(currentCell.trim());
+                    rows.push(currentRow);
+                }
+                return rows;
+            };
+
+            const allRows = parseCSV(data);
+            const dataRows = allRows.slice(1); // Skip header
+
+            inventory = dataRows.map((cols, index) => {
+                let name = cols[0];
+                if (!name || name.trim() === '' || name.toLowerCase().includes('test product')) return null;
+                
+                let subname = cols[1] || '';
+                let price = parseFloat((cols[2] || '0').replace(/[^0-9.]/g, '')) || 0;
+                let condition = cols[3]?.trim() || 'Like New';
+                let rawOriginalPrice = cols[4] || '';
+                let status = cols[5]?.trim() || 'Available';
+                let size = cols[6] || '';
+                let dimensions = cols[7] || '';
+                let height = cols[8] || '';
+                let qty = cols[9] || '1';
+                let rawLink = (cols[10] || '').trim();
+
+                // 1. Authoritative Verified Image (Matches Physical Box Tags)
+                let verifiedImg = getVerifiedImage(name, subname, dimensions, size);
+                let rawImg1 = verifiedImg || cols[11]?.trim() || 'images/IMG_8167.jpeg';
+                if (!rawImg1.startsWith('http') && !rawImg1.startsWith('images/')) {
+                    rawImg1 = 'images/' + rawImg1;
+                }
+                rawImg1 = rawImg1.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+
+                // 2. Authoritative Verified Retailer Link & Original Price
+                let finalLink = getVerifiedRetailerUrl(name, subname, dimensions, rawLink);
+                let finalOriginal = getVerifiedOriginalPrice(name, subname, dimensions, rawOriginalPrice);
+                let retailer = inferRetailer(finalLink, name);
+
+                // 3. Full Name and Categories
+                let fullName = subname && subname !== 'N/A' && subname !== '' ? `${name} - ${subname}` : name;
+                let scraped = scrapedData[finalLink] || {};
+                let desc = scraped.description || `Authentic ${retailer !== 'Other' ? retailer + ' ' : ''}garage sale item in ${condition.toLowerCase()} condition. Pet-free, smoke-free home.`;
+                
+                let categories = inferCategories(fullName, desc, dimensions);
+                let primaryCategory = categories.find(c => c !== 'Home') || categories[0] || 'Home';
+
+                return {
+                    id: `item-${index}`,
+                    name: fullName,
+                    rawName: name,
+                    category: primaryCategory,
+                    categories: categories,
+                    retailer: retailer,
+                    price: price,
+                    status: status,
+                    size: size,
+                    dimensions: dimensions,
+                    height: height,
+                    qty: qty,
+                    originalPrice: finalOriginal,
+                    link: finalLink,
+                    desc: desc,
+                    condition: condition,
+                    rawImg1: rawImg1
+                };
+            }).filter(item => item !== null && item.name !== 'Unknown Item' && item.name !== '');
+
+            renderInventory();
         }
 
-        
         function renderInventory() {
             searchQuery = document.getElementById('search-input').value.toLowerCase();
             
             let filtered = inventory.filter(item => {
-                const text = `${item.name} ${item.category} ${item.condition} ${item.desc}`.toLowerCase();
+                const text = `${item.name} ${item.categories.join(' ')} ${item.condition} ${item.desc} ${item.retailer}`.toLowerCase();
                 const matchesSearch = text.includes(searchQuery);
-                const matchesCategory = (selectedCategory === "All" || item.category === selectedCategory);
+                const matchesCategory = (selectedCategory === "All" || item.categories.includes(selectedCategory));
                 const matchesSavedTab = !isSavedTab || savedItemIds.includes(item.id);
-                const matchesRetailer = selectedRetailer === "All" || item.retailer === selectedRetailer;
+                const matchesRetailer = (selectedRetailer === "All" || item.retailer === selectedRetailer);
                 return matchesSearch && matchesCategory && matchesSavedTab && matchesRetailer;
             });
             
@@ -547,15 +756,17 @@
                 filtered.sort((a, b) => b.price - a.price);
             }
 
-            // Update filters count
+            // Update filters count UI
             let activeFilters = 0;
             if (searchQuery !== "") activeFilters++;
             if (selectedCategory !== "All") activeFilters++;
             if (selectedRetailer !== "All") activeFilters++;
             
             let filterBtn = document.getElementById('filter-btn');
-            document.getElementById('filter-text').innerText = activeFilters > 0 ? `Filtered (${activeFilters})` : 'Filtered (0)';
-            filterBtn.classList.toggle('active', activeFilters > 0);
+            if (filterBtn) {
+                document.getElementById('filter-text').innerText = activeFilters > 0 ? `Filtered (${activeFilters})` : 'Filtered (0)';
+                filterBtn.classList.toggle('active', activeFilters > 0);
+            }
             
             let clearBtn = document.getElementById('clear-btn');
             if (clearBtn) {
@@ -568,6 +779,7 @@
             if (isSavedTab && filtered.length === 0) {
                 container.style.display = 'none';
                 emptyState.classList.remove('force-hide');
+                return;
             } else {
                 container.style.display = 'grid';
                 emptyState.classList.add('force-hide');
@@ -582,52 +794,77 @@
                 const isExpanded = expandedItemId === item.id;
                 const isSaved = savedItemIds.includes(item.id);
                 
+                // Calculate discount and savings
+                let origVal = 0;
+                let origFormatted = '';
+                if (item.originalPrice && item.originalPrice !== 'N/A') {
+                    origVal = parseFloat(item.originalPrice.replace(/[^0-9.]/g, '')) || 0;
+                    if (origVal > 0) origFormatted = `$${origVal.toFixed(2)}`;
+                }
+                
+                let discountPercent = 0;
+                let savingsText = '';
+                if (origVal > item.price && origVal > 0) {
+                    discountPercent = Math.round((1 - (item.price / origVal)) * 100);
+                    const savedAmount = (origVal - item.price).toFixed(2);
+                    savingsText = `${discountPercent}% OFF (Save $${savedAmount})`;
+                }
+                
+                let qtyBadgeText = '';
+                if (item.status === 'Sold') {
+                    qtyBadgeText = 'SOLD';
+                } else if (item.qty && parseInt(item.qty) > 1) {
+                    qtyBadgeText = `${item.qty} in stock`;
+                } else {
+                    qtyBadgeText = '1 available';
+                }
+                
+                const hasRetailerLink = item.link && item.link !== '#' && !item.link.startsWith('javascript');
+
                 return `
-                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="animation-delay: ${index * 0.05}s">
+                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="animation-delay: ${index * 0.03}s">
                     <div class="card-image-wrap" onclick="toggleItem('${item.id}')">
-                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Item'">
+                        ${discountPercent > 0 ? `<div class="card-badge-discount">${discountPercent}% OFF</div>` : ''}
+                        <div class="card-badge-qty" style="${item.status === 'Sold' ? 'background: #dc2626; color: white;' : ''}">${qtyBadgeText}</div>
+                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Garage+Sale+Item'">
                     </div>
                     
                     <div class="card-content">
                         <div class="card-header" onclick="toggleItem('${item.id}')">
-                            <div class="card-header-left">
+                            <div class="card-header-top">
                                 <span class="item-category">${item.category}</span>
-                                <h3 class="item-title">${item.name}</h3>
                                 <span class="condition-badge">${item.condition}</span>
                             </div>
+                            <h3 class="item-title">${item.name}</h3>
+                            <div class="item-specs-preview">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : '')}</div>
                         </div>
 
-                        <div class="card-price-row">
-                            <div class="price-container" style="display:flex; align-items:baseline; gap:0.5rem;">
-                                <span class="item-price" style="font-size: 1.5rem;">$${item.price.toFixed(2)}</span>
-                                ${item.originalPrice !== 'N/A' ? `<span style="text-decoration:line-through; color:var(--text-secondary); font-size:0.9rem;">${item.originalPrice}</span>` : ''}
+                        <div class="card-pricing-block">
+                            <div class="price-main-wrap">
+                                <span class="price-current">$${item.price.toFixed(2)}</span>
+                                ${origFormatted ? `<span class="price-original">${origFormatted}</span>` : ''}
                             </div>
-                            <div class="card-actions">
-                                <button class="action-btn ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="${isSaved ? 'var(--accent-color)' : 'none'}" stroke="${isSaved ? 'var(--accent-color)' : 'currentColor'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                                </button>
-                                <button class="action-btn" onclick="toggleItem('${item.id}')">
-                                    ${isExpanded ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="9 4 9 9 4 9"></polyline>
-                                        <line x1="9" y1="9" x2="3" y2="3"></line>
-                                        <polyline points="15 4 15 9 20 9"></polyline>
-                                        <line x1="15" y1="9" x2="21" y2="3"></line>
-                                        <polyline points="20 15 15 15 15 20"></polyline>
-                                        <line x1="15" y1="15" x2="21" y2="21"></line>
-                                        <polyline points="4 15 9 15 9 20"></polyline>
-                                        <line x1="9" y1="15" x2="3" y2="21"></line>
-                                    </svg>` : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="3 8 3 3 8 3"></polyline>
-                                        <line x1="3" y1="3" x2="9" y2="9"></line>
-                                        <polyline points="16 3 21 3 21 8"></polyline>
-                                        <line x1="21" y1="3" x2="15" y2="9"></line>
-                                        <polyline points="21 16 21 21 16 21"></polyline>
-                                        <line x1="21" y1="21" x2="15" y2="15"></line>
-                                        <polyline points="8 21 3 21 3 16"></polyline>
-                                        <line x1="3" y1="21" x2="9" y2="15"></line>
-                                    </svg>`}
-                                </button>
-                            </div>
+                            ${savingsText ? `<span class="savings-pill">${savingsText}</span>` : ''}
+                        </div>
+
+                        ${hasRetailerLink ? `
+                        <div class="retailer-compare-row">
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="retailer-compare-btn" title="Compare price at ${item.retailer}">
+                                <span class="compare-text">Compare Price</span>
+                                <div class="compare-logo-wrap">${getRetailerLogoSvg(item.retailer)}</div>
+                                <svg class="compare-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+                            </a>
+                        </div>` : ''}
+
+                        <div class="card-actions-row">
+                            <button class="btn-card-save ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="${isSaved ? '#ef4444' : 'none'}" stroke="${isSaved ? '#ef4444' : 'currentColor'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                <span>${isSaved ? 'Saved' : 'Save'}</span>
+                            </button>
+                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')">
+                                <span>${isExpanded ? 'Hide Details' : 'View Details'}</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline></svg>
+                            </button>
                         </div>
                         
                         ${isExpanded ? `
@@ -635,69 +872,30 @@
                             <p class="item-desc">${item.desc}</p>
                             
                             <div class="specs-grid">
-                                ${(() => {
-                                    let specs = [];
-                                    
-                                    specs.push(`
-                                        <div class="spec-box">
-                                            <label>DIMENSIONS</label>
-                                            <span>${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size !== 'N/A' ? item.size : 'Standard')}</span>
-                                        </div>
-                                    `);
-                                    
-                                    if (item.originalPrice !== 'N/A') {
-                                        let orig = parseFloat(item.originalPrice.replace(/[^0-9.]/g, ''));
-                                        if (orig > item.price && orig > 0) {
-                                            let percent = Math.round((1 - (item.price / orig)) * 100);
-                                            specs.push(`
-                                            <div class="spec-box" style="background: rgba(0, 214, 50, 0.05); border-color: rgba(0, 214, 50, 0.2);">
-                                                <label style="color: #00D632;">SAVINGS</label>
-                                                <span style="color: #00D632; font-weight: 700;">${percent}% OFF Retail</span>
-                                            </div>`);
-                                        }
-                                    }
-                                    
-                                    if (item.link !== '#') {
-                                        let domainStr = 'google.com';
-                                        let domainLabel = 'Retailer';
-                                        if (item.retailer !== 'Other') {
-                                            domainLabel = item.retailer;
-                                            for (const [domain, name] of Object.entries(retailerDomains)) {
-                                                if (name === item.retailer) {
-                                                    domainStr = domain;
-                                                    break;
-                                                }
-                                            }
-                                        } else {
-                                            try { domainStr = new URL(item.link).hostname; } catch(e) {}
-                                        }
-                                        
-                                        specs.push(`
-                                        <div class="spec-box" style="cursor:pointer; background: rgba(59, 130, 246, 0.05); border-color: rgba(59, 130, 246, 0.2);" onclick="window.open('${item.link}', '_blank')">
-                                            <label style="color: var(--accent-color);">COMPARE AT</label>
-                                            <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.25rem;">
-                                                <img src="https://www.google.com/s2/favicons?domain=${domainStr}&sz=64" style="width:16px; height:16px; border-radius:4px;">
-                                                <span style="color:var(--accent-color); font-size:0.9rem; font-weight:600;">${domainLabel} ↗</span>
-                                            </div>
-                                        </div>`);
-                                    }
-                                    
-                                    specs.push(`
-                                        <div class="spec-box">
-                                            <label>STATUS</label>
-                                            <span style="color: ${item.status === 'Available' ? '#00D632' : '#ff4444'}">● ${item.status}</span>
-                                        </div>
-                                    `);
-                                    
-                                    return specs.join('');
-                                })()}
+                                <div class="spec-box">
+                                    <label>DIMENSIONS</label>
+                                    <span>${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>CONDITION</label>
+                                    <span>${item.condition}</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>RETAILER</label>
+                                    <span>${item.retailer}</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>STATUS</label>
+                                    <span style="color: ${item.status === 'Available' ? '#10b981' : '#ff4444'}">● ${item.status}</span>
+                                </div>
                             </div>
+                            
                             <div class="expanded-buttons">
                                 <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''}>
-                                    Buy now
+                                    ${item.status === 'Available' ? `Buy Now - $${item.price.toFixed(2)}` : 'Item Sold'}
                                 </button>
-                                <button class="btn-secondary" onclick="window.open('sms:918-555-5555?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')">
-                                    Message seller
+                                <button class="btn-secondary" onclick="window.open('sms:8323821675?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')">
+                                    Message Seller
                                 </button>
                             </div>
                         </div>
@@ -707,7 +905,8 @@
                 `;
             }).join('');
         }
-function toggleFaq() {
+
+        function toggleFaq() {
             document.getElementById('faq-details').classList.toggle('force-hide');
         }
 
