@@ -1591,6 +1591,14 @@ body {
 
                 let photos = [];
                 if (rawImg1) photos.push(rawImg1);
+                
+                // Merge scraped retailer photos if available
+                if (scraped.images && Array.isArray(scraped.images)) {
+                    scraped.images.forEach(img => {
+                        if (img && !photos.includes(img)) photos.push(img);
+                    });
+                }
+
                 [13, 15, 16, 17, 18, 19].forEach(colIdx => {
                     let extra = cols[colIdx]?.trim();
                     if (extra && extra !== '#' && !extra.startsWith('http://') && !extra.startsWith('https://')) {
@@ -1679,6 +1687,117 @@ body {
                 }
             });
         }
+
+        
+        let currentLightboxItem = null;
+        let currentLightboxIdx = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function openLightbox(itemId, photoIdx = 0, event) {
+            if (event) event.stopPropagation();
+            const item = inventory.find(i => i.id === itemId);
+            if (!item) return;
+            
+            currentLightboxItem = item;
+            currentLightboxIdx = photoIdx;
+            
+            const modal = document.getElementById('lightbox-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                updateLightboxUI();
+            }
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+
+        function updateLightboxUI() {
+            if (!currentLightboxItem) return;
+            const photos = currentLightboxItem.photos || [currentLightboxItem.rawImg1];
+            if (currentLightboxIdx >= photos.length) currentLightboxIdx = 0;
+            if (currentLightboxIdx < 0) currentLightboxIdx = photos.length - 1;
+            
+            const img = document.getElementById('lightbox-img');
+            if (img) img.src = photos[currentLightboxIdx];
+            
+            const counter = document.getElementById('lightbox-counter');
+            if (counter) counter.innerText = `${currentLightboxIdx + 1} / ${photos.length}`;
+            
+            const title = document.getElementById('lightbox-title');
+            if (title) title.innerText = currentLightboxItem.name;
+            
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+            if (prevBtn) prevBtn.style.display = photos.length > 1 ? 'flex' : 'none';
+            if (nextBtn) nextBtn.style.display = photos.length > 1 ? 'flex' : 'none';
+            
+            const dotsWrap = document.getElementById('lightbox-dots-wrap');
+            if (dotsWrap) {
+                if (photos.length > 1) {
+                    dotsWrap.style.display = 'flex';
+                    dotsWrap.innerHTML = photos.map((_, idx) => `
+                        <span onclick="setLightboxImage(${idx})" style="width: ${idx === currentLightboxIdx ? '10px' : '6px'}; height: ${idx === currentLightboxIdx ? '10px' : '6px'}; border-radius: 50%; background: ${idx === currentLightboxIdx ? '#ffffff' : 'rgba(255,255,255,0.45)'}; cursor: pointer; transition: all 0.2s ease;"></span>
+                    `).join('');
+                } else {
+                    dotsWrap.style.display = 'none';
+                }
+            }
+        }
+
+        function nextLightboxImage(event) {
+            if (event) event.stopPropagation();
+            if (!currentLightboxItem) return;
+            const photos = currentLightboxItem.photos || [currentLightboxItem.rawImg1];
+            currentLightboxIdx = (currentLightboxIdx + 1) % photos.length;
+            updateLightboxUI();
+        }
+
+        function prevLightboxImage(event) {
+            if (event) event.stopPropagation();
+            if (!currentLightboxItem) return;
+            const photos = currentLightboxItem.photos || [currentLightboxItem.rawImg1];
+            currentLightboxIdx = (currentLightboxIdx - 1 + photos.length) % photos.length;
+            updateLightboxUI();
+        }
+
+        function setLightboxImage(idx) {
+            currentLightboxIdx = idx;
+            updateLightboxUI();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('lightbox-image-container');
+            if (container) {
+                container.addEventListener('touchstart', e => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                container.addEventListener('touchend', e => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    if (touchStartX - touchEndX > 40) {
+                        nextLightboxImage();
+                    } else if (touchEndX - touchStartX > 40) {
+                        prevLightboxImage();
+                    }
+                }, { passive: true });
+            }
+        });
+
+        document.addEventListener('keydown', e => {
+            const modal = document.getElementById('lightbox-modal');
+            if (modal && modal.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextLightboxImage();
+                if (e.key === 'ArrowLeft') prevLightboxImage();
+                if (e.key === 'Escape') closeLightbox();
+            }
+        });
 
         function renderInventory() {
             searchQuery = document.getElementById('search-input').value.toLowerCase();
@@ -1781,7 +1900,7 @@ body {
                             <div class="condition-badge-top" style="background: rgba(240, 242, 245, 0.92); color: #65676b; font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 6px; border: 1px solid #e4e6eb;">${item.condition}</div>
                         </div>
 
-                        <img id="img-${item.id}" src="${activePhoto}" alt="${item.name}" class="item-img" loading="lazy" onclick="toggleItem('${item.id}')" style="width: 100%; height: 100%; object-fit: contain; padding: 8px; display: block; cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/600x600/f0f2f5/65676b?text=Garage+Sale+Item'">
+                        <img id="img-${item.id}" src="${activePhoto}" alt="${item.name}" class="item-img" loading="lazy" onclick="openLightbox('${item.id}', itemPhotoState['${item.id}']?.currentIdx || 0, event)" style="width: 100%; height: 100%; object-fit: contain; padding: 8px; display: block; cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/600x600/f0f2f5/65676b?text=Garage+Sale+Item'">
 
                         ${item.photos.length > 1 ? `
                             <button class="carousel-arrow left" onclick="prevCardImage('${item.id}', event)" title="Previous photo" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); border: 1px solid #e4e6eb; color: #050505; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 4; box-shadow: 0 2px 4px rgba(0,0,0,0.12);">
@@ -1798,7 +1917,7 @@ body {
                     </div>
                     
                     <div class="card-content" style="padding: 1.15rem; display: flex; flex-direction: column; gap: 0.65rem; flex: 1;">
-                        <div class="card-header" onclick="toggleItem('${item.id}')" style="cursor: pointer;">
+                        <div class="card-header" onclick="openLightbox('${item.id}', itemPhotoState['${item.id}']?.currentIdx || 0, event)" style="cursor: pointer;">
                             <span class="item-category" style="font-size: 0.72rem; color: #65676b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">${item.category}</span>
                             <h3 class="item-title" style="font-size: 1.1rem; font-weight: 700; margin: 0.2rem 0; line-height: 1.35; color: #050505;">${item.name}</h3>
                         </div>
@@ -1822,7 +1941,7 @@ body {
                                 ${item.status === 'Available' ? `Buy Now - $${item.price.toFixed(2)}` : 'Item Sold'}
                             </button>
 
-                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')" style="flex: 1.1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 0.25rem; height: 38px; padding: 0 0.4rem; border-radius: 8px; border: 1px solid #e4e6eb; background: #ffffff; color: #050505; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                            <button class="btn-card-expand" onclick="openLightbox('${item.id}', itemPhotoState['${item.id}']?.currentIdx || 0, event)" style="flex: 1.1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 0.25rem; height: 38px; padding: 0 0.4rem; border-radius: 8px; border: 1px solid #e4e6eb; background: #ffffff; color: #050505; font-size: 0.75rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
                                 <span>${isExpanded ? 'Hide Details' : 'Expand Details'}</span>
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline></svg>
                             </button>
@@ -1841,7 +1960,7 @@ body {
                         <div class="card-expanded-content" style="margin-top: 0.5rem; padding-top: 0.75rem; border-top: 1px solid #e4e6eb; display: flex; flex-direction: column; gap: 0.75rem;">
                             <p class="item-desc" style="font-size: 0.85rem; color: #65676b; line-height: 1.5; margin: 0;">${item.desc}</p>
                             
-                            <div class="specs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                            <div class="specs-grid" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
                                 <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
                                     <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">DIMENSIONS</label>
                                     <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
@@ -1850,13 +1969,11 @@ body {
                                     <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">CONDITION</label>
                                     <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.condition}</span>
                                 </div>
-                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb; display: flex; flex-direction: column; justify-content: center;">
-                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">RETAILER</label>
-                                    <div style="display: flex; align-items: center; gap: 6px;">
-                                        <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.retailer}</span>
-                                        ${getRetailerLogoSvg(item.retailer)}
-                                    </div>
+                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
+                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">STATUS</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: ${item.status === 'Available' ? '#31a24c' : '#e41e3f'}">● ${item.status}</span>
                                 </div>
+                            </div>
                                 <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
                                     <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">STATUS</label>
                                     <span style="font-size: 0.82rem; font-weight: 600; color: ${item.status === 'Available' ? '#31a24c' : '#e41e3f'}">● ${item.status}</span>
@@ -1983,5 +2100,29 @@ body {
     
 
 </script>
+
+    <!-- Full-Screen Image Lightbox Modal -->
+    <div id="lightbox-modal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; backdrop-filter: blur(8px);" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" style="position: absolute; top: 20px; right: 20px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); border: none; color: #ffffff; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10001;">&times;</button>
+        
+        <div id="lightbox-counter" style="position: absolute; top: 24px; left: 24px; color: #ffffff; font-size: 0.9rem; font-weight: 600; background: rgba(0,0,0,0.5); padding: 4px 12px; border-radius: 12px; backdrop-filter: blur(4px); z-index: 10001;">1 / 1</div>
+
+        <div id="lightbox-image-container" onclick="event.stopPropagation()" style="position: relative; width: 100%; height: 80vh; max-width: 900px; display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <img id="lightbox-img" src="" alt="Product Photo" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,0.6); transition: opacity 0.2s ease;">
+            
+            <button id="lightbox-prev" onclick="prevLightboxImage(event)" title="Previous photo" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.25); border: none; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10001; backdrop-filter: blur(4px);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button id="lightbox-next" onclick="nextLightboxImage(event)" title="Next photo" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; background: rgba(255, 255, 255, 0.25); border: none; color: #ffffff; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10001; backdrop-filter: blur(4px);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+        </div>
+
+        <div onclick="event.stopPropagation()" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; z-index: 10001;">
+            <span id="lightbox-title" style="color: #ffffff; font-size: 1rem; font-weight: 600; text-align: center; max-width: 80vw;"></span>
+            <div id="lightbox-dots-wrap" style="display: flex; gap: 8px; align-items: center; background: rgba(0, 0, 0, 0.6); padding: 6px 12px; border-radius: 16px;"></div>
+        </div>
+    </div>
+
 </body>
 </html>
