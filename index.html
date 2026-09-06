@@ -887,6 +887,27 @@ body {
 
         <!-- Main Content -->
         <main class="main-content">
+            <!-- Garage Sale Title & Subtitle Banner -->
+            <header style="text-align: center; margin-bottom: 1.75rem;">
+                <h1 style="font-size: 2.2rem; font-weight: 800; color: #050505; margin-bottom: 0.35rem; letter-spacing: -0.5px;">Garage Sale</h1>
+                <p style="color: #65676b; font-size: 1rem; font-weight: 500;">Premium Items • 40% Off Retail • Instant Pickup</p>
+            </header>
+
+            <!-- Reunion Building Pickup & How It Works Card Banner -->
+            <section class="faq-banner" style="background: #ffffff; border: 1px solid #e4e6eb; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); max-width: 800px; margin-left: auto; margin-right: auto; text-align: center;">
+                <div class="faq-content">
+                    <h2 style="font-size: 1.2rem; font-weight: 700; color: #1877f2; margin-bottom: 0.3rem;">📍 Pick-up: 9 E 4th Street, Tulsa</h2>
+                    <p style="font-size: 0.95rem; color: #050505; font-weight: 600; margin-bottom: 0.6rem;">The Reunion Building • First Floor Mailroom • 9 AM - 5 PM</p>
+                    <button class="faq-toggle" onclick="toggleFaq()" style="background: transparent; border: none; color: #65676b; font-size: 0.88rem; font-weight: 600; cursor: pointer; text-decoration: underline;">How it works ↓</button>
+                </div>
+                <div id="faq-details" class="faq-details force-hide" style="margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid #e4e6eb; display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+                    <div class="faq-step" style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.92rem; font-weight: 600; color: #050505;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;">1</span> Choose your items. Click Buy.</div>
+                    <div class="faq-step" style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.92rem; font-weight: 600; color: #050505;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;">2</span> Enter your phone # to trigger the gate code.</div>
+                    <div class="faq-step" style="display: flex; align-items: center; gap: 0.75rem; font-size: 0.92rem; font-weight: 600; color: #050505;"><span style="width: 26px; height: 26px; border-radius: 50%; background: #1877f2; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0;">3</span> Pay via Venmo or Zelle. Check your texts for pickup instructions.</div>
+                    <p class="faq-note" style="font-size: 0.82rem; color: #65676b; font-style: italic; margin-top: 0.25rem;">Gate code is sent automatically once payment is verified.</p>
+                </div>
+            </section>
+
             <!-- Controls Row -->
             <div class="controls-row">
                 <div class="search-input-wrapper">
@@ -1591,16 +1612,6 @@ body {
 
                 let photos = [];
                 if (rawImg1) photos.push(rawImg1);
-                
-                // Add generated clear studio product photos for specific items
-                let nLower = fullName.toLowerCase();
-                if (nLower.includes('clear corner shelf') || nLower.includes('clear corner shelves')) {
-                    if (!photos.includes('images/clear_corner_shelf_gen.jpg')) photos.push('images/clear_corner_shelf_gen.jpg');
-                } else if (nLower.includes('wood grain corner shelf') || nLower.includes('wood grain corner shelves')) {
-                    if (!photos.includes('images/wood_grain_corner_shelf_gen.jpg')) photos.push('images/wood_grain_corner_shelf_gen.jpg');
-                } else if (nLower.includes('hudson clear') || nLower.includes('storage bin')) {
-                    if (!photos.includes('images/clear_storage_bin_gen.jpg')) photos.push('images/clear_storage_bin_gen.jpg');
-                }
 
                 // Merge scraped retailer photos if available
                 if (scraped.images && Array.isArray(scraped.images)) {
@@ -2132,6 +2143,76 @@ body {
         <div onclick="event.stopPropagation()" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px; z-index: 10001;">
             <span id="lightbox-title" style="color: #ffffff; font-size: 1rem; font-weight: 600; text-align: center; max-width: 80vw;"></span>
             <div id="lightbox-dots-wrap" style="display: flex; gap: 8px; align-items: center; background: rgba(0, 0, 0, 0.6); padding: 6px 12px; border-radius: 16px;"></div>
+        </div>
+    <!-- Buy / Checkout Modal -->
+    <div id="buy-modal" class="force-hide" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.65); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="background: #ffffff; border-radius: 16px; width: 92%; max-width: 480px; padding: 1.75rem; box-shadow: 0 12px 32px rgba(0,0,0,0.2); position: relative; border: 1px solid #e4e6eb;">
+            <button onclick="closeModal()" style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #f0f2f5; border: none; color: #050505; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
+            
+            <!-- Stage 1: Phone Number -->
+            <div id="modal-stage-1">
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.35rem; color: #050505;">Finalize Purchase</h3>
+                <p id="modal-item-name" style="font-size: 0.95rem; font-weight: 700; color: #1877f2; margin-bottom: 1.25rem;"></p>
+                
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; color: #050505; margin-bottom: 0.4rem;">Your Phone # (For access code)</label>
+                    <input type="tel" id="buyer-phone" placeholder="832-382-1675" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #e4e6eb; font-size: 1rem; color: #050505; outline: none; box-sizing: border-box;">
+                    <div id="phone-error" style="color: #e41e3f; font-size: 0.8rem; display: none; margin-top: 6px; font-weight: 600;">Please enter your phone number for the gate code.</div>
+                </div>
+
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+                    <button onclick="closeModal()" style="padding: 0.65rem 1.25rem; border-radius: 8px; border: 1px solid #e4e6eb; background: #ffffff; color: #050505; font-weight: 600; cursor: pointer;">Cancel</button>
+                    <button onclick="goToStage2()" style="padding: 0.65rem 1.25rem; border-radius: 8px; border: none; background: #1877f2; color: #ffffff; font-weight: 700; cursor: pointer;">Continue to Payment →</button>
+                </div>
+            </div>
+
+            <!-- Stage 2: Payment Method Selection -->
+            <div id="modal-stage-2" class="force-hide">
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; color: #050505;">Select Payment Method</h3>
+                <p style="font-size: 0.85rem; color: #65676b; margin-bottom: 1.25rem;">Choose how you would like to pay:</p>
+
+                <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <!-- Venmo -->
+                    <button onclick="processPayment('venmo')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; border-radius: 10px; border: 1px solid #008CFF; background: #f0f7ff; cursor: pointer; text-align: left;">
+                        <div>
+                            <div style="font-weight: 700; color: #008CFF; font-size: 1rem;">Pay with Venmo</div>
+                            <div style="font-size: 0.8rem; color: #65676b;">Instant redirect to @Zainer23</div>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#008CFF" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+
+                    <!-- Zelle -->
+                    <button onclick="processPayment('zelle')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; border-radius: 10px; border: 1px solid #7414CA; background: #f8f0ff; cursor: pointer; text-align: left;">
+                        <div>
+                            <div style="font-weight: 700; color: #7414CA; font-size: 1rem;">Pay with Zelle</div>
+                            <div style="font-size: 0.8rem; color: #65676b;">Send to Zain Khan / 832-382-1675</div>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7414CA" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+
+                    <!-- Cash App -->
+                    <button onclick="processPayment('cashapp')" style="display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.1rem; border-radius: 10px; border: 1px solid #00D632; background: #f0fff4; cursor: pointer; text-align: left;">
+                        <div>
+                            <div style="font-weight: 700; color: #00D632; font-size: 1rem;">Pay with Cash App</div>
+                            <div style="font-size: 0.8rem; color: #65676b;">Redirect to $z23k</div>
+                        </div>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00D632" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+
+                <div style="display: flex; justify-content: flex-start;">
+                    <button onclick="closeModal()" style="padding: 0.65rem 1.25rem; border-radius: 8px; border: 1px solid #e4e6eb; background: #ffffff; color: #050505; font-weight: 600; cursor: pointer;">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Stage 3: Confirmation / Instructions -->
+            <div id="modal-stage-3" class="force-hide">
+                <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; color: #050505;">Payment Instructions</h3>
+                <div id="instruction-content" style="background: #f7f8fa; border: 1px solid #e4e6eb; border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem; font-size: 0.9rem; color: #050505; display: flex; flex-direction: column; gap: 0.75rem;"></div>
+                <div style="display: flex; justify-content: flex-end;">
+                    <button onclick="closeModal()" style="padding: 0.65rem 1.5rem; border-radius: 8px; border: none; background: #1877f2; color: #ffffff; font-weight: 700; cursor: pointer;">Got it!</button>
+                </div>
+            </div>
         </div>
     </div>
 
