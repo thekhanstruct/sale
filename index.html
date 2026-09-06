@@ -98,8 +98,10 @@
         async function fetchInventory() {
             try {
                 const response = await fetch(SHEET_CSV_URL);
-                const data = await response.text();
+                let data = await response.text();
                 
+                // Inject Test Product for User Verification
+                data += '\nTest Product,Verification Item,$1.00,Brand New,$5.00,Available,Test Size,10"x10",10",1,https://example.com,https://placehold.co/600x600/111/444?text=Test+Product,,,,';
                 // Embed Scraped Link Data
                 const scrapedData = {
                   "https://www.target.com/p/standard-ironing-board-cover-gray-room-essentials-8482/-/A-87215417#lnk=sametab": {
