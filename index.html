@@ -10,37 +10,65 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <header>
-        <h1>Spring Clean</h1>
-        <p class="subtitle">Barely used items for sale. Contactless pick up.</p>
-    </header>
-
-    <main id="app">
-        <section class="faq-banner">
-            <div class="faq-content">
-                <h2>📍 Pick-up: 9 E 4th Street, Tulsa</h2>
-                <p>The Reunion Building • First Floor Mailroom</p>
-                <button class="faq-toggle" onclick="toggleFaq()">How it works ↓</button>
+    <div class="marketplace-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span id="filters-count">0 filters active</span>
+                <button class="clear-filters" onclick="clearFilters()">Clear all filters</button>
             </div>
-            <div id="faq-details" class="faq-details force-hide">
-                <img src="images/building.jpg" alt="Reunion Building" style="width: 100%; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--glass-border);">
-                <div class="faq-step"><span>1</span> Choose your item and enter your phone number.</div>
-                <div class="faq-step"><span>2</span> Select your payment method and pay.</div>
-                <div class="faq-step"><span>3</span> You will get a confirmation DM when the item is placed in the mailroom with the gate code and instructions to get into the building.</div>
+            <nav class="sidebar-menu">
+                <button id="menu-search" class="menu-item active" onclick="toggleSavedTab(false)"><span class="icon">🔍</span> Search</button>
+                <button class="menu-item disabled"><span class="icon">💰</span> Price</button>
+                <button class="menu-item disabled"><span class="icon">📋</span> Category</button>
+                <button class="menu-item disabled"><span class="icon">🏪</span> Source / Store</button>
+                <button class="menu-item disabled"><span class="icon">🏷️</span> Condition</button>
+                <button class="menu-item disabled"><span class="icon">✅</span> Availability</button>
+                <button id="menu-saved" class="menu-item" onclick="toggleSavedTab(true)"><span class="icon">❤️</span> Saved</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="search-bar">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search local finds" onkeyup="renderInventory()">
+                </div>
+                <div class="top-bar-row">
+                    <div class="category-chips" id="category-chips">
+                        <button class="chip active" onclick="setCategory('All')">All</button>
+                        <button class="chip" onclick="setCategory('Home')">Home</button>
+                        <button class="chip" onclick="setCategory('Electronics')">Electronics</button>
+                        <button class="chip" onclick="setCategory('Fashion')">Fashion</button>
+                        <button class="chip" onclick="setCategory('Kitchen')">Kitchen</button>
+                        <button class="chip" onclick="setCategory('Collectibles')">Collectibles</button>
+                    </div>
+                    <select class="source-dropdown">
+                        <option>All sources</option>
+                    </select>
+                </div>
             </div>
-        </section>
 
-        <div class="inventory-grid" id="inventory-container">
-            <!-- Items will be injected here from Google Sheets -->
-            <div class="loader">Loading inventory...</div>
-        </div>
-    </main>
+            <div id="saved-empty-state" class="force-hide" style="padding:4rem; text-align:center; color:#A1A1A6;">
+                <div style="font-size:3rem; margin-bottom:1rem;">💔</div>
+                <h2>No saved items</h2>
+                <p>You haven't saved any items yet. Click the heart icon on any item to save it for later.</p>
+                <button class="chip active" style="margin-top:2rem;" onclick="toggleSavedTab(false)">Explore Marketplace</button>
+            </div>
 
-    <!-- Buy Modal -->
+            <!-- Inventory Grid -->
+            <div class="inventory-grid" id="inventory-container">
+                <div class="loader">Loading inventory...</div>
+            </div>
+        </main>
+    </div>
+    
     <!-- Buy Modal -->
     <div id="buy-modal" class="modal force-hide">
-        
         <!-- Stage 1: Phone -->
         <div class="modal-content" id="modal-stage-1">
             <h3>Step 1: Contact Info</h3>
@@ -52,7 +80,7 @@
             <p id="phone-error" style="color:#ff5555; display:none; font-size:0.9rem; margin-top:8px; font-weight:bold;">Please enter a valid phone number to continue.</p>
             
             <div class="modal-actions" style="margin-top: 1.5rem;">
-                <button class="pay-btn" style="background:var(--accent-color); color:black;" onclick="goToStage2()">Next ➔</button>
+                <button class="pay-btn" style="background:var(--accent-color); color:white;" onclick="goToStage2()">Next ➔</button>
                 <button class="cancel-btn" style="margin-top:0.5rem;" onclick="closeModal()">Cancel</button>
             </div>
         </div>
@@ -90,10 +118,65 @@
         </div>
     </div>
 
-    <script>
+<script>
+
+        
         const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQgNwntMBcyGi-5hplX9GiCBR4eKPvQiHTPE8R27_9awMk2bJpqOucyN3ZcQIkJLW13V9aJl61nkVSa/pub?output=csv';
         let inventory = [];
         let selectedItem = null;
+        
+        // NEW STATE
+        let searchQuery = "";
+        let selectedCategory = "All";
+        let expandedItemId = null;
+        let isSavedTab = false;
+        let savedItemIds = JSON.parse(localStorage.getItem('savedItemIds') || '[]');
+        
+        function toggleSavedTab(state) {
+            isSavedTab = state;
+            document.getElementById('menu-search').classList.toggle('active', !state);
+            document.getElementById('menu-saved').classList.toggle('active', state);
+            renderInventory();
+        }
+
+        function setCategory(cat) {
+            selectedCategory = cat;
+            document.querySelectorAll('.chip').forEach(c => {
+                c.classList.toggle('active', c.innerText === cat);
+            });
+            renderInventory();
+        }
+
+        function clearFilters() {
+            document.getElementById('search-input').value = "";
+            setCategory("All");
+        }
+
+        function toggleItem(id) {
+            expandedItemId = (expandedItemId === id) ? null : id;
+            renderInventory();
+        }
+
+        function toggleSaved(id, event) {
+            event.stopPropagation();
+            if (savedItemIds.includes(id)) {
+                savedItemIds = savedItemIds.filter(i => i !== id);
+            } else {
+                savedItemIds.push(id);
+            }
+            localStorage.setItem('savedItemIds', JSON.stringify(savedItemIds));
+            renderInventory();
+        }
+        
+        function inferCategory(name, desc) {
+            const text = (name + " " + desc).toLowerCase();
+            if(text.match(/headphones|cable|lamp|tech|electronic|charger/)) return "Electronics";
+            if(text.match(/mixer|coffee|kitchen|tray|dinnerware/)) return "Kitchen";
+            if(text.match(/clothing|backpack|fashion|wear/)) return "Fashion";
+            if(text.match(/vintage|collectible|art/)) return "Collectibles";
+            return "Home";
+        }
+
 
         async function fetchInventory() {
             try {
@@ -273,9 +356,13 @@
                     let finalOriginal = originalPrice.startsWith('$') ? originalPrice : '$' + originalPrice;
                     if(originalPrice === 'N/A' || originalPrice === '') finalOriginal = 'N/A';
                     
+                    
+                    let inferredCategory = inferCategory(fullName, desc);
+                    
                     return {
                         id: `item-${index}`,
                         name: fullName,
+                        category: inferredCategory,
                         price: price,
                         status: status,
                         size: size,
@@ -286,8 +373,10 @@
                         link: rawLink,
                         desc: desc,
                         condition: condition,
-                        galleryHtml: galleryHtml
+                        galleryHtml: galleryHtml,
+                        rawImg1: rawImg1
                     };
+
                 }).filter(item => item !== null && item.name !== 'Unknown Item' && item.name !== '');
 
                 renderInventory();
@@ -297,39 +386,105 @@
             }
         }
 
+        
         function renderInventory() {
-            const container = document.getElementById('inventory-container');
-            container.innerHTML = inventory.map((item, index) => `
-                <div class="item-card" id="${item.id}" style="animation-delay: ${index * 0.1}s">
-                    ${item.galleryHtml}
-                    <div class="item-info">
-                        <span class="status-badge ${item.status.toLowerCase().replace(/\s/g, '-')}">${item.status}</span>
-                        <h2 class="item-name">${item.name}</h2>
-                        
-                        <p class="item-desc">${item.desc}</p>
+            searchQuery = document.getElementById('search-input').value.toLowerCase();
+            
+            let filtered = inventory.filter(item => {
+                const text = `${item.name} ${item.category} ${item.condition} ${item.desc}`.toLowerCase();
+                const matchesSearch = text.includes(searchQuery);
+                const matchesCategory = (selectedCategory === "All" || item.category === selectedCategory);
+                const matchesSavedTab = !isSavedTab || savedItemIds.includes(item.id);
+                return matchesSearch && matchesCategory && matchesSavedTab;
+            });
 
-                        <div class="item-specs">
-                            <p><span>Condition:</span> ${item.condition}</p>
-                            ${item.size && item.size !== 'N/A' && item.size !== '' ? `<p><span>Size:</span> ${item.size}</p>` : ''}
-                            ${item.dimensions && item.dimensions !== 'N/A' && item.dimensions !== '' ? `<p><span>Dimensions:</span> ${item.dimensions}</p>` : ''}
-                            ${item.height && item.height !== 'N/A' && item.height !== '' ? `<p><span>Height:</span> ${item.height}</p>` : ''}
-                            ${item.qty && item.qty !== 'N/A' && item.qty !== '' ? `<p><span>Quantity:</span> ${item.qty}</p>` : ''}
-                            <p><span>Original:</span> <span class="strikethrough">${item.originalPrice}</span></p>
+            // Update filters count
+            let activeFilters = 0;
+            if (searchQuery !== "") activeFilters++;
+            if (selectedCategory !== "All") activeFilters++;
+            document.getElementById('filters-count').innerText = `${activeFilters} filters active`;
+
+            const container = document.getElementById('inventory-container');
+            const emptyState = document.getElementById('saved-empty-state');
+            
+            if (isSavedTab && filtered.length === 0) {
+                container.style.display = 'none';
+                emptyState.classList.remove('force-hide');
+            } else {
+                container.style.display = 'grid';
+                emptyState.classList.add('force-hide');
+            }
+
+            container.innerHTML = filtered.map((item, index) => {
+                const isExpanded = expandedItemId === item.id;
+                const isSaved = savedItemIds.includes(item.id);
+                
+                return `
+                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="animation-delay: ${index * 0.05}s">
+                    <div class="card-image-wrap" onclick="toggleItem('${item.id}')">
+                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Item'">
+                    </div>
+                    
+                    <div class="card-content">
+                        <div class="card-header" onclick="toggleItem('${item.id}')">
+                            <div class="card-header-left">
+                                <span class="item-category">${item.category}</span>
+                                <h3 class="item-title">${item.name}</h3>
+                                <span class="condition-badge">${item.condition}</span>
+                            </div>
                         </div>
 
-                        ${item.link !== '#' ? `<a href="${item.link}" target="_blank" class="retail-link">View Official Page ↗</a>` : ''}
-
-                        <p class="item-price">$${item.price.toFixed(2)}</p>
+                        <div class="card-price-row">
+                            <span class="item-price">$${item.price.toFixed(2)}</span>
+                            <div class="card-actions">
+                                <button class="action-btn ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)">
+                                    ${isSaved ? '❤️' : '🤍'}
+                                </button>
+                                <button class="action-btn" onclick="toggleItem('${item.id}')">
+                                    ${isExpanded ? '▲' : '▼'}
+                                </button>
+                            </div>
+                        </div>
                         
-                        <button class="claim-btn" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''}>
-                            ${item.status === 'Available' ? 'Buy Now' : 'Sold Out'}
-                        </button>
+                        ${isExpanded ? `
+                        <div class="card-expanded-content">
+                            <p class="item-desc">${item.desc}</p>
+                            
+                            <div class="specs-grid">
+                                <div class="spec-box">
+                                    <label>DIMENSIONS</label>
+                                    <span>${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size !== 'N/A' ? item.size : 'Standard')}</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>QUANTITY</label>
+                                    <span>${item.qty} available</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>LOCATION</label>
+                                    <span>Local pickup</span>
+                                </div>
+                                <div class="spec-box">
+                                    <label>STATUS</label>
+                                    <span style="color: ${item.status === 'Available' ? '#00D632' : '#ff4444'}">● ${item.status}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="expanded-buttons">
+                                <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''}>
+                                    Buy now
+                                </button>
+                                <button class="btn-secondary" onclick="window.open('sms:918-555-5555?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')">
+                                    Message seller
+                                </button>
+                            </div>
+                        </div>
+                        ` : ''}
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
-
-        function toggleFaq() {
+function toggleFaq() {
             document.getElementById('faq-details').classList.toggle('force-hide');
         }
 
@@ -435,6 +590,7 @@
         }
 
         fetchInventory();
-    </script>
+    
+</script>
 </body>
 </html>
