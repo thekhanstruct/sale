@@ -9,14 +9,14 @@
 /* EMBEDDED MARKETPLACE STYLES - ZERO CACHE LAG */
 /* Premium Marketplace Dark Theme */
 :root {
-    --bg-color: #0d1117;
-    --sidebar-bg: #161b22;
-    --card-bg: #1e242c;
-    --accent-color: #3b82f6; /* Market Blue */
-    --accent-hover: #2563eb;
-    --text-primary: #f0f6fc;
-    --text-secondary: #8b949e;
-    --border-color: #30363d;
+    --bg-color: #f0f2f5;
+    --sidebar-bg: #ffffff;
+    --card-bg: #ffffff;
+    --accent-color: #1877f2; /* FB Blue */
+    --accent-hover: #166fe5;
+    --text-primary: #050505;
+    --text-secondary: #65676b;
+    --border-color: #e4e6eb;
 }
 
 * {
@@ -619,6 +619,250 @@ body {
     object-fit: contain !important;
 }
 
+
+/* FB Marketplace Modern Light Styles */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.app-header {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e4e6eb !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.app-header .logo, .app-header span, .app-header h1 {
+    color: #050505 !important;
+}
+
+.search-input-wrapper input {
+    background: #f0f2f5 !important;
+    border: 1px solid #e4e6eb !important;
+    color: #050505 !important;
+}
+
+.search-input-wrapper input:focus {
+    border-color: #1877f2 !important;
+    background: #ffffff !important;
+}
+
+.chip {
+    background: #ffffff !important;
+    border: 1px solid #e4e6eb !important;
+    color: #65676b !important;
+    font-weight: 600;
+}
+
+.chip:hover {
+    background: #f0f2f5 !important;
+    color: #050505 !important;
+}
+
+.chip.active {
+    background: #e7f3ff !important;
+    color: #1877f2 !important;
+    border-color: #1877f2 !important;
+}
+
+.retailer-logo-btn {
+    background: #ffffff !important;
+    border: 1px solid #e4e6eb !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.retailer-logo-btn:hover {
+    border-color: #1877f2 !important;
+    background: #f7f8fa !important;
+}
+
+.retailer-logo-btn.active {
+    border-color: #1877f2 !important;
+    background: #e7f3ff !important;
+    box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.3) !important;
+}
+
+.item-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e4e6eb !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.item-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.card-image-wrap {
+    background-color: #f7f8fa !important;
+}
+
+.item-title {
+    color: #050505 !important;
+}
+
+.item-category {
+    color: #65676b !important;
+}
+
+.condition-badge {
+    background-color: #f0f2f5 !important;
+    color: #65676b !important;
+    border: 1px solid #e4e6eb !important;
+}
+
+.price-current {
+    color: #050505 !important;
+}
+
+.price-original {
+    color: #65676b !important;
+}
+
+/* Soft red sale badge instead of neon green */
+.savings-pill {
+    background: #ffebe9 !important;
+    border: 1px solid #fcd3d1 !important;
+    color: #d9381e !important;
+}
+
+.card-badge-discount {
+    background: #e41e3f !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 6px rgba(228, 30, 63, 0.3) !important;
+}
+
+.card-badge-qty {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: #050505 !important;
+    border: 1px solid #e4e6eb !important;
+}
+
+.retailer-compare-btn {
+    background: #f7f8fa !important;
+    border: 1px solid #e4e6eb !important;
+}
+
+.retailer-compare-btn:hover {
+    background: #e7f3ff !important;
+    border-color: #1877f2 !important;
+}
+
+.compare-text {
+    color: #65676b !important;
+}
+
+.btn-card-save, .btn-card-expand {
+    border: 1px solid #e4e6eb !important;
+    color: #050505 !important;
+    background: #ffffff !important;
+}
+
+.btn-card-save:hover, .btn-card-expand:hover {
+    background: #f0f2f5 !important;
+}
+
+.spec-box {
+    background-color: #f7f8fa !important;
+    border: 1px solid #e4e6eb !important;
+}
+
+.spec-box label {
+    color: #65676b !important;
+}
+
+.spec-box span {
+    color: #050505 !important;
+}
+
+.btn-primary {
+    background-color: #1877f2 !important;
+    color: #ffffff !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.btn-primary:hover {
+    background-color: #166fe5 !important;
+}
+
+.btn-secondary {
+    background-color: #f0f2f5 !important;
+    color: #050505 !important;
+    border: 1px solid #e4e6eb !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.btn-secondary:hover {
+    background-color: #e4e6eb !important;
+}
+
+/* Modal Light styling */
+.modal-content, .drawer-content {
+    background-color: #ffffff !important;
+    color: #050505 !important;
+    border: 1px solid #e4e6eb !important;
+}
+
+/* FB Carousel Dots Styling */
+.carousel-dots-wrap {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 4px 8px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    z-index: 4;
+}
+
+.carousel-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.carousel-dot.active {
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e4e6eb;
+    color: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 4;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    transition: all 0.2s ease;
+}
+
+.carousel-arrow:hover {
+    background: #ffffff;
+    transform: translateY(-50%) scale(1.08);
+}
+
 </style>
     <link rel="stylesheet" href="index.css?v=2026090603">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -910,7 +1154,10 @@ body {
 
         function getRetailerLogoSvg(retailer) {
             if (RETAILER_LOGOS[retailer]) {
-                return `<img src="${RETAILER_LOGOS[retailer]}" alt="${retailer}" style="height:22px !important; max-height:22px !important; width:auto !important; max-width:100px !important; display:block !important; object-fit:contain; border-radius: 4px;">`;
+                return `<img src="${RETAILER_LOGOS[retailer]}" alt="${retailer}" style="height:18px !important; max-height:18px !important; width:auto !important; max-width:85px !important; display:block !important; object-fit:contain;">`;
+            }
+            return `<span style="font-size:0.75rem; font-weight:700; color:#050505;">${retailer}</span>`;
+        }" alt="${retailer}" style="height:22px !important; max-height:22px !important; width:auto !important; max-width:100px !important; display:block !important; object-fit:contain; border-radius: 4px;">`;
             }
             return `<svg viewBox="0 0 75 22" width="75" height="22" xmlns="http://www.w3.org/2000/svg" style="height:20px !important; max-height:20px !important; width:auto !important; max-width:75px !important; display:block !important;"><rect width="75" height="22" rx="4" fill="#374151"/><text x="37.5" y="15" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-weight="700" font-size="10" fill="#E5E7EB" text-anchor="middle">${retailer}</text></svg>`;
         }
@@ -1346,6 +1593,21 @@ body {
                 let categories = inferCategories(fullName, desc, dimensions);
                 let primaryCategory = categories.find(c => c !== 'Home') || categories[0] || 'Home';
 
+                let photos = [];
+                if (rawImg1) photos.push(rawImg1);
+                [13, 15, 16, 17, 18, 19].forEach(colIdx => {
+                    let extra = cols[colIdx]?.trim();
+                    if (extra && extra !== '#' && !extra.startsWith('http://') && !extra.startsWith('https://')) {
+                        if (!extra.startsWith('http') && !extra.startsWith('images/')) {
+                            extra = 'images/' + extra;
+                        }
+                        extra = extra.replace(/\.(HEIC|HEIF|PNG|png)$/i, '.jpeg');
+                        if ((extra.includes('IMG_') || extra.includes('.jpeg') || extra.includes('.jpg')) && !photos.includes(extra)) {
+                            photos.push(extra);
+                        }
+                    }
+                });
+
                 return {
                     id: `item-${index}`,
                     name: fullName,
@@ -1363,11 +1625,63 @@ body {
                     link: finalLink,
                     desc: desc,
                     condition: condition,
-                    rawImg1: rawImg1
+                    rawImg1: rawImg1,
+                    photos: photos.length > 0 ? photos : [rawImg1]
                 };
             }).filter(item => item !== null && item.name !== 'Unknown Item' && item.name !== '');
 
             renderInventory();
+        }
+
+        
+        const itemPhotoState = {};
+
+        function nextCardImage(itemId, event) {
+            if (event) event.stopPropagation();
+            const state = itemPhotoState[itemId];
+            if (!state || !state.photos || state.photos.length <= 1) return;
+            state.currentIdx = (state.currentIdx + 1) % state.photos.length;
+            updateCardCarouselUI(itemId);
+        }
+
+        function prevCardImage(itemId, event) {
+            if (event) event.stopPropagation();
+            const state = itemPhotoState[itemId];
+            if (!state || !state.photos || state.photos.length <= 1) return;
+            state.currentIdx = (state.currentIdx - 1 + state.photos.length) % state.photos.length;
+            updateCardCarouselUI(itemId);
+        }
+
+        function setCardImage(itemId, idx, event) {
+            if (event) event.stopPropagation();
+            const state = itemPhotoState[itemId];
+            if (!state || !state.photos || idx < 0 || idx >= state.photos.length) return;
+            state.currentIdx = idx;
+            updateCardCarouselUI(itemId);
+        }
+
+        function updateCardCarouselUI(itemId) {
+            const state = itemPhotoState[itemId];
+            if (!state) return;
+            const imgEl = document.getElementById(`img-${itemId}`);
+            if (imgEl) imgEl.src = state.photos[state.currentIdx];
+            
+            state.photos.forEach((_, pIdx) => {
+                const dot = document.getElementById(`dot-${itemId}-${pIdx}`);
+                if (dot) {
+                    if (pIdx === state.currentIdx) {
+                        dot.classList.add('active');
+                        dot.style.width = '8px';
+                        dot.style.height = '8px';
+                        dot.style.background = '#ffffff';
+                    } else {
+                        dot.classList.remove('active');
+                        dot.style.width = '6px';
+                        dot.style.height = '6px';
+                        dot.style.background = 'rgba(255, 255, 255, 0.45)';
+                    }
+                }
+            });
         }
 
         function renderInventory() {
@@ -1453,80 +1767,101 @@ body {
                 
                 const hasRetailerLink = item.link && item.link !== '#' && !item.link.startsWith('javascript');
 
+                // Register photos in itemPhotoState
+                if (!itemPhotoState[item.id]) {
+                    itemPhotoState[item.id] = { currentIdx: 0, photos: item.photos };
+                } else {
+                    itemPhotoState[item.id].photos = item.photos;
+                }
+                const activePhoto = item.photos[itemPhotoState[item.id].currentIdx || 0] || item.rawImg1;
+
                 return `
-                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="background-color: #1e242c; border-radius: 12px; border: 1px solid #30363d; overflow: hidden; display: flex; flex-direction: column; animation-delay: ${index * 0.03}s;">
-                    <div class="card-image-wrap" onclick="toggleItem('${item.id}')" style="position: relative; width: 100%; height: 230px; overflow: hidden; background-color: #111; cursor: pointer;">
-                        ${discountPercent > 0 ? `<div class="card-badge-discount" style="position: absolute; top: 10px; left: 10px; background: #10b981; color: #ffffff; font-size: 0.75rem; font-weight: 800; padding: 4px 8px; border-radius: 6px; letter-spacing: 0.5px; z-index: 2; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.4); text-transform: uppercase;">${discountPercent}% OFF</div>` : ''}
-                        <div class="card-badge-qty" style="position: absolute; top: 10px; right: 10px; background: ${item.status === 'Sold' ? '#dc2626' : 'rgba(15, 23, 42, 0.85)'}; backdrop-filter: blur(8px); color: ${item.status === 'Sold' ? '#ffffff' : '#94a3b8'}; font-size: 0.72rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.1); z-index: 2;">${qtyBadgeText}</div>
-                        <img src="${item.rawImg1}" alt="${item.name}" class="item-img" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.onerror=null; this.src='https://placehold.co/600x600/111/444?text=Garage+Sale+Item'">
+                <div class="item-card ${isExpanded ? 'expanded' : ''}" style="background-color: #ffffff; border-radius: 12px; border: 1px solid #e4e6eb; overflow: hidden; display: flex; flex-direction: column; animation-delay: ${index * 0.03}s;">
+                    <div class="card-image-wrap" id="img-wrap-${item.id}" style="position: relative; width: 100%; height: 250px; overflow: hidden; background-color: #f7f8fa;">
+                        ${discountPercent > 0 ? `<div class="card-badge-discount" style="position: absolute; top: 10px; left: 10px; background: #e41e3f; color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; letter-spacing: 0.5px; z-index: 3; box-shadow: 0 2px 6px rgba(228, 30, 63, 0.3); text-transform: uppercase;">${discountPercent}% OFF</div>` : ''}
+                        <div class="card-badge-qty" style="position: absolute; top: 10px; right: 10px; background: ${item.status === 'Sold' ? '#dc2626' : 'rgba(255, 255, 255, 0.92)'}; backdrop-filter: blur(8px); color: ${item.status === 'Sold' ? '#ffffff' : '#050505'}; font-size: 0.72rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; border: 1px solid #e4e6eb; z-index: 3;">${qtyBadgeText}</div>
+
+                        <img id="img-${item.id}" src="${activePhoto}" alt="${item.name}" class="item-img" loading="lazy" onclick="toggleItem('${item.id}')" style="width: 100%; height: 100%; object-fit: contain; padding: 8px; display: block; cursor: pointer;" onerror="this.onerror=null; this.src='https://placehold.co/600x600/f0f2f5/65676b?text=Garage+Sale+Item'">
+
+                        ${item.photos.length > 1 ? `
+                            <button class="carousel-arrow left" onclick="prevCardImage('${item.id}', event)" title="Previous photo" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); border: 1px solid #e4e6eb; color: #050505; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 4; box-shadow: 0 2px 4px rgba(0,0,0,0.12);">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                            </button>
+                            <button class="carousel-arrow right" onclick="nextCardImage('${item.id}', event)" title="Next photo" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); border: 1px solid #e4e6eb; color: #050505; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 4; box-shadow: 0 2px 4px rgba(0,0,0,0.12);">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </button>
+
+                            <div class="carousel-dots-wrap" style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; align-items: center; background: rgba(0, 0, 0, 0.55); padding: 4px 8px; border-radius: 12px; backdrop-filter: blur(4px); z-index: 4;">
+                                ${item.photos.map((_, pIdx) => `<span id="dot-${item.id}-${pIdx}" class="carousel-dot ${pIdx === (itemPhotoState[item.id].currentIdx || 0) ? 'active' : ''}" onclick="setCardImage('${item.id}', ${pIdx}, event)" style="width: ${pIdx === (itemPhotoState[item.id].currentIdx || 0) ? '8px' : '6px'}; height: ${pIdx === (itemPhotoState[item.id].currentIdx || 0) ? '8px' : '6px'}; border-radius: 50%; background: ${pIdx === (itemPhotoState[item.id].currentIdx || 0) ? '#ffffff' : 'rgba(255, 255, 255, 0.45)'}; cursor: pointer; transition: all 0.2s ease;"></span>`).join('')}
+                            </div>
+                        ` : ''}
                     </div>
                     
                     <div class="card-content" style="padding: 1.25rem; display: flex; flex-direction: column; gap: 0.65rem; flex: 1;">
                         <div class="card-header" onclick="toggleItem('${item.id}')" style="cursor: pointer;">
                             <div class="card-header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
-                                <span class="item-category" style="font-size: 0.72rem; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">${item.category}</span>
-                                <span class="condition-badge" style="background-color: #21262d; color: #8b949e; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid #30363d;">${item.condition}</span>
+                                <span class="item-category" style="font-size: 0.72rem; color: #65676b; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700;">${item.category}</span>
+                                <span class="condition-badge" style="background-color: #f0f2f5; color: #65676b; font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.5rem; border-radius: 4px; border: 1px solid #e4e6eb;">${item.condition}</span>
                             </div>
-                            <h3 class="item-title" style="font-size: 1.1rem; font-weight: 700; margin: 0.2rem 0; line-height: 1.35; color: #f0f6fc;">${item.name}</h3>
-                            <div class="item-specs-preview" style="font-size: 0.8rem; color: #8b949e;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : '')}</div>
+                            <h3 class="item-title" style="font-size: 1.1rem; font-weight: 700; margin: 0.2rem 0; line-height: 1.35; color: #050505;">${item.name}</h3>
                         </div>
 
                         <div class="card-pricing-block" style="display: flex; justify-content: space-between; align-items: baseline; margin: 0.25rem 0;">
                             <div class="price-main-wrap" style="display: flex; align-items: baseline; gap: 0.5rem;">
-                                <span class="price-current" style="font-size: 1.65rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">$${item.price.toFixed(2)}</span>
-                                ${origFormatted ? `<span class="price-original" style="font-size: 1rem; color: #6e7681; text-decoration: line-through; font-weight: 500;">${origFormatted}</span>` : ''}
+                                <span class="price-current" style="font-size: 1.65rem; font-weight: 800; color: #050505; letter-spacing: -0.5px;">$${item.price.toFixed(2)}</span>
+                                ${origFormatted ? `<span class="price-original" style="font-size: 1rem; color: #65676b; text-decoration: line-through; font-weight: 500;">${origFormatted}</span>` : ''}
                             </div>
-                            ${savingsText ? `<span class="savings-pill" style="background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.3); color: #10b981; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${savingsText}</span>` : ''}
+                            ${savingsText ? `<span class="savings-pill" style="background: #ffebe9; border: 1px solid #fcd3d1; color: #d9381e; font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; white-space: nowrap;">${savingsText}</span>` : ''}
                         </div>
 
                         ${hasRetailerLink ? `
                         <div class="retailer-compare-row" style="margin: 0.25rem 0;">
-                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="retailer-compare-btn" title="Compare price at ${item.retailer}" style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 38px; padding: 0 12px; background: #161b22; border: 1px solid #30363d; border-radius: 8px; text-decoration: none; box-sizing: border-box;">
-                                <span class="compare-text" style="font-size: 0.78rem; font-weight: 600; color: #8b949e;">Compare Price</span>
-                                <div class="compare-logo-wrap" style="display: inline-flex; align-items: center; justify-content: center; height: 22px; max-height: 22px; flex-shrink: 0;">${getRetailerLogoSvg(item.retailer)}</div>
-                                <svg class="compare-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
+                            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="retailer-compare-btn" title="Compare price at ${item.retailer}" style="display: flex; align-items: center; justify-content: space-between; width: 100%; height: 40px; padding: 0 12px; background: #f7f8fa; border: 1px solid #e4e6eb; border-radius: 8px; text-decoration: none; box-sizing: border-box;">
+                                <span class="compare-text" style="font-size: 0.82rem; font-weight: 600; color: #65676b;">Compare Price</span>
+                                <div class="compare-logo-wrap" style="display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 2px 8px; background: #ffffff; border: 1px solid #e4e6eb; border-radius: 6px; flex-shrink: 0;">${getRetailerLogoSvg(item.retailer)}</div>
+                                <svg class="compare-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#65676b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M7 17l9.2-9.2M17 17V8H8"/></svg>
                             </a>
                         </div>` : ''}
 
                         <div class="card-actions-row" style="display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.25rem;">
-                            <button class="btn-card-save ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid ${isSaved ? '#ef4444' : '#30363d'}; background: ${isSaved ? 'rgba(239, 68, 68, 0.12)' : 'transparent'}; color: ${isSaved ? '#ef4444' : '#f0f6fc'}; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
+                            <button class="btn-card-save ${isSaved ? 'saved' : ''}" onclick="toggleSaved('${item.id}', event)" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid ${isSaved ? '#ef4444' : '#e4e6eb'}; background: ${isSaved ? '#ffebe9' : '#ffffff'}; color: ${isSaved ? '#ef4444' : '#050505'}; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="${isSaved ? '#ef4444' : 'none'}" stroke="${isSaved ? '#ef4444' : 'currentColor'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
                                 <span>${isSaved ? 'Saved' : 'Save'}</span>
                             </button>
-                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid #30363d; background: transparent; color: #f0f6fc; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
+                            <button class="btn-card-expand" onclick="toggleItem('${item.id}')" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.4rem; height: 36px; padding: 0 0.75rem; border-radius: 8px; border: 1px solid #e4e6eb; background: #ffffff; color: #050505; font-size: 0.82rem; font-weight: 600; cursor: pointer;">
                                 <span>${isExpanded ? 'Hide Details' : 'View Details'}</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${isExpanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline></svg>
                             </button>
                         </div>
                         
                         ${isExpanded ? `
-                        <div class="card-expanded-content" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #30363d;">
-                            <p class="item-desc" style="font-size: 0.85rem; color: #c9d1d9; line-height: 1.5; margin-bottom: 1rem;">${item.desc}</p>
+                        <div class="card-expanded-content" style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e4e6eb;">
+                            <p class="item-desc" style="font-size: 0.85rem; color: #65676b; line-height: 1.5; margin-bottom: 1rem;">${item.desc}</p>
                             
                             <div class="specs-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
-                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
-                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">DIMENSIONS</label>
-                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
+                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
+                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">DIMENSIONS</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.dimensions && item.dimensions !== 'N/A' ? item.dimensions : (item.size && item.size !== 'N/A' ? item.size : 'Standard')}</span>
                                 </div>
-                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
-                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">CONDITION</label>
-                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.condition}</span>
+                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
+                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">CONDITION</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.condition}</span>
                                 </div>
-                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
-                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">RETAILER</label>
-                                    <span style="font-size: 0.82rem; font-weight: 600; color: #f0f6fc;">${item.retailer}</span>
+                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
+                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">RETAILER</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: #050505;">${item.retailer}</span>
                                 </div>
-                                <div class="spec-box" style="background-color: #111; padding: 0.65rem; border-radius: 8px; border: 1px solid #30363d;">
-                                    <label style="display: block; font-size: 0.65rem; color: #8b949e; margin-bottom: 0.2rem; letter-spacing: 0.5px;">STATUS</label>
-                                    <span style="font-size: 0.82rem; font-weight: 600; color: ${item.status === 'Available' ? '#10b981' : '#ff4444'}">● ${item.status}</span>
+                                <div class="spec-box" style="background-color: #f7f8fa; padding: 0.65rem; border-radius: 8px; border: 1px solid #e4e6eb;">
+                                    <label style="display: block; font-size: 0.65rem; color: #65676b; margin-bottom: 0.2rem; letter-spacing: 0.5px;">STATUS</label>
+                                    <span style="font-size: 0.82rem; font-weight: 600; color: ${item.status === 'Available' ? '#31a24c' : '#e41e3f'}">● ${item.status}</span>
                                 </div>
                             </div>
                             
                             <div class="expanded-buttons" style="display: flex; flex-direction: column; gap: 0.5rem;">
-                                <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''} style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; background-color: #3b82f6; color: white;">
+                                <button class="btn-primary" onclick="openBuyModal('${item.id}')" ${item.status !== 'Available' ? 'disabled' : ''} style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; background-color: #1877f2; color: white; display: flex; align-items: center; justify-content: center; text-align: center;">
                                     ${item.status === 'Available' ? `Buy Now - $${item.price.toFixed(2)}` : 'Item Sold'}
                                 </button>
-                                <button class="btn-secondary" onclick="window.open('sms:8323821675?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; background-color: #161b22; color: #f0f6fc; border: 1px solid #30363d;">
+                                <button class="btn-secondary" onclick="window.open('sms:8323821675?body=Hi%2C%20I%20have%20a%20question%20about%20the%20${encodeURIComponent(item.name)}')" style="width: 100%; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; background-color: #f0f2f5; color: #050505; border: 1px solid #e4e6eb; display: flex; align-items: center; justify-content: center; text-align: center;">
                                     Message Seller
                                 </button>
                             </div>
