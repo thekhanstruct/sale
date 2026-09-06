@@ -152,7 +152,39 @@
         let expandedItemId = null;
         let isSavedTab = false;
         let priceSort = null;
+        let selectedRetailer = "All";
         let savedItemIds = JSON.parse(localStorage.getItem('savedItemIds') || '[]');
+        
+        const retailerDomains = {
+          'thecontainerstore.com': 'The Container Store',
+          'ikea.com': 'IKEA',
+          'target.com': 'Target',
+          'amazon.com': 'Amazon',
+          'walmart.com': 'Walmart',
+          'homedepot.com': 'The Home Depot',
+          'lowes.com': 'Lowe\\'s',
+          'wayfair.com': 'Wayfair',
+          'crateandbarrel.com': 'Crate & Barrel',
+          'getopenspaces.com': 'Open Spaces',
+          'athome.com': 'At Home'
+        };
+
+        function inferRetailer(link) {
+            if (!link || link === '#') return 'Other';
+            for (const [domain, name] of Object.entries(retailerDomains)) {
+                if (link.toLowerCase().includes(domain)) return name;
+            }
+            return 'Other';
+        }
+
+        function setRetailer(retailer) {
+            selectedRetailer = selectedRetailer === retailer ? "All" : retailer;
+            document.querySelectorAll('.retailer-logo-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.retailer === selectedRetailer);
+            });
+            renderInventory();
+        }
+
         
         function togglePriceSort() {
             if (priceSort === null) priceSort = 'asc';
