@@ -1613,6 +1613,14 @@ body {
                 let photos = [];
                 if (rawImg1) photos.push(rawImg1);
 
+                // Populate scraped product images for Bead Landing 36-Compartment Divided Tray (Michaels 10713934)
+                let nLower = fullName.toLowerCase();
+                if (nLower.includes('36-compartment') || nLower.includes('bead landing') || finalLink.includes('10713934')) {
+                    ['images/bead_landing_36_tray_1.jpeg', 'images/bead_landing_36_tray_2.jpeg', 'images/bead_landing_36_tray_3.jpeg', 'images/bead_landing_36_tray_4.jpeg'].forEach(imgP => {
+                        if (!photos.includes(imgP)) photos.push(imgP);
+                    });
+                }
+
                 // Merge scraped retailer photos if available
                 if (scraped.images && Array.isArray(scraped.images)) {
                     scraped.images.forEach(img => {
